@@ -20,15 +20,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer className="relative bg-white text-slate-700 pt-20 pb-12 overflow-hidden border-t border-slate-200">
+    <footer className="relative bg-white text-slate-700 pt-12 pb-8 overflow-hidden border-t border-slate-200">
       
       {/* Background Subtle Grid Texture */}
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         
         {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           
           {/* Column 1: Brand & Positioning */}
           <div className="md:col-span-5 space-y-4">

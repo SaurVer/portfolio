@@ -181,7 +181,17 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [educationData, setEducationData] = useState<EducationItem[]>(() => {
     try {
       const saved = localStorage.getItem(EDUCATION_STORAGE_KEY);
-      return saved ? JSON.parse(saved) : initialEducationData;
+      if (!saved) return initialEducationData;
+
+      return (JSON.parse(saved) as EducationItem[]).map((item) => {
+        const source = initialEducationData.find((entry) =>
+          entry.id === item.id || entry.collegeName === item.collegeName
+        );
+        return {
+          ...item,
+          institutionDescription: item.institutionDescription || source?.institutionDescription,
+        };
+      });
     } catch {
       return initialEducationData;
     }
@@ -192,25 +202,32 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const saved = localStorage.getItem(`${STORAGE_KEY}_experience`);
       if (!saved) return initialExperienceData;
 
-      // Preserve the user's saved role content while filling the newly added
-      // company names and local logo assets into the two original cards.
+      // Preserve user-edited role content, but always map branding from the
+      // current company name so reordered or renamed cards cannot show the
+      // other company's logo.
       return (JSON.parse(saved) as ExperienceItem[]).map((item) => {
-        if (item.id === 'exp-1') {
+        const companyName = item.companyName.trim().toLowerCase();
+        const isCricut = companyName.includes('cricut');
+        const isSwiggy = companyName.includes('swiggy');
+
+        if (isCricut) {
           return {
             ...item,
-            companyName: item.companyName.startsWith('[') ? 'Swiggy' : item.companyName,
-            logo: item.logo || '/logos/swiggy-logo.png',
-            logoAlt: 'Swiggy logo',
-          };
-        }
-        if (item.id === 'exp-2') {
-          return {
-            ...item,
-            companyName: item.companyName.startsWith('[') ? 'Cricut' : item.companyName,
-            logo: item.logo || '/logos/cricut-logo.png',
+            logo: '/logos/cricut-logo.png',
             logoAlt: 'Cricut logo',
+            companyDescription: item.companyDescription || initialExperienceData.find((entry) => entry.companyName === 'Cricut')?.companyDescription,
           };
         }
+        if (isSwiggy) {
+          return {
+            ...item,
+            logo: '/logos/swiggy-logo.png',
+            logoAlt: 'Swiggy logo',
+            companyDescription: item.companyDescription || initialExperienceData.find((entry) => entry.companyName === 'Swiggy')?.companyDescription,
+          };
+        }
+        if (item.id === 'exp-1') return { ...item, companyName: 'Swiggy', logo: '/logos/swiggy-logo.png', logoAlt: 'Swiggy logo', companyDescription: initialExperienceData[0].companyDescription };
+        if (item.id === 'exp-2') return { ...item, companyName: 'Cricut', logo: '/logos/cricut-logo.png', logoAlt: 'Cricut logo', companyDescription: initialExperienceData[1].companyDescription };
         return item;
       });
     } catch {
@@ -221,7 +238,31 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [principlesData, setPrinciplesData] = useState<PrincipleItem[]>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_principles`);
-      return saved ? JSON.parse(saved) : initialPrinciplesData;
+      if (!saved) return initialPrinciplesData;
+
+      const parsed = JSON.parse(saved) as PrincipleItem[];
+      if (parsed.length === 0) return initialPrinciplesData;
+
+      // Keep the visible sequence stable even after deleting and re-adding
+      // cards, and ensure every principle has a meaningful icon.
+      return parsed.map((item, index) => {
+        const title = item.title.trim().toLowerCase();
+        const iconName = title.includes('excellence')
+          ? 'Award'
+          : title.includes('ownership')
+          ? 'ShieldCheck'
+          : title.includes('learning')
+          ? 'BookOpen'
+          : title.includes('leadership')
+          ? 'Flag'
+          : item.iconName || initialPrinciplesData[index]?.iconName || 'Target';
+
+        return {
+          ...item,
+          id: index + 1,
+          iconName,
+        };
+      });
     } catch {
       return initialPrinciplesData;
     }

@@ -13,7 +13,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
   slug: 'courtbooking',
   title: 'CourtBooking',
   category: 'Featured Product Case Study',
-  categoryLabel: 'Flagship Product',
+  categoryLabel: 'Working Product',
   isFeatured: true,
   oneLiner: 'Streamlining sports court reservations at ISB through an intuitive, real-time booking application.',
   shortDescription: 'A custom-designed web application solving double-bookings, opaque availability, and high coordination friction for campus sports facilities.',
@@ -23,10 +23,12 @@ export const courtBookingData: CourtBookingCaseStudy = {
   // Metadata requested in brief
   myRole: '[MY ROLE]', // e.g. Product Lead & Builder
   institution: 'Indian School of Business',
+  featuredAttribution: 'Built by Saurabh Verma for ISB Sports Management',
+  detailsCtaLabel: 'Know why and how it was made',
   projectPeriod: '[PROJECT DATES]', // e.g. 2024
   toolsUsed: ['[TOOLS USED]'], // e.g. React, Node.js, Cloud Firestore, Tailwind CSS, Google Calendar API
   status: 'Deployed & Active',
-  appUrl: '[APP URL]', // Provide live link e.g. https://courtbooking.isb.edu
+  appUrl: 'https://courtbook-frontend-three.vercel.app/',
   heroScreenshot: '[HERO SCREENSHOT]',
 
   narrative: {

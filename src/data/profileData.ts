@@ -60,6 +60,7 @@ export const educationData: EducationItem[] = [
     qualification: 'Chemical Engineering & Finance Minor',
     period: '2015–19',
     location: 'Pilani, Rajasthan, India',
+    institutionDescription: 'BITS Pilani is a leading Indian institute for technology and science, known for interdisciplinary education and its industry-linked Practice School programme.',
     description: 'Developed a strong foundation in analytical thinking and problem-solving. Completed a six-month Practice School at Deutsche Bank in Mumbai as a Ratings Analyst.'
   },
   {
@@ -70,6 +71,7 @@ export const educationData: EducationItem[] = [
     qualification: 'MBA',
     period: '2026–27',
     location: 'Hyderabad, India',
+    institutionDescription: 'The Indian School of Business is a globally recognised business school focused on developing leaders through rigorous, practice-oriented management education.',
     description: 'Building a broad understanding of diverse business domains, with a particular focus on technology and finance.'
   }
 ];
@@ -86,6 +88,7 @@ export const experienceData: ExperienceItem[] = [
     role: '[ROLE AND DATES]',
     period: '[YEAR - YEAR]',
     location: '[LOCATION]',
+    companyDescription: 'Swiggy is an Indian consumer technology company operating food delivery, quick commerce, and other convenience-focused local services.',
     description: 'Led cross-functional initiatives, automated operational workflows, and solved operational bottlenecks with technology.',
     bullets: [
       'Identified workflow inefficiencies and designed practical software solutions to streamline user tasks.',
@@ -100,6 +103,7 @@ export const experienceData: ExperienceItem[] = [
     role: '[ROLE AND DATES]',
     period: '[YEAR - YEAR]',
     location: '[LOCATION]',
+    companyDescription: 'Cricut is a US-based creative technology company that offers connected cutting machines, design software, materials, and tools for makers.',
     description: 'Hands-on engineering, product delivery, and collaborating with cross-functional teams to ship robust tools.',
     bullets: [
       'Built and maintained digital interfaces, ensuring performance, responsiveness, and clean user experience.',

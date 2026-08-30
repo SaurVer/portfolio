@@ -34,9 +34,9 @@ const WIDTH_CLASSES: Record<SectionWidth, string> = {
 };
 
 const PADDING_CLASSES: Record<SectionPadding, string> = {
-  compact: 'py-6 sm:py-8',
-  standard: 'py-12 sm:py-16',
-  spacious: 'py-20 sm:py-28',
+  compact: 'py-4 sm:py-6',
+  standard: 'py-8 sm:py-10',
+  spacious: 'py-14 sm:py-16',
 };
 
 export const BlockContainer: React.FC<BlockContainerProps> = ({

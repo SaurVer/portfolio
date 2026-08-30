@@ -62,7 +62,7 @@ export const ContentEditorModal: React.FC = () => {
     { id: 'education', label: 'Education', icon: GraduationCap },
     { id: 'experience', label: 'Work Experience', icon: Briefcase },
     { id: 'principles', label: 'Product Principles', icon: Compass },
-    { id: 'courtbooking', label: 'CourtBooking Case Study', icon: Sparkles },
+    { id: 'courtbooking', label: 'CourtBooking App', icon: Sparkles },
     { id: 'smaller-projects', label: 'Smaller Builds', icon: Layers },
     { id: 'btc-journey', label: 'BTC Journey', icon: Award },
     { id: 'export-import', label: 'Export & Backup', icon: Download },
@@ -327,6 +327,16 @@ export const ContentEditorModal: React.FC = () => {
                     </div>
 
                     <div className="space-y-1">
+                      <label className="text-[11px] font-mono text-stone-600">About the Institution</label>
+                      <textarea
+                        value={edu.institutionDescription || ''}
+                        onChange={(e) => updateEducation(edu.id, { institutionDescription: e.target.value })}
+                        rows={2}
+                        className="w-full p-2 rounded-lg bg-white border border-stone-300 text-xs text-stone-900 leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
                       <label className="text-[11px] font-mono text-stone-600">Description & Highlights</label>
                       <textarea
                         value={edu.description || ''}
@@ -422,6 +432,16 @@ export const ContentEditorModal: React.FC = () => {
                     </div>
 
                     <div className="space-y-1">
+                      <label className="text-[11px] font-mono text-stone-600">About the Company</label>
+                      <textarea
+                        value={exp.companyDescription || ''}
+                        onChange={(e) => updateExperience(exp.id, { companyDescription: e.target.value })}
+                        rows={2}
+                        className="w-full p-2 rounded-lg bg-white border border-stone-300 text-xs text-stone-900 leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
                       <label className="text-[11px] font-mono text-stone-600">Bullet Achievements (One per line)</label>
                       <textarea
                         value={(exp.bullets || []).join('\n')}
@@ -459,12 +479,12 @@ export const ContentEditorModal: React.FC = () => {
                 </button>
               </div>
 
-              {principlesData.map((principle) => (
+              {principlesData.map((principle, index) => (
                 <div key={principle.id} className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-3">
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 flex-1">
                       <span className="w-6 h-6 rounded-md bg-stone-200 text-stone-800 flex items-center justify-center text-xs font-mono font-bold">
-                        0{principle.id}
+                        {String(index + 1).padStart(2, '0')}
                       </span>
                       <input
                         type="text"
@@ -480,6 +500,24 @@ export const ContentEditorModal: React.FC = () => {
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-mono text-stone-600">Icon</label>
+                    <select
+                      value={principle.iconName}
+                      onChange={(e) => updatePrinciple(principle.id, { iconName: e.target.value })}
+                      className="w-full p-2 rounded-lg bg-white border border-stone-300 text-xs text-stone-900"
+                    >
+                      <option value="Target">Target — Start with the problem</option>
+                      <option value="Hammer">Hammer — Build to learn</option>
+                      <option value="Users">People — User centred</option>
+                      <option value="Compass">Compass — Ownership and direction</option>
+                      <option value="Award">Award — Excellence</option>
+                      <option value="ShieldCheck">Shield — Ownership</option>
+                      <option value="BookOpen">Book — Learning</option>
+                      <option value="Flag">Flag — Leadership</option>
+                    </select>
                   </div>
 
                   <div className="space-y-1">
@@ -540,6 +578,37 @@ export const ContentEditorModal: React.FC = () => {
                 />
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-mono font-bold text-stone-700">Featured Attribution</label>
+                  <input
+                    type="text"
+                    value={courtBookingData.featuredAttribution || ''}
+                    onChange={(e) => updateCourtBooking({ featuredAttribution: e.target.value })}
+                    className="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-300 text-xs text-stone-900"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[11px] font-mono font-bold text-stone-700">Story Link Label</label>
+                  <input
+                    type="text"
+                    value={courtBookingData.detailsCtaLabel || ''}
+                    onChange={(e) => updateCourtBooking({ detailsCtaLabel: e.target.value })}
+                    className="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-300 text-xs text-stone-900"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[11px] font-mono font-bold text-stone-700">Featured Description</label>
+                <textarea
+                  value={courtBookingData.shortDescription}
+                  onChange={(e) => updateCourtBooking({ shortDescription: e.target.value })}
+                  rows={2}
+                  className="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-300 text-xs text-stone-900 leading-relaxed"
+                />
+              </div>
+
               <div className="space-y-1">
                 <label className="text-[11px] font-mono font-bold text-stone-700">The Problem Overview</label>
                 <textarea
@@ -574,6 +643,37 @@ export const ContentEditorModal: React.FC = () => {
                   rows={2}
                   className="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-300 text-xs text-stone-900 leading-relaxed"
                 />
+              </div>
+
+              <div className="space-y-3 pt-2 border-t border-stone-200">
+                <div>
+                  <p className="text-xs font-mono font-bold text-stone-800">Featured App Screenshots</p>
+                  <p className="text-[11px] text-stone-500">Add four direct image URLs for the large homepage showcase.</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {courtBookingData.narrative.screenshots.slice(0, 4).map((screen, index) => (
+                    <div key={screen.id} className="p-3 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
+                      <label className="text-[11px] font-mono font-bold text-stone-700">Screenshot {index + 1}</label>
+                      <input
+                        type="url"
+                        value={screen.imageUrl}
+                        placeholder="https://.../screenshot.png"
+                        onChange={(e) => {
+                          const screenshots = [...courtBookingData.narrative.screenshots];
+                          screenshots[index] = { ...screenshots[index], imageUrl: e.target.value };
+                          updateCourtBooking({
+                            narrative: {
+                              ...courtBookingData.narrative,
+                              screenshots,
+                            }
+                          });
+                        }}
+                        className="w-full p-2 rounded-lg bg-white border border-stone-300 text-xs text-stone-900"
+                      />
+                      <p className="text-[10px] text-stone-500 line-clamp-1">{screen.screenTitle}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}

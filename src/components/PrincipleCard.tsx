@@ -1,15 +1,16 @@
 import React from 'react';
-import { Target, Hammer, Users, Compass, Trash2 } from 'lucide-react';
+import { Target, Hammer, Users, Compass, Trash2, Award, ShieldCheck, BookOpen, Flag } from 'lucide-react';
 import { PrincipleItem } from '../types';
 import { useContent } from '../context/ContentContext';
 import { EditableText } from './EditableText';
 
 interface PrincipleCardProps {
   principle: PrincipleItem;
+  displayIndex: number;
   onRemove?: () => void;
 }
 
-export const PrincipleCard: React.FC<PrincipleCardProps> = ({ principle, onRemove }) => {
+export const PrincipleCard: React.FC<PrincipleCardProps> = ({ principle, displayIndex, onRemove }) => {
   const { isLiveEditMode, updatePrinciple } = useContent();
 
   const getIcon = (iconName: string) => {
@@ -18,13 +19,17 @@ export const PrincipleCard: React.FC<PrincipleCardProps> = ({ principle, onRemov
       case 'Hammer': return <Hammer className="w-4 h-4" />;
       case 'Users': return <Users className="w-4 h-4" />;
       case 'Compass': return <Compass className="w-4 h-4" />;
+      case 'Award': return <Award className="w-4 h-4" />;
+      case 'ShieldCheck': return <ShieldCheck className="w-4 h-4" />;
+      case 'BookOpen': return <BookOpen className="w-4 h-4" />;
+      case 'Flag': return <Flag className="w-4 h-4" />;
       default: return <Target className="w-4 h-4" />;
     }
   };
 
   return (
-    <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-stone-200/90 hover:border-stone-400 shadow-sm hover:shadow-md transition-all duration-300 space-y-5 group hover:-translate-y-1 relative">
-      <div className="space-y-4">
+    <div className="flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-white border border-stone-200/90 hover:border-stone-400 shadow-sm hover:shadow-md transition-all duration-300 space-y-4 group hover:-translate-y-1 relative">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div 
             className="w-9 h-9 rounded-xl flex items-center justify-center font-mono text-xs font-bold border transition-colors"
@@ -34,7 +39,7 @@ export const PrincipleCard: React.FC<PrincipleCardProps> = ({ principle, onRemov
               color: 'var(--accent-soft-text)'
             }}
           >
-            0{principle.id}
+            {String(displayIndex + 1).padStart(2, '0')}
           </div>
           <div 
             className="p-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-500 group-hover:text-stone-900 transition-colors"

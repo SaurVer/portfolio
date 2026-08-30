@@ -14,8 +14,8 @@ export const EducationCard: React.FC<EducationCardProps> = ({ item, onRemove }) 
   const { isLiveEditMode, updateEducation } = useContent();
 
   return (
-    <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-stone-200 hover:border-stone-400 hover:shadow-md transition-all duration-300 space-y-4 group relative">
-      <div className="space-y-4">
+    <div className="flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-white border border-stone-200 hover:border-stone-400 hover:shadow-md transition-all duration-300 space-y-3 group relative">
+      <div className="space-y-3">
         <div className="flex items-start justify-between gap-4">
           {/* Neutral Logo / Monogram Container */}
           <div className="w-24 h-16 rounded-xl bg-white border border-stone-200 flex items-center justify-center p-2 shrink-0 group-hover:border-stone-300 transition-colors overflow-hidden">
@@ -74,6 +74,21 @@ export const EducationCard: React.FC<EducationCardProps> = ({ item, onRemove }) 
           </p>
         </div>
 
+        {item.institutionDescription && (
+          <div className="rounded-xl bg-stone-50 border border-stone-100 px-3.5 py-3 space-y-1">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-stone-400 font-bold">About the institution</p>
+            <EditableText
+              as="p"
+              value={item.institutionDescription}
+              onSave={(val) => updateEducation(item.id, { institutionDescription: val })}
+              onRemove={() => updateEducation(item.id, { institutionDescription: '' })}
+              multiline={true}
+              className="text-[11px] text-stone-600 leading-relaxed block"
+              labelHint="Institution Description"
+            />
+          </div>
+        )}
+
         {item.description && (
           <p className="text-xs text-stone-600 leading-relaxed pt-1">
             <EditableText
@@ -124,8 +139,8 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
   } = useContent();
 
   return (
-    <div className="flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-stone-200 hover:border-stone-400 hover:shadow-md transition-all duration-300 space-y-4 group relative">
-      <div className="space-y-4">
+    <div className="flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-white border border-stone-200 hover:border-stone-400 hover:shadow-md transition-all duration-300 space-y-3 group relative">
+      <div className="space-y-3">
         <div className="flex items-start justify-between gap-4">
           {/* Neutral Logo Container */}
           <div className="w-24 h-16 rounded-xl bg-white border border-stone-200 flex items-center justify-center p-2 shrink-0 group-hover:border-stone-300 transition-colors overflow-hidden">
@@ -183,6 +198,21 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
             />
           </p>
         </div>
+
+        {item.companyDescription && (
+          <div className="rounded-xl bg-stone-50 border border-stone-100 px-3.5 py-3 space-y-1">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-stone-400 font-bold">About the company</p>
+            <EditableText
+              as="p"
+              value={item.companyDescription}
+              onSave={(val) => updateExperience(item.id, { companyDescription: val })}
+              onRemove={() => updateExperience(item.id, { companyDescription: '' })}
+              multiline={true}
+              className="text-[11px] text-stone-600 leading-relaxed block"
+              labelHint="Company Description"
+            />
+          </div>
+        )}
 
         {item.description && (
           <p className="text-xs text-stone-600 leading-relaxed pt-1">

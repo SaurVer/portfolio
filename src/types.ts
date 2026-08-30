@@ -25,6 +25,7 @@ export interface EducationItem {
   logoAlt: string;
   qualification: string;
   period: string;
+  institutionDescription?: string;
   description?: string;
   location?: string;
 }
@@ -36,6 +37,7 @@ export interface ExperienceItem {
   logoAlt: string;
   role: string;
   period: string;
+  companyDescription?: string;
   description?: string;
   location?: string;
   bullets?: string[];
@@ -123,6 +125,8 @@ export interface ImpactMetric {
 export interface CourtBookingCaseStudy extends BaseProject {
   myRole: string;
   institution: string;
+  featuredAttribution?: string;
+  detailsCtaLabel?: string;
   projectPeriod: string;
   toolsUsed: string[];
   heroScreenshot: string;
