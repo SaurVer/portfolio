@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+@layer base {
+  /* 1. SWISS ATELIER (DEFAULT): Warm Linen, Carbon Ink, Bauhaus Vermillion */
+  :root, [data-theme="swiss-vermillion"] {
+    --bg-canvas: #fbf9f4;
+    --bg-card: #ffffff;
+    --bg-card-subtle: #f4f0e8;
+    --border-color: #e8e3d9;
+    --border-card: #e4dfd4;
+    --text-primary: #191715;
+    --text-secondary: #4a4640;
+    --text-muted: #78736b;
+    --accent-main: #d9381e;
+    --accent-hover: #b82c15;
+    --accent-text: #ffffff;
+    --accent-soft: #fef2f0;
+    --accent-soft-border: #f8c8c0;
+    --accent-soft-text: #b82c15;
+    --tag-bg: #f5f1e8;
+    --tag-border: #ded8cb;
+    --tag-text: #38342f;
+    --badge-bg: #191715;
+    --badge-text: #ffffff;
+  }
+
+  /* 2. BRITISH RACING & SAGE: Pale Oyster Paper, Forest Spruce, Warm Ochre */
+  [data-theme="atelier-emerald"] {
+    --bg-canvas: #f3f6f3;
+    --bg-card: #ffffff;
+    --bg-card-subtle: #e9efe9;
+    --border-color: #d6ded7;
+    --border-card: #d0dad1;
+    --text-primary: #132018;
+    --text-secondary: #354a3e;
+    --text-muted: #647b6e;
+    --accent-main: #1b4332;
+    --accent-hover: #143326;
+    --accent-text: #ffffff;
+    --accent-soft: #edf5f0;
+    --accent-soft-border: #b8d6c4;
+    --accent-soft-text: #1b4332;
+    --tag-bg: #eaf0eb;
+    --tag-border: #c6d6c9;
+    --tag-text: #283b30;
+    --badge-bg: #1b4332;
+    --badge-text: #ffffff;
+  }
+
+  /* 3. INDUSTRIAL STUDIO: Architectural Warm Concrete & Electric Amber */
+  [data-theme="bauhaus-mono"] {
+    --bg-canvas: #f2f2ef;
+    --bg-card: #ffffff;
+    --bg-card-subtle: #e8e8e4;
+    --border-color: #d9d9d4;
+    --border-card: #d3d3cd;
+    --text-primary: #121212;
+    --text-secondary: #383838;
+    --text-muted: #6c6c6c;
+    --accent-main: #e65100;
+    --accent-hover: #c44300;
+    --accent-text: #ffffff;
+    --accent-soft: #fff3e0;
+    --accent-soft-border: #ffcc80;
+    --accent-soft-text: #bf360c;
+    --tag-bg: #e9e9e5;
+    --tag-border: #cbcbc5;
+    --tag-text: #222222;
+    --badge-bg: #121212;
+    --badge-text: #ffffff;
+  }
+
+  /* 4. KYOTO SILKEN PAPER: Sumi Ink & Kisho Marine Indigo */
+  [data-theme="kyoto-indigo"] {
+    --bg-canvas: #f6f7fa;
+    --bg-card: #ffffff;
+    --bg-card-subtle: #eceef4;
+    --border-color: #dadfe8;
+    --border-card: #d4dae4;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --accent-main: #1e3a5f;
+    --accent-hover: #152943;
+    --accent-text: #ffffff;
+    --accent-soft: #eff4fa;
+    --accent-soft-border: #c3d4e8;
+    --accent-soft-text: #1e3a5f;
+    --tag-bg: #edf0f6;
+    --tag-border: #cad3e2;
+    --tag-text: #27374d;
+    --badge-bg: #0f172a;
+    --badge-text: #ffffff;
+  }
+
+  /* 5. TOKYO GALLERY DARK: Matte Charcoal & Warm Ember */
+  [data-theme="tokyo-night"] {
+    --bg-canvas: #111113;
+    --bg-card: #19191d;
+    --bg-card-subtle: #222228;
+    --border-color: #2b2b33;
+    --border-card: #2b2b33;
+    --text-primary: #f4f4f7;
+    --text-secondary: #c5c5cf;
+    --text-muted: #888896;
+    --accent-main: #ff6b4a;
+    --accent-hover: #e55333;
+    --accent-text: #111113;
+    --accent-soft: #2e1d19;
+    --accent-soft-border: #522d25;
+    --accent-soft-text: #ff8c73;
+    --tag-bg: #1c1c21;
+    --tag-border: #383842;
+    --tag-text: #dcdce2;
+    --badge-bg: #ff6b4a;
+    --badge-text: #111113;
+  }
+
+  /* Typography Pairing Rules */
+  :root, [data-font="syne-modern"] {
+    --font-heading: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  [data-font="editorial-serif"] {
+    --font-heading: 'Newsreader', 'Instrument Serif', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  [data-font="outfit-sans"] {
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  [data-font="space-tech"] {
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    letter-spacing: -0.012em;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    line-height: 1.65;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading, .font-syne {
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
+    line-height: 1.22;
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Refined Placeholder badge styling - distinctly organic */
+.placeholder-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: normal;
+  background-color: var(--accent-soft);
+  color: var(--accent-soft-text);
+  border: 1px dashed var(--accent-soft-border);
+  line-height: 1.4;
+}
+
+/* Subtle architectural cards */
+.theme-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-primary);
+}
+
+/* Smooth transitions */
+button, a, input, select, textarea, div {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 150ms;
+}
