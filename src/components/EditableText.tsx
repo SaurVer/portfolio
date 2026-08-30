@@ -13,6 +13,7 @@ interface EditableTextProps {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span' | 'div';
   style?: React.CSSProperties;
   labelHint?: string;
+  bulletList?: boolean;
 }
 
 export const EditableText: React.FC<EditableTextProps> = ({
@@ -26,6 +27,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
   as: Component = 'span',
   style,
   labelHint,
+  bulletList = false,
 }) => {
   const { isLiveEditMode, isElementHidden, hideElement } = useContent();
   const [isEditing, setIsEditing] = useState(false);
@@ -76,10 +78,51 @@ export const EditableText: React.FC<EditableTextProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
       handleCancel();
+    } else if (e.key === 'Tab' && multiline && bulletList) {
+      e.preventDefault();
+      const input = inputRef.current;
+      if (!input) return;
+      const start = input.selectionStart || 0;
+      const end = input.selectionEnd || start;
+      const indentation = '  ';
+      setDraft(`${draft.slice(0, start)}${indentation}${draft.slice(end)}`);
+      requestAnimationFrame(() => {
+        input.selectionStart = input.selectionEnd = start + indentation.length;
+      });
     } else if (e.key === 'Enter' && !multiline && !e.shiftKey) {
       e.preventDefault();
       handleSave();
     }
+  };
+
+  const renderValue = () => {
+    if (!bulletList) return value;
+
+    const points = value
+      .split(/\r?\n/)
+      .map((line) => {
+        const indentation = line.match(/^[\t ]*/)?.[0] || '';
+        const spaces = indentation.replace(/\t/g, '  ').length;
+        return {
+          text: line.replace(/^\s*(?:[-*•]|\d+[.)])\s*/, '').trim(),
+          level: Math.min(3, Math.floor(spaces / 2)),
+        };
+      })
+      .filter((point) => Boolean(point.text));
+
+    return (
+      <ul className="space-y-1.5 pl-4 list-disc marker:text-stone-400">
+        {points.map((point, index) => (
+          <li
+            key={`${point.text}-${index}`}
+            className={point.level > 0 ? 'marker:text-stone-300' : ''}
+            style={{ marginLeft: `${point.level * 16}px`, listStyleType: point.level > 0 ? 'circle' : 'disc' }}
+          >
+            {point.text}
+          </li>
+        ))}
+      </ul>
+    );
   };
 
   // Deleted text stays fully removed from both the public view and live editor.
@@ -92,7 +135,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
   if (!isLiveEditMode) {
     return (
       <Component className={className} style={style}>
-        {value}
+        {renderValue()}
       </Component>
     );
   }
@@ -174,7 +217,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
       style={style}
       title="Click to edit this text"
     >
-      {value || (
+      {value ? renderValue() : (
         <span className="text-stone-400 italic">
           {placeholder}
         </span>
