@@ -270,7 +270,23 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [courtBookingData, setCourtBookingData] = useState<CourtBookingCaseStudy>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_courtbooking`);
-      return saved ? JSON.parse(saved) : initialCourtBookingData;
+      if (!saved) return initialCourtBookingData;
+
+      const parsed = JSON.parse(saved) as CourtBookingCaseStudy;
+      const screenshots = parsed.narrative.screenshots.map((screen, index) => ({
+        ...screen,
+        // Older browser-saved content predates the published screenshot URLs.
+        // Keep user edits, but fall back to the source image when that saved URL is blank.
+        imageUrl: screen.imageUrl || initialCourtBookingData.narrative.screenshots[index]?.imageUrl || '',
+      }));
+
+      return {
+        ...parsed,
+        narrative: {
+          ...parsed.narrative,
+          screenshots,
+        },
+      };
     } catch {
       return initialCourtBookingData;
     }
