@@ -29,7 +29,10 @@ const STORAGE_KEY = 'portfolio_live_content_v2';
 // sections independently so stale browser-saved placeholders do not override
 // the new source content, while preserving edits made to all other sections.
 const PROFILE_STORAGE_KEY = 'portfolio_live_content_v4_profile';
-const EDUCATION_STORAGE_KEY = 'portfolio_live_content_v5_education';
+const EDUCATION_STORAGE_KEY = 'portfolio_live_content_v6_education';
+const EXPERIENCE_STORAGE_KEY = 'portfolio_live_content_v3_experience';
+const PRINCIPLES_STORAGE_KEY = 'portfolio_live_content_v3_principles';
+const COURTBOOKING_STORAGE_KEY = 'portfolio_live_content_v3_courtbooking';
 const EDIT_MODE_KEY = 'portfolio_live_edit_mode_v2';
 const LAYOUT_KEY = 'portfolio_block_layouts_v3';
 const HIDDEN_ELEMENTS_KEY = 'portfolio_hidden_elements_v2';
@@ -198,7 +201,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const [experienceData, setExperienceData] = useState<ExperienceItem[]>(() => {
     try {
-      const saved = localStorage.getItem(`${STORAGE_KEY}_experience`);
+      const saved = localStorage.getItem(EXPERIENCE_STORAGE_KEY);
       if (!saved) return initialExperienceData;
 
       // Preserve user-edited role content, but always map branding from the
@@ -236,7 +239,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const [principlesData, setPrinciplesData] = useState<PrincipleItem[]>(() => {
     try {
-      const saved = localStorage.getItem(`${STORAGE_KEY}_principles`);
+      const saved = localStorage.getItem(PRINCIPLES_STORAGE_KEY);
       if (!saved) return initialPrinciplesData;
 
       const parsed = JSON.parse(saved) as PrincipleItem[];
@@ -269,7 +272,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const [courtBookingData, setCourtBookingData] = useState<CourtBookingCaseStudy>(() => {
     try {
-      const saved = localStorage.getItem(`${STORAGE_KEY}_courtbooking`);
+      const saved = localStorage.getItem(COURTBOOKING_STORAGE_KEY);
       if (!saved) return initialCourtBookingData;
 
       const parsed = JSON.parse(saved) as CourtBookingCaseStudy;
@@ -363,7 +366,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   useEffect(() => {
     try {
-      localStorage.setItem(`${STORAGE_KEY}_experience`, JSON.stringify(experienceData));
+      localStorage.setItem(EXPERIENCE_STORAGE_KEY, JSON.stringify(experienceData));
     } catch (e) {
       console.warn('Failed to save experience', e);
     }
@@ -371,7 +374,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   useEffect(() => {
     try {
-      localStorage.setItem(`${STORAGE_KEY}_principles`, JSON.stringify(principlesData));
+      localStorage.setItem(PRINCIPLES_STORAGE_KEY, JSON.stringify(principlesData));
     } catch (e) {
       console.warn('Failed to save principles', e);
     }
@@ -379,7 +382,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   useEffect(() => {
     try {
-      localStorage.setItem(`${STORAGE_KEY}_courtbooking`, JSON.stringify(courtBookingData));
+      localStorage.setItem(COURTBOOKING_STORAGE_KEY, JSON.stringify(courtBookingData));
     } catch (e) {
       console.warn('Failed to save courtbooking', e);
     }
@@ -688,11 +691,11 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setBtcJourneyData(initialBtcJourneyData);
       setBlockLayouts(defaultBlockConfigs);
 
-      localStorage.removeItem(`${STORAGE_KEY}_profile`);
-      localStorage.removeItem(`${STORAGE_KEY}_education`);
-      localStorage.removeItem(`${STORAGE_KEY}_experience`);
-      localStorage.removeItem(`${STORAGE_KEY}_principles`);
-      localStorage.removeItem(`${STORAGE_KEY}_courtbooking`);
+      localStorage.removeItem(PROFILE_STORAGE_KEY);
+      localStorage.removeItem(EDUCATION_STORAGE_KEY);
+      localStorage.removeItem(EXPERIENCE_STORAGE_KEY);
+      localStorage.removeItem(PRINCIPLES_STORAGE_KEY);
+      localStorage.removeItem(COURTBOOKING_STORAGE_KEY);
       localStorage.removeItem(`${STORAGE_KEY}_smaller_projects`);
       localStorage.removeItem(`${STORAGE_KEY}_btc_journey`);
       localStorage.removeItem(LAYOUT_KEY);

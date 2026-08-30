@@ -50,17 +50,6 @@ export const profileData: ProfileData = {
  */
 export const educationData: EducationItem[] = [
   {
-    id: 'edu-2',
-    collegeName: 'Indian School of Business (ISB)',
-    logo: '/logos/isb-logo.jpg',
-    logoAlt: 'Indian School of Business logo',
-    qualification: 'MBA',
-    period: '2026–27',
-    location: 'Hyderabad, India',
-    institutionDescription: 'The Indian School of Business is a globally recognised business school focused on developing leaders through rigorous, practice-oriented management education.',
-    description: 'Building a broad understanding of diverse business domains, with a particular focus on technology and finance.'
-  },
-  {
     id: 'edu-1',
     collegeName: 'BITS Pilani',
     logo: '/logos/bits-pilani-logo.png',
@@ -70,6 +59,17 @@ export const educationData: EducationItem[] = [
     location: 'Pilani, Rajasthan, India',
     institutionDescription: 'BITS Pilani is a leading Indian institute for technology and science, known for interdisciplinary education and its industry-linked Practice School programme.',
     description: 'Developed a strong foundation in analytical thinking and problem-solving. Completed a six-month Practice School at Deutsche Bank in Mumbai as a Ratings Analyst.'
+  },
+  {
+    id: 'edu-2',
+    collegeName: 'Indian School of Business (ISB)',
+    logo: '/logos/isb-logo.jpg',
+    logoAlt: 'Indian School of Business logo',
+    qualification: 'MBA',
+    period: '2026–27',
+    location: 'Hyderabad, India',
+    institutionDescription: 'The Indian School of Business is a globally recognised business school focused on developing leaders through rigorous, practice-oriented management education.',
+    description: 'Building a broad understanding of diverse business domains, with a particular focus on technology and finance.'
   }
 ];
 
@@ -79,32 +79,36 @@ export const educationData: EducationItem[] = [
 export const experienceData: ExperienceItem[] = [
   {
     id: 'exp-1',
-    companyName: 'Swiggy',
+    companyName: 'SWIGGY',
     logo: '/logos/swiggy-logo.png',
     logoAlt: 'Swiggy logo',
-    role: '[ROLE AND DATES]',
-    period: '[YEAR - YEAR]',
-    location: '[LOCATION]',
+    role: 'BUSINESS ANALYST',
+    period: 'Mar 2021 - Nov 2022',
+    location: 'BANGALORE - INIDA',
     companyDescription: 'Swiggy is an Indian consumer technology company operating food delivery, quick commerce, and other convenience-focused local services.',
-    description: 'Led cross-functional initiatives, automated operational workflows, and solved operational bottlenecks with technology.',
+    description: '',
     bullets: [
-      'Identified workflow inefficiencies and designed practical software solutions to streamline user tasks.',
-      'Collaborated closely with end users and stakeholders to translate complex requirements into clean deliverables.'
+      'Built Search Insights infrastructure to drive product decisions',
+      'Built user funnels and diagnostics to uncover pain points',
+      'Awarded Most Valuable Player Award in just a year',
+      'Performed data deep dives and user research to improve home page engagement'
     ]
   },
   {
     id: 'exp-2',
-    companyName: 'Cricut',
+    companyName: 'CRICUT',
     logo: '/logos/cricut-logo.png',
     logoAlt: 'Cricut logo',
-    role: '[ROLE AND DATES]',
-    period: '[YEAR - YEAR]',
-    location: '[LOCATION]',
+    role: 'LEAD PRODUCT ANALYST',
+    period: 'Dec 2022 - Apr 2026',
+    location: 'BANGALORE- Remote',
     companyDescription: 'Cricut is a US-based creative technology company that offers connected cutting machines, design software, materials, and tools for makers.',
-    description: 'Hands-on engineering, product delivery, and collaborating with cross-functional teams to ship robust tools.',
+    description: '',
     bullets: [
-      'Built and maintained digital interfaces, ensuring performance, responsiveness, and clean user experience.',
-      'Conducted iterative user testing and incorporated feedback into rapid release cycles.'
+      "Led 'Search & Discovery Insights' to drive higher user engagement",
+      'Built experimentation infrastructure powering hundreds of A/B tests',
+      'Led a 4-member contractor team to accelerate Product initiatives',
+      'Led AI integration initiatives to improve workflow efficiency'
     ]
   }
 ];
@@ -115,30 +119,30 @@ export const experienceData: ExperienceItem[] = [
 export const principlesData: PrincipleItem[] = [
   {
     id: 1,
-    title: 'Start with the problem',
-    description: 'Understand the real need before deciding on a solution.',
-    iconName: 'Target',
-    actionableTakeaway: 'Resist jumping to conclusions or tools until the underlying user bottleneck and constraints are verified.'
+    title: 'Excellence',
+    description: 'I have always strived for excellence, bringing my best to every challenge I take on. I love taking new and bold initiatives.',
+    iconName: 'Award',
+    actionableTakeaway: ''
   },
   {
     id: 2,
-    title: 'Build to learn',
-    description: 'Create practical versions quickly and improve them through feedback.',
-    iconName: 'Hammer',
-    actionableTakeaway: 'A functional prototype in the hands of real users beats weeks of speculative theorising.'
+    title: 'Ownership',
+    description: 'Ownership is one of my core values. I collaborate deeply while taking end-to-end responsibility for everything I work on.',
+    iconName: 'ShieldCheck',
+    actionableTakeaway: ''
   },
   {
     id: 3,
-    title: 'Keep the user at the centre',
-    description: 'Make product and process decisions based on how people will actually use the solution.',
-    iconName: 'Users',
-    actionableTakeaway: 'Design for natural human behaviour, low friction, and clear affordances rather than idealised assumptions.'
+    title: 'Learning',
+    description: 'I am a lifelong learner and believe there is always something new to learn from every experience and every person.',
+    iconName: 'BookOpen',
+    actionableTakeaway: ''
   },
   {
     id: 4,
-    title: 'Take ownership',
-    description: 'Move ideas forward, coordinate people, and follow through until the outcome is achieved.',
-    iconName: 'Compass',
-    actionableTakeaway: 'Product management is about driving momentum, aligning contributors, and taking responsibility for the end result.'
+    title: 'Leadership',
+    description: 'I believe leadership is about taking responsibility, bringing people together, enabling others to do their best work, & leading from the front.',
+    iconName: 'Flag',
+    actionableTakeaway: ''
   }
 ];

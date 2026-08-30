@@ -11,12 +11,12 @@ import { CourtBookingCaseStudy } from '../types';
 export const courtBookingData: CourtBookingCaseStudy = {
   id: 'court-booking',
   slug: 'courtbooking',
-  title: 'CourtBooking',
+  title: 'CourtBooking App',
   category: 'Featured Product Case Study',
   categoryLabel: 'Working Product',
   isFeatured: true,
-  oneLiner: 'Streamlining sports court reservations at ISB through an intuitive, real-time booking application.',
-  shortDescription: 'A custom-designed web application solving double-bookings, opaque availability, and high coordination friction for campus sports facilities.',
+  oneLiner: 'Built an app to streamline sports facility bookings at ISB, covering the complete user journey, from booking, cancellation and rescheduling to attendance verification, complaints and play abandonment, using intuitive design principles. Built entirely with the help of AI tools.',
+  shortDescription: '',
   thumbnail: '', // Thumbnail placeholder
   tags: ['Product Management', 'Full-Stack Development', 'User Experience', 'Process Automation', 'ISB Campus'],
   
