@@ -11,11 +11,11 @@ import { ProfileData, EducationItem, ExperienceItem, PrincipleItem } from '../ty
 export const profileData: ProfileData = {
   // Candidate full name
   name: 'Saurabh Verma',
-  roleTitle: 'Aspiring Product / Project Manager & Builder',
+  roleTitle: 'Product Manager & AI Builder',
   tagline: 'Problem Solver · Hands-on Builder · Technology Leader',
   
   // Official Positioning Statement
-  positioningStatement: 'I turn real problems into practical products by combining structured thinking, user understanding, and technology.',
+  positioningStatement: 'I bring six years of experience across product and data roles at companies including Swiggy and Cricut, a US-based arts and crafts company. Over the years, I have developed a customer-centric approach to identifying pain points and building solutions that create meaningful impact. I believe strongly in technology-driven transformation, but also in the human ingenuity required to ask the right questions and identify the problems truly worth solving. Welcome to my portfolio!',
   
   // Professional photo (hosted on Cloudinary)
   photoUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1778430442/WhatsApp_Image_2026-04-29_at_3.58.01_PM_zijymq.jpg',
@@ -28,17 +28,19 @@ export const profileData: ProfileData = {
   
   // About Me Section Data
   about: {
-    intro: 'I am a builder and analytical thinker with a passion for designing practical, human-centred software solutions. My background bridges hands-on software development, stakeholder management, and student community leadership.',
+    intro: '',
     interests: [
-      'Product Strategy & Discovery',
-      'Process Automation & Workflows',
-      'AI & Technology Experimentation',
-      'User Research & Usability Design',
-      'Cross-functional Execution'
+      'Product Strategy & Development',
+      'Search and Discovery',
+      'AI Products',
+      'Experimentation',
+      'User Research',
+      'Data Products',
+      'Leadership'
     ],
-    problemsEnjoyed: 'I enjoy taking unstructured, friction-heavy operational bottlenecks—from chaotic campus court reservations to recruitment preference collection—and transforming them into frictionless, delightful digital workflows.',
+    problemsEnjoyed: 'I enjoy solving complex, multi-layered problems where value can be unlocked at every level. Customer needs and business objectives may not always align, and I find it rewarding to identify the solution space where both can be addressed. I also enjoy thinking through edge cases and building thoughtful safeguards that make solutions more reliable and resilient.',
     productInterest: 'I am driven by hands-on execution: testing assumptions early, writing code or automations to validate solutions rapidly, and listening closely to user feedback to iterate with conviction.',
-    aspiration: 'I am actively seeking roles in Product Management and Technical Project Management where I can lead high-impact products from zero to one and scale systems that make people more productive.'
+    aspiration: 'I am actively seeking opportunities in Product Management and Technical Project Management, where I can contribute to building and improving high-impact products. I am eager to apply and deepen my understanding of the principles behind creating exceptional products—solutions that address genuine customer pain points while driving sustainable business growth. I see Product Management as a field where my curiosity, structured thinking, and desire to build can translate into meaningful impact, long-term growth, and a deeply fulfilling career.'
   },
 
   // Narrative summary connecting education, experience, leadership, and product work
@@ -52,23 +54,23 @@ export const profileData: ProfileData = {
 export const educationData: EducationItem[] = [
   {
     id: 'edu-1',
-    collegeName: '[COLLEGE 1 NAME]',
-    logo: '', // Leave blank to render clean neutral monogram badge, or provide path '/logos/college1.svg'
-    logoAlt: 'College 1 Logo',
-    qualification: '[QUALIFICATION]',
-    period: '[YEAR - YEAR]',
-    location: '[LOCATION]',
-    description: 'Focus on technology, analytical problem solving, and product management foundations.'
+    collegeName: 'BITS Pilani',
+    logo: '/logos/bits-pilani-logo.png',
+    logoAlt: 'BITS Pilani logo',
+    qualification: 'Chemical Engineering & Finance Minor',
+    period: '2015–19',
+    location: 'Pilani, Rajasthan, India',
+    description: 'Developed a strong foundation in analytical thinking and problem-solving. Completed a six-month Practice School at Deutsche Bank in Mumbai as a Ratings Analyst.'
   },
   {
     id: 'edu-2',
-    collegeName: '[COLLEGE 2 NAME]',
-    logo: '', 
-    logoAlt: 'College 2 Logo',
-    qualification: '[QUALIFICATION]',
-    period: '[YEAR - YEAR]',
-    location: '[LOCATION]',
-    description: 'Undergraduate degree building strong technical depth, software engineering, and systems logic.'
+    collegeName: 'Indian School of Business (ISB)',
+    logo: '/logos/isb-logo.jpg',
+    logoAlt: 'Indian School of Business logo',
+    qualification: 'MBA',
+    period: '2026–27',
+    location: 'Hyderabad, India',
+    description: 'Building a broad understanding of diverse business domains, with a particular focus on technology and finance.'
   }
 ];
 
@@ -78,9 +80,9 @@ export const educationData: EducationItem[] = [
 export const experienceData: ExperienceItem[] = [
   {
     id: 'exp-1',
-    companyName: '[COMPANY 1 NAME]',
-    logo: '', // e.g. '/logos/company1.svg'
-    logoAlt: 'Company 1 Logo',
+    companyName: 'Swiggy',
+    logo: '/logos/swiggy-logo.png',
+    logoAlt: 'Swiggy logo',
     role: '[ROLE AND DATES]',
     period: '[YEAR - YEAR]',
     location: '[LOCATION]',
@@ -92,9 +94,9 @@ export const experienceData: ExperienceItem[] = [
   },
   {
     id: 'exp-2',
-    companyName: '[COMPANY 2 NAME]',
-    logo: '',
-    logoAlt: 'Company 2 Logo',
+    companyName: 'Cricut',
+    logo: '/logos/cricut-logo.png',
+    logoAlt: 'Cricut logo',
     role: '[ROLE AND DATES]',
     period: '[YEAR - YEAR]',
     location: '[LOCATION]',

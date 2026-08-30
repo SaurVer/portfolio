@@ -18,7 +18,7 @@ export const EducationCard: React.FC<EducationCardProps> = ({ item, onRemove }) 
       <div className="space-y-4">
         <div className="flex items-start justify-between gap-4">
           {/* Neutral Logo / Monogram Container */}
-          <div className="w-13 h-13 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-center p-2.5 shrink-0 group-hover:border-stone-300 transition-colors">
+          <div className="w-24 h-16 rounded-xl bg-white border border-stone-200 flex items-center justify-center p-2 shrink-0 group-hover:border-stone-300 transition-colors overflow-hidden">
             {item.logo ? (
               <img
                 src={item.logo}
@@ -90,7 +90,6 @@ export const EducationCard: React.FC<EducationCardProps> = ({ item, onRemove }) 
 
       <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-mono text-stone-400">
         <span>Higher Education</span>
-        <span>[COLLEGE LOGO]</span>
       </div>
 
       {/* Delete Degree Button in Live Edit Mode */}
@@ -129,7 +128,7 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
       <div className="space-y-4">
         <div className="flex items-start justify-between gap-4">
           {/* Neutral Logo Container */}
-          <div className="w-13 h-13 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-center p-2.5 shrink-0 group-hover:border-stone-300 transition-colors">
+          <div className="w-24 h-16 rounded-xl bg-white border border-stone-200 flex items-center justify-center p-2 shrink-0 group-hover:border-stone-300 transition-colors overflow-hidden">
             {item.logo ? (
               <img
                 src={item.logo}
@@ -244,7 +243,6 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
 
       <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-mono text-stone-400">
         <span>Work Experience</span>
-        <span>[COMPANY LOGO]</span>
       </div>
 
       {/* Delete Experience Role Button in Live Edit Mode */}

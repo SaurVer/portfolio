@@ -82,12 +82,17 @@ export const EditableText: React.FC<EditableTextProps> = ({
     }
   };
 
+  // Deleted text stays fully removed from both the public view and live editor.
+  // It can still be restored through the form editor or Reset to Defaults.
+  if (!value) {
+    return null;
+  }
+
   // If not in live edit mode, render regular element
   if (!isLiveEditMode) {
-    if (!value && !placeholder) return null;
     return (
       <Component className={className} style={style}>
-        {value || placeholder}
+        {value}
       </Component>
     );
   }
@@ -141,16 +146,14 @@ export const EditableText: React.FC<EditableTextProps> = ({
             >
               <X className="w-3.5 h-3.5" />
             </button>
-            {(onRemove || elementId) && (
-              <button
-                onClick={handleRemove}
-                className="p-1.5 rounded-lg hover:bg-rose-700 transition-colors text-rose-300 hover:text-white border-l border-stone-700 pl-2 ml-0.5"
-                title="Delete this text element"
-                aria-label="Delete text"
-              >
-                <Trash2 className="w-3.5 h-3.5" />
-              </button>
-            )}
+            <button
+              onClick={handleRemove}
+              className="p-1.5 rounded-lg hover:bg-rose-700 transition-colors text-rose-300 hover:text-white border-l border-stone-700 pl-2 ml-0.5"
+              title="Delete this text element"
+              aria-label="Delete text"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
         <span className="text-[9px] font-mono text-stone-500">
@@ -181,15 +184,14 @@ export const EditableText: React.FC<EditableTextProps> = ({
           <Edit3 className="w-2.5 h-2.5 mr-0.5 inline" />
           Edit
         </span>
-        {(onRemove || elementId) && (
-          <button
-            onClick={handleRemove}
-            className="hover:text-rose-400 p-0.5 rounded transition-colors"
-            title="Remove element"
-          >
-            <Trash2 className="w-2.5 h-2.5" />
-          </button>
-        )}
+        <button
+          onClick={handleRemove}
+          className="hover:text-rose-400 p-0.5 rounded transition-colors"
+          title="Remove element"
+          aria-label={`Remove ${labelHint || 'text element'}`}
+        >
+          <Trash2 className="w-2.5 h-2.5" />
+        </button>
       </span>
     </Component>
   );

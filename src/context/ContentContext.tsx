@@ -25,6 +25,11 @@ import { smallerProjectsData as initialSmallerProjectsData } from '../data/small
 import { btcJourneyData as initialBtcJourneyData } from '../data/btcJourneyData';
 
 const STORAGE_KEY = 'portfolio_live_content_v2';
+// Profile and education defaults were refreshed in August 2026. Version these
+// sections independently so stale browser-saved placeholders do not override
+// the new source content, while preserving edits made to all other sections.
+const PROFILE_STORAGE_KEY = 'portfolio_live_content_v4_profile';
+const EDUCATION_STORAGE_KEY = 'portfolio_live_content_v4_education';
 const EDIT_MODE_KEY = 'portfolio_live_edit_mode_v2';
 const LAYOUT_KEY = 'portfolio_block_layouts_v2';
 const HIDDEN_ELEMENTS_KEY = 'portfolio_hidden_elements_v2';
@@ -166,7 +171,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Load saved content from localStorage or fallback
   const [profileData, setProfileData] = useState<ProfileData>(() => {
     try {
-      const saved = localStorage.getItem(`${STORAGE_KEY}_profile`);
+      const saved = localStorage.getItem(PROFILE_STORAGE_KEY);
       return saved ? JSON.parse(saved) : initialProfileData;
     } catch {
       return initialProfileData;
@@ -175,7 +180,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const [educationData, setEducationData] = useState<EducationItem[]>(() => {
     try {
-      const saved = localStorage.getItem(`${STORAGE_KEY}_education`);
+      const saved = localStorage.getItem(EDUCATION_STORAGE_KEY);
       return saved ? JSON.parse(saved) : initialEducationData;
     } catch {
       return initialEducationData;
@@ -185,7 +190,29 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [experienceData, setExperienceData] = useState<ExperienceItem[]>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_experience`);
-      return saved ? JSON.parse(saved) : initialExperienceData;
+      if (!saved) return initialExperienceData;
+
+      // Preserve the user's saved role content while filling the newly added
+      // company names and local logo assets into the two original cards.
+      return (JSON.parse(saved) as ExperienceItem[]).map((item) => {
+        if (item.id === 'exp-1') {
+          return {
+            ...item,
+            companyName: item.companyName.startsWith('[') ? 'Swiggy' : item.companyName,
+            logo: item.logo || '/logos/swiggy-logo.png',
+            logoAlt: 'Swiggy logo',
+          };
+        }
+        if (item.id === 'exp-2') {
+          return {
+            ...item,
+            companyName: item.companyName.startsWith('[') ? 'Cricut' : item.companyName,
+            logo: item.logo || '/logos/cricut-logo.png',
+            logoAlt: 'Cricut logo',
+          };
+        }
+        return item;
+      });
     } catch {
       return initialExperienceData;
     }
@@ -264,7 +291,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   // Persistence effects
   useEffect(() => {
     try {
-      localStorage.setItem(`${STORAGE_KEY}_profile`, JSON.stringify(profileData));
+      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileData));
     } catch (e) {
       console.warn('Failed to save profile', e);
     }
@@ -272,7 +299,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   useEffect(() => {
     try {
-      localStorage.setItem(`${STORAGE_KEY}_education`, JSON.stringify(educationData));
+      localStorage.setItem(EDUCATION_STORAGE_KEY, JSON.stringify(educationData));
     } catch (e) {
       console.warn('Failed to save education', e);
     }
