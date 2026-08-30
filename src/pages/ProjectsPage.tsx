@@ -30,7 +30,7 @@ interface ProjectOverview {
 
 type StoryField = 'why' | 'how' | 'impact';
 
-const PROJECT_STORIES_STORAGE_KEY = 'portfolio_project_stories_v1';
+const PROJECT_STORIES_STORAGE_KEY = 'portfolio_project_stories_v2';
 
 const projects: ProjectOverview[] = [
   {
