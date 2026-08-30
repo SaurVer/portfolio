@@ -110,9 +110,18 @@ Made it easy for students to discover roles and submit their preferences`,
     image: '/projects/automatic-alarm.png',
     imageAlt: 'Automatically created alarms displayed in a mobile alarm application',
     imageStyle: 'object-contain',
-    why: 'Click to add why this project was needed.',
-    how: 'Click to add how the solution was built.',
-    impact: 'Click to add the outcome or impact.',
+    why: `At ISB, missing a class can mean losing an entire grade step—from **A to A- or B to B-**. With classes starting as early as 8 AM and late-night study schedules being common, oversleeping is a very real risk.
+Students needed a more reliable way to wake up on time without depending on manually setting alarms every night. I built an **automatic alarm system** that reads calendar events and sets alarms accordingly.
+The system removes the need to set alarms manually and also accounts for context; for example, ensuring an alarm does not ring while the student is already in class or does not ring on weekends because sleep is precious. You don't want to disrupt sleep without a good reason.`,
+    how: `This was a deceptively complex challenge with three key constraints:
+ISB academic events lived in Outlook, which could not directly feed the alarm app, so I first synced Outlook with Google Calendar.
+The alarm had to trigger only for the first class of the day, not every class, to avoid disruption once the student was already awake and attending sessions.
+Only academic classes should trigger alarms, not low-priority calendar events. My principle was simple: disturb sleep only when the stakes are high.
+To solve this, I created a separate Google Calendar containing only the first academic class of each day. A Google Apps Script ran daily to identify and update that event automatically.
+The alarm app was connected only to this filtered calendar, creating a fully automated flow from Outlook schedule → filtered first-class calendar → alarm.`,
+    impact: `This project strengthened my reputation as a true problem solver. What initially looked like a simple automation turned out to involve several technical and logical bottlenecks.
+At one point, even the AI tools I was using concluded that filtering the calendar in this way and setting alarms automatically was not feasible. Instead of stopping there, I kept rethinking the architecture, testing alternatives, and working around the constraints.
+After a full day of experimentation and iteration, I built a robust, fully automated system that I could genuinely rely on every day.`,
   },
 ];
 
