@@ -29,7 +29,7 @@ const STORAGE_KEY = 'portfolio_live_content_v2';
 // sections independently so stale browser-saved placeholders do not override
 // the new source content, while preserving edits made to all other sections.
 const PROFILE_STORAGE_KEY = 'portfolio_live_content_v4_profile';
-const EDUCATION_STORAGE_KEY = 'portfolio_live_content_v4_education';
+const EDUCATION_STORAGE_KEY = 'portfolio_live_content_v5_education';
 const EDIT_MODE_KEY = 'portfolio_live_edit_mode_v2';
 const LAYOUT_KEY = 'portfolio_block_layouts_v2';
 const HIDDEN_ELEMENTS_KEY = 'portfolio_hidden_elements_v2';
@@ -80,15 +80,16 @@ export const defaultBlockConfigs: Record<SectionId, BlockLayoutConfig> = {
     padding: 'standard',
     columns: 2,
   },
-  summary: {
-    id: 'summary',
-    title: 'Synthesis & CTA',
-    order: 5,
-    visible: true,
-    width: 'narrow',
-    padding: 'standard',
-  },
 };
+
+const normalizeBlockLayouts = (savedLayouts?: Partial<Record<SectionId, BlockLayoutConfig>>) =>
+  (Object.keys(defaultBlockConfigs) as SectionId[]).reduce<Record<SectionId, BlockLayoutConfig>>(
+    (layouts, id) => {
+      layouts[id] = { ...defaultBlockConfigs[id], ...savedLayouts?.[id], id };
+      return layouts;
+    },
+    {} as Record<SectionId, BlockLayoutConfig>
+  );
 
 interface ContentContextType {
   // Live state
@@ -301,7 +302,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const saved = localStorage.getItem(LAYOUT_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        return { ...defaultBlockConfigs, ...parsed };
+        return normalizeBlockLayouts(parsed);
       }
       return defaultBlockConfigs;
     } catch {
@@ -712,7 +713,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
       if (data.courtBookingData) setCourtBookingData(data.courtBookingData);
       if (data.smallerProjectsData) setSmallerProjectsData(data.smallerProjectsData);
       if (data.btcJourneyData) setBtcJourneyData(data.btcJourneyData);
-      if (data.blockLayouts) setBlockLayouts(data.blockLayouts);
+      if (data.blockLayouts) setBlockLayouts(normalizeBlockLayouts(data.blockLayouts));
       if (data.hiddenElements) setHiddenElements(data.hiddenElements);
       return true;
     } catch (e) {

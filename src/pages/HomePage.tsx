@@ -58,8 +58,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     const variant = config?.variant || 'photo-left';
 
     const photoCard = (
-      <div className="w-full max-w-sm mx-auto rounded-3xl bg-white border border-stone-200 p-4 shadow-lg space-y-3">
-        <div className="w-full aspect-[4/5] min-h-[320px] rounded-2xl bg-stone-100 border border-stone-200 flex flex-col items-center justify-center text-center p-6 relative overflow-hidden group">
+      <div className="relative w-full max-w-sm mx-auto">
+        <div
+          className="absolute -inset-2 translate-x-3 translate-y-3 rotate-2 rounded-3xl opacity-80"
+          style={{ backgroundColor: 'var(--accent-main)' }}
+        />
+        <div className="relative rounded-3xl bg-white border border-stone-200 p-4 shadow-xl space-y-3 -rotate-1 transition-transform duration-300 hover:rotate-0">
+          <div className="w-full aspect-[4/5] min-h-[320px] rounded-2xl bg-stone-100 border border-stone-200 flex flex-col items-center justify-center text-center p-6 relative overflow-hidden group">
           {profileData.photoUrl ? (
             <img
               src={profileData.photoUrl}
@@ -101,6 +106,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-white/95 backdrop-blur-md border border-stone-200 text-left shadow-xs">
             <p className="text-xs font-bold text-stone-900 font-syne">Product Builder & Leader</p>
             <p className="text-[11px] text-stone-500 font-medium">Indian School of Business (ISB)</p>
+          </div>
           </div>
         </div>
       </div>
@@ -262,9 +268,78 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </div>
     );
 
+    const heroShell = (content: React.ReactNode) => (
+      <div className="pt-16 sm:pt-20">
+        <div className="relative overflow-hidden rounded-[2rem] border border-stone-300 bg-stone-50 p-3 shadow-[0_35px_90px_-40px_rgba(28,25,23,0.65)] sm:p-4">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#d6d3d1_1px,transparent_1px),linear-gradient(to_bottom,#d6d3d1_1px,transparent_1px)] bg-[size:32px_32px] opacity-[0.18]" />
+          <div className="absolute inset-y-0 left-0 w-[38%] bg-gradient-to-br from-stone-200/80 via-stone-100/50 to-transparent" />
+          <div
+            className="absolute -right-20 -top-24 h-64 w-64 rounded-full opacity-[0.12] blur-2xl"
+            style={{ backgroundColor: 'var(--accent-main)' }}
+          />
+          <div
+            className="absolute -bottom-28 -left-24 h-72 w-72 rounded-full opacity-[0.08] blur-3xl"
+            style={{ backgroundColor: 'var(--accent-main)' }}
+          />
+          <div className="absolute bottom-8 right-8 hidden h-20 w-20 rounded-full border border-stone-300/70 lg:block" />
+          <div className="absolute bottom-[4.45rem] right-[4.45rem] hidden h-2 w-2 rounded-full lg:block" style={{ backgroundColor: 'var(--accent-main)' }} />
+          <div
+            className="relative z-10 overflow-hidden rounded-[1.45rem] bg-stone-950 px-5 py-5 sm:px-7 sm:py-6 lg:px-9"
+            style={{ color: '#ffffff' }}
+          >
+            <div
+              className="absolute inset-y-0 left-0 w-1.5"
+              style={{ backgroundColor: 'var(--accent-main)' }}
+            />
+            <div className="absolute -right-10 -top-16 select-none font-syne text-[8rem] font-black leading-none tracking-tighter text-white/[0.045] sm:text-[11rem]">
+              01
+            </div>
+            <div className="relative flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div className="space-y-2">
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.28em]" style={{ color: '#d6d3d1' }}>
+                  Product Portfolio · 2026
+                </p>
+                <p className="font-syne text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl" style={{ color: '#ffffff' }}>
+                  Solve. Build. <span style={{ color: '#fbbf24' }}>Lead.</span>
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 sm:max-w-xs sm:justify-end">
+                {['Product', 'Data', 'AI'].map((label) => (
+                  <span
+                    key={label}
+                    className="rounded-full border border-white/30 bg-white/[0.1] px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm"
+                    style={{ color: '#f5f5f4' }}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="relative z-10 mx-2 overflow-hidden border-x border-b border-stone-300 bg-white py-2.5 sm:mx-4">
+            <div className="portfolio-marquee flex w-max items-center font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-700">
+              {[0, 1].map((copy) => (
+                <div key={copy} className="flex shrink-0 items-center gap-5 px-3" aria-hidden={copy === 1}>
+                  <span>Understand the user</span>
+                  <span style={{ color: 'var(--accent-main)' }}>→</span>
+                  <span>Frame the problem</span>
+                  <span style={{ color: 'var(--accent-main)' }}>→</span>
+                  <span>Build the product</span>
+                  <span style={{ color: 'var(--accent-main)' }}>→</span>
+                  <span>Measure the impact</span>
+                  <span className="text-stone-300">◆</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative z-10 p-3 sm:p-5 lg:p-7">{content}</div>
+        </div>
+      </div>
+    );
+
     if (variant === 'photo-right') {
-      return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-10 items-start pt-16 sm:pt-20">
+      return heroShell(
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-10 items-start">
           <div className="lg:col-span-8 order-2 lg:order-1">{bioDetails}</div>
           <div className="lg:col-span-4 order-1 lg:order-2 flex justify-center lg:justify-end">{photoCard}</div>
         </div>
@@ -272,8 +347,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     }
 
     if (variant === 'centered') {
-      return (
-        <div className="max-w-4xl mx-auto space-y-7 pt-16 sm:pt-20 text-center">
+      return heroShell(
+        <div className="max-w-4xl mx-auto space-y-7 text-center">
           <div className="flex justify-center">{photoCard}</div>
           <div className="text-left">{bioDetails}</div>
         </div>
@@ -281,8 +356,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     }
 
     // Default: Photo Left
-    return (
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-10 items-start pt-16 sm:pt-20">
+    return heroShell(
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-10 items-start">
         <div className="lg:col-span-4 flex justify-center lg:justify-start">{photoCard}</div>
         <div className="lg:col-span-8">{bioDetails}</div>
       </div>
@@ -784,48 +859,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     );
   };
 
-  // Helper for Summary / CTA Section
-  const renderSummarySection = () => {
-    return (
-      <div className="text-center space-y-5">
-        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-4">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            Synthesis
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-heading text-stone-900">
-            Summary
-          </h2>
-          
-          <div className="text-sm sm:text-base text-stone-700 leading-relaxed font-normal">
-            <span className="text-stone-400 select-none">“</span>
-            <EditableText
-              as="span"
-              value={profileData.summaryNarrative}
-              onSave={(val) => updateProfile({ summaryNarrative: val })}
-              multiline={true}
-              className="inline-block"
-              labelHint="Summary Narrative"
-            />
-            <span className="text-stone-400 select-none">”</span>
-          </div>
-
-          <div className="pt-2 flex justify-center">
-            <button
-              onClick={() => onNavigate('projects')}
-              className="inline-flex items-center gap-2 pl-6 pr-2 py-2.5 rounded-full text-white font-bold text-sm transition-all shadow-lg hover:opacity-95 group"
-              style={{ backgroundColor: 'var(--accent-main)' }}
-            >
-              <span>Explore My Projects Portfolio</span>
-              <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                <ChevronRight className="w-4 h-4 text-white" />
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   // Map of section renderers
   const sectionRenderers: Record<SectionId, () => React.ReactNode> = {
     hero: renderHeroSection,
@@ -833,7 +866,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     experience: renderExperienceSection,
     principles: renderPrinciplesSection,
     featured: renderFeaturedSection,
-    summary: renderSummarySection,
   };
 
   return (

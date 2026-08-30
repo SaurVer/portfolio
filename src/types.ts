@@ -15,7 +15,6 @@ export interface ProfileData {
     productInterest: string;
     aspiration: string;
   };
-  summaryNarrative: string;
 }
 
 export interface EducationItem {
@@ -221,7 +220,7 @@ export interface BTCJourneyData {
   leadershipLessons: string[];
 }
 
-export type SectionId = 'hero' | 'education' | 'experience' | 'principles' | 'featured' | 'summary';
+export type SectionId = 'hero' | 'education' | 'experience' | 'principles' | 'featured';
 export type SectionWidth = 'narrow' | 'standard' | 'wide' | 'full';
 export type SectionPadding = 'compact' | 'standard' | 'spacious';
 

@@ -202,3 +202,22 @@ button, a, input, select, textarea, div {
   transition-property: background-color, border-color, color, fill, stroke, box-shadow;
   transition-duration: 150ms;
 }
+
+@keyframes portfolio-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.portfolio-marquee {
+  animation: portfolio-marquee 24s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-marquee {
+    animation: none;
+  }
+}

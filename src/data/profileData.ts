@@ -41,10 +41,7 @@ export const profileData: ProfileData = {
     problemsEnjoyed: 'I enjoy solving complex, multi-layered problems where value can be unlocked at every level. Customer needs and business objectives may not always align, and I find it rewarding to identify the solution space where both can be addressed. I also enjoy thinking through edge cases and building thoughtful safeguards that make solutions more reliable and resilient.',
     productInterest: 'I am driven by hands-on execution: testing assumptions early, writing code or automations to validate solutions rapidly, and listening closely to user feedback to iterate with conviction.',
     aspiration: 'I am actively seeking opportunities in Product Management and Technical Project Management, where I can contribute to building and improving high-impact products. I am eager to apply and deepen my understanding of the principles behind creating exceptional products—solutions that address genuine customer pain points while driving sustainable business growth. I see Product Management as a field where my curiosity, structured thinking, and desire to build can translate into meaningful impact, long-term growth, and a deeply fulfilling career.'
-  },
-
-  // Narrative summary connecting education, experience, leadership, and product work
-  summaryNarrative: 'By combining rigorous academic foundations, hands-on software development experience, and high-trust leadership as President of the Business Technology Club, I bring a rare synthesis of empathy, technical execution, and strategic product thinking to every challenge I undertake.'
+  }
 };
 
 /**
@@ -52,17 +49,6 @@ export const profileData: ProfileData = {
  * Logo containers are styled to blend seamlessly into the background while preserving aspect ratios.
  */
 export const educationData: EducationItem[] = [
-  {
-    id: 'edu-1',
-    collegeName: 'BITS Pilani',
-    logo: '/logos/bits-pilani-logo.png',
-    logoAlt: 'BITS Pilani logo',
-    qualification: 'Chemical Engineering & Finance Minor',
-    period: '2015–19',
-    location: 'Pilani, Rajasthan, India',
-    institutionDescription: 'BITS Pilani is a leading Indian institute for technology and science, known for interdisciplinary education and its industry-linked Practice School programme.',
-    description: 'Developed a strong foundation in analytical thinking and problem-solving. Completed a six-month Practice School at Deutsche Bank in Mumbai as a Ratings Analyst.'
-  },
   {
     id: 'edu-2',
     collegeName: 'Indian School of Business (ISB)',
@@ -73,6 +59,17 @@ export const educationData: EducationItem[] = [
     location: 'Hyderabad, India',
     institutionDescription: 'The Indian School of Business is a globally recognised business school focused on developing leaders through rigorous, practice-oriented management education.',
     description: 'Building a broad understanding of diverse business domains, with a particular focus on technology and finance.'
+  },
+  {
+    id: 'edu-1',
+    collegeName: 'BITS Pilani',
+    logo: '/logos/bits-pilani-logo.png',
+    logoAlt: 'BITS Pilani logo',
+    qualification: 'Chemical Engineering & Finance Minor',
+    period: '2015–19',
+    location: 'Pilani, Rajasthan, India',
+    institutionDescription: 'BITS Pilani is a leading Indian institute for technology and science, known for interdisciplinary education and its industry-linked Practice School programme.',
+    description: 'Developed a strong foundation in analytical thinking and problem-solving. Completed a six-month Practice School at Deutsche Bank in Mumbai as a Ratings Analyst.'
   }
 ];
 
