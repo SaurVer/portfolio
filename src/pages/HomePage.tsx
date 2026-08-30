@@ -642,13 +642,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
 
         <div className="relative mx-auto max-w-5xl py-4">
-          <div className="absolute bottom-8 left-5 top-8 w-3 rounded-full bg-stone-900 shadow-[6px_0_0_#d6d3d1] md:hidden">
+          <div className="journey-mobile-road absolute bottom-8 left-5 top-8 w-3 origin-top rounded-full bg-stone-900 shadow-[6px_0_0_#d6d3d1] md:hidden">
             <div className="absolute inset-x-[4px] inset-y-2 border-l border-dashed border-white/70" />
           </div>
 
           <svg className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" viewBox="0 0 100 800" preserveAspectRatio="none" aria-hidden="true">
             <path d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="#d6d3d1" strokeWidth="13" strokeLinecap="round" />
-            <path d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="#172554" strokeWidth="10" strokeLinecap="round" />
+            <path className="journey-road-draw" pathLength="1" d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="#172554" strokeWidth="10" strokeLinecap="round" />
             <path d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="rgba(255,255,255,.72)" strokeWidth="0.55" strokeDasharray="3 4" />
           </svg>
 
@@ -657,8 +657,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               const color = timelineColors[index % timelineColors.length];
               const isLeft = index % 2 === 0;
               return (
-                <div key={`${item.type}-${item.id}`} className={`group/timeline relative flex min-h-[185px] items-center ${isLeft ? 'md:justify-start' : 'md:justify-end'}`}>
-                  <div className="absolute left-5 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 md:left-1/2">
+                <div key={`${item.type}-${item.id}`} className={`journey-milestone group/timeline relative flex min-h-[185px] items-center ${isLeft ? 'journey-from-left md:justify-start' : 'journey-from-right md:justify-end'}`}>
+                  <div className="journey-pin absolute left-5 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 md:left-1/2">
                     <div className="relative flex h-12 w-12 items-center justify-center rounded-full border-[6px] border-white text-xs font-mono font-black text-white shadow-xl transition-all duration-300 group-hover/timeline:scale-125" style={{ backgroundColor: color }}>
                       {String(index + 1).padStart(2, '0')}
                       <span className="absolute -bottom-3 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45" style={{ backgroundColor: color }} />
