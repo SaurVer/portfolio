@@ -627,9 +627,27 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         detail: item.description,
         bullets: item.bullets,
       })),
+      {
+        id: 'isb-btc-president',
+        type: 'Leadership' as const,
+        title: 'President, Business Technology Club',
+        subtitle: 'Indian School of Business (ISB)',
+        period: '2026–27',
+        location: 'ISB, Hyderabad',
+        logo: '/logos/isb-logo.jpg',
+        logoAlt: 'Indian School of Business logo',
+        context: '',
+        detail: '',
+        bullets: [
+          'Elected by 450 students to lead the Business Technology Club at ISB.',
+          'Helping the cohort stay up to date in the Technology space, especially Product Management.',
+          'Host industry leaders on campus to share their perspective and experiences.',
+          'Help the cohort prepare for Product Management roles and the career ahead.',
+        ],
+      },
     ].sort((a, b) => startYear(a.period) - startYear(b.period));
 
-    const timelineColors = ['#f97316', '#ef4444', '#2563eb', '#22c55e'];
+    const timelineColors = ['#f97316', '#ef4444', '#2563eb', '#22c55e', '#7c3aed'];
 
     return (
       <div className="space-y-7">
