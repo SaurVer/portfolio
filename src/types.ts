@@ -220,7 +220,7 @@ export interface BTCJourneyData {
   leadershipLessons: string[];
 }
 
-export type SectionId = 'hero' | 'education' | 'experience' | 'principles' | 'featured';
+export type SectionId = 'hero' | 'featured' | 'principles' | 'journey' | 'about';
 export type SectionWidth = 'narrow' | 'standard' | 'wide' | 'full';
 export type SectionPadding = 'compact' | 'standard' | 'spacious';
 

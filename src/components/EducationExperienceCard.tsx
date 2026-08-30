@@ -12,13 +12,19 @@ interface EducationCardProps {
 
 export const EducationCard: React.FC<EducationCardProps> = ({ item, onRemove }) => {
   const { isLiveEditMode, updateEducation } = useContent();
+  const accent = item.collegeName.toLowerCase().includes('business') ? '#2f3e91' : '#e79a24';
 
   return (
-    <div className="flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-white border border-stone-200 hover:border-stone-400 hover:shadow-md transition-all duration-300 space-y-3 group relative">
+    <div
+      className="flex flex-col justify-between p-5 sm:p-6 rounded-3xl bg-white border border-stone-200 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 space-y-3 group relative overflow-hidden"
+      style={{ backgroundImage: `linear-gradient(145deg, ${accent}12 0%, #ffffff 38%)` }}
+    >
+      <div className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: accent }} />
+      <div className="absolute -right-3 top-2 select-none font-syne text-8xl font-black leading-none opacity-[0.035]">EDU</div>
       <div className="space-y-3">
         <div className="flex items-start justify-between gap-4">
           {/* Neutral Logo / Monogram Container */}
-          <div className="w-24 h-16 rounded-xl bg-white border border-stone-200 flex items-center justify-center p-2 shrink-0 group-hover:border-stone-300 transition-colors overflow-hidden">
+          <div className="w-28 h-20 rounded-2xl bg-white border flex items-center justify-center p-2.5 shrink-0 transition-all overflow-hidden shadow-md group-hover:scale-[1.03]" style={{ borderColor: `${accent}35` }}>
             {item.logo ? (
               <img
                 src={item.logo}
@@ -56,15 +62,15 @@ export const EducationCard: React.FC<EducationCardProps> = ({ item, onRemove }) 
         </div>
 
         <div className="space-y-1">
-          <h4 className="text-lg font-bold text-stone-900 font-syne transition-colors">
+          <h4 className="text-xl font-bold text-stone-900 font-syne transition-colors">
             <EditableText
               value={item.collegeName}
               onSave={(val) => updateEducation(item.id, { collegeName: val })}
-              className="text-lg font-bold text-stone-900 font-syne"
+              className="text-xl font-bold text-stone-900 font-syne"
               labelHint="Institution"
             />
           </h4>
-          <p className="text-xs sm:text-sm font-semibold" style={{ color: 'var(--accent-main)' }}>
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wide" style={{ color: accent }}>
             <EditableText
               value={item.qualification}
               onSave={(val) => updateEducation(item.id, { qualification: val })}
@@ -75,7 +81,8 @@ export const EducationCard: React.FC<EducationCardProps> = ({ item, onRemove }) 
         </div>
 
         {item.institutionDescription && (
-          <div className="rounded-xl bg-stone-50 border border-stone-100 px-3.5 py-3 space-y-1">
+          <div className="rounded-2xl bg-white/80 border border-stone-200 px-4 py-3.5 space-y-1.5 shadow-sm relative overflow-hidden">
+            <div className="absolute inset-y-0 left-0 w-1" style={{ backgroundColor: accent }} />
             <p className="text-[10px] font-mono uppercase tracking-wider text-stone-400 font-bold">About the institution</p>
             <EditableText
               as="p"
@@ -103,8 +110,9 @@ export const EducationCard: React.FC<EducationCardProps> = ({ item, onRemove }) 
         )}
       </div>
 
-      <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-mono text-stone-400">
-        <span>Higher Education</span>
+      <div className="pt-3 border-t border-stone-200 flex items-center justify-between text-[11px] font-mono text-stone-500">
+        <span className="rounded-full px-2.5 py-1 font-bold uppercase tracking-wider" style={{ backgroundColor: `${accent}12`, color: accent }}>Higher Education</span>
+        <GraduationCap className="h-4 w-4" style={{ color: accent }} />
       </div>
 
       {/* Delete Degree Button in Live Edit Mode */}
@@ -137,13 +145,19 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
     removeExperienceBullet, 
     addExperienceBullet 
   } = useContent();
+  const accent = item.companyName.toLowerCase().includes('swiggy') ? '#fc5b18' : '#00a987';
 
   return (
-    <div className="flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-white border border-stone-200 hover:border-stone-400 hover:shadow-md transition-all duration-300 space-y-3 group relative">
+    <div
+      className="flex flex-col justify-between p-5 sm:p-6 rounded-3xl bg-white border border-stone-200 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 space-y-3 group relative overflow-hidden"
+      style={{ backgroundImage: `linear-gradient(145deg, ${accent}10 0%, #ffffff 38%)` }}
+    >
+      <div className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: accent }} />
+      <div className="absolute -right-2 top-2 select-none font-syne text-8xl font-black leading-none opacity-[0.035]">WORK</div>
       <div className="space-y-3">
         <div className="flex items-start justify-between gap-4">
           {/* Neutral Logo Container */}
-          <div className="w-24 h-16 rounded-xl bg-white border border-stone-200 flex items-center justify-center p-2 shrink-0 group-hover:border-stone-300 transition-colors overflow-hidden">
+          <div className="w-28 h-20 rounded-2xl bg-white border flex items-center justify-center p-2.5 shrink-0 transition-all overflow-hidden shadow-md group-hover:scale-[1.03]" style={{ borderColor: `${accent}35` }}>
             {item.logo ? (
               <img
                 src={item.logo}
@@ -181,15 +195,15 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
         </div>
 
         <div className="space-y-1">
-          <h4 className="text-lg font-bold text-stone-900 font-syne transition-colors">
+          <h4 className="text-xl font-bold text-stone-900 font-syne transition-colors">
             <EditableText
               value={item.companyName}
               onSave={(val) => updateExperience(item.id, { companyName: val })}
-              className="text-lg font-bold text-stone-900 font-syne"
+              className="text-xl font-bold text-stone-900 font-syne"
               labelHint="Company Name"
             />
           </h4>
-          <p className="text-xs sm:text-sm font-semibold" style={{ color: 'var(--accent-main)' }}>
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wide" style={{ color: accent }}>
             <EditableText
               value={item.role}
               onSave={(val) => updateExperience(item.id, { role: val })}
@@ -200,7 +214,8 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
         </div>
 
         {item.companyDescription && (
-          <div className="rounded-xl bg-stone-50 border border-stone-100 px-3.5 py-3 space-y-1">
+          <div className="rounded-2xl bg-white/80 border border-stone-200 px-4 py-3.5 space-y-1.5 shadow-sm relative overflow-hidden">
+            <div className="absolute inset-y-0 left-0 w-1" style={{ backgroundColor: accent }} />
             <p className="text-[10px] font-mono uppercase tracking-wider text-stone-400 font-bold">About the company</p>
             <EditableText
               as="p"
@@ -231,7 +246,9 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
           <ul className="space-y-2 pt-2">
             {item.bullets.map((bullet, idx) => (
               <li key={idx} className="text-xs text-stone-600 flex items-start gap-2 group/bullet relative">
-                <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: 'var(--accent-main)' }} />
+                <span className="w-5 h-5 rounded-md mt-0.5 shrink-0 inline-flex items-center justify-center text-[9px] font-mono font-bold text-white" style={{ backgroundColor: accent }}>
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
                 <div className="flex-1 flex items-center justify-between gap-2">
                   <EditableText
                     value={bullet}
@@ -271,8 +288,9 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ item, onRemove }
         )}
       </div>
 
-      <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-mono text-stone-400">
-        <span>Work Experience</span>
+      <div className="pt-3 border-t border-stone-200 flex items-center justify-between text-[11px] font-mono text-stone-500">
+        <span className="rounded-full px-2.5 py-1 font-bold uppercase tracking-wider" style={{ backgroundColor: `${accent}12`, color: accent }}>Work Experience</span>
+        <Briefcase className="h-4 w-4" style={{ color: accent }} />
       </div>
 
       {/* Delete Experience Role Button in Live Edit Mode */}

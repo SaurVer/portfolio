@@ -31,7 +31,7 @@ const STORAGE_KEY = 'portfolio_live_content_v2';
 const PROFILE_STORAGE_KEY = 'portfolio_live_content_v4_profile';
 const EDUCATION_STORAGE_KEY = 'portfolio_live_content_v5_education';
 const EDIT_MODE_KEY = 'portfolio_live_edit_mode_v2';
-const LAYOUT_KEY = 'portfolio_block_layouts_v2';
+const LAYOUT_KEY = 'portfolio_block_layouts_v3';
 const HIDDEN_ELEMENTS_KEY = 'portfolio_hidden_elements_v2';
 
 export const defaultBlockConfigs: Record<SectionId, BlockLayoutConfig> = {
@@ -44,28 +44,18 @@ export const defaultBlockConfigs: Record<SectionId, BlockLayoutConfig> = {
     padding: 'standard',
     variant: 'photo-left',
   },
-  education: {
-    id: 'education',
-    title: 'Academic Background',
-    order: 1,
+  journey: {
+    id: 'journey',
+    title: 'Education & Career Journey',
+    order: 3,
     visible: true,
     width: 'standard',
     padding: 'standard',
-    columns: 2,
-  },
-  experience: {
-    id: 'experience',
-    title: 'Professional Experience',
-    order: 2,
-    visible: true,
-    width: 'standard',
-    padding: 'standard',
-    columns: 2,
   },
   principles: {
     id: 'principles',
     title: 'Product Philosophy',
-    order: 3,
+    order: 2,
     visible: true,
     width: 'standard',
     padding: 'standard',
@@ -74,11 +64,19 @@ export const defaultBlockConfigs: Record<SectionId, BlockLayoutConfig> = {
   featured: {
     id: 'featured',
     title: 'Featured Work & Case Studies',
-    order: 4,
+    order: 1,
     visible: true,
     width: 'standard',
     padding: 'standard',
     columns: 2,
+  },
+  about: {
+    id: 'about',
+    title: 'How I Think',
+    order: 4,
+    visible: true,
+    width: 'standard',
+    padding: 'standard',
   },
 };
 

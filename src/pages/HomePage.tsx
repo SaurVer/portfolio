@@ -147,124 +147,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* About Me Details Card */}
-        <div className="p-5 sm:p-6 rounded-3xl bg-white border border-stone-200 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-                Background & Focus
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-heading text-stone-900">
-                About Me
-              </h2>
-            </div>
-            {isLiveEditMode && (
-              <button
-                onClick={() => openEditorTab('profile')}
-                className="text-xs font-mono text-stone-500 hover:text-stone-900 flex items-center gap-1 bg-stone-50 px-2.5 py-1 rounded-lg border border-stone-200"
-              >
-                <Edit3 className="w-3 h-3" />
-                <span>Edit in Form</span>
-              </button>
-            )}
-          </div>
-
-          <div className="space-y-3 text-xs sm:text-sm text-stone-700 leading-relaxed">
-            <EditableText
-              as="p"
-              value={profileData.about.intro}
-              onSave={(val) => updateAbout({ intro: val })}
-              multiline={true}
-              className="text-sm sm:text-base text-stone-800 leading-relaxed font-medium block"
-              labelHint="About Me Intro"
-            />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-              <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-1.5">
-                <h3 className="text-xs font-mono uppercase tracking-wider text-stone-500 font-bold">
-                  The Problems I Enjoy Solving:
-                </h3>
-                <EditableText
-                  as="p"
-                  value={profileData.about.problemsEnjoyed}
-                  onSave={(val) => updateAbout({ problemsEnjoyed: val })}
-                  multiline={true}
-                  className="text-xs text-stone-700 leading-relaxed block"
-                  labelHint="Problems Enjoyed"
-                />
-              </div>
-
-              <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-1.5">
-                <h3 className="text-xs font-mono uppercase tracking-wider text-stone-500 font-bold">
-                  Product & Career Aspiration:
-                </h3>
-                <EditableText
-                  as="p"
-                  value={profileData.about.aspiration}
-                  onSave={(val) => updateAbout({ aspiration: val })}
-                  multiline={true}
-                  className="text-xs text-stone-700 leading-relaxed block"
-                  labelHint="Career Aspiration"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2 pt-2">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-mono uppercase tracking-wider text-stone-500 font-bold">
-                  Professional Focus & Interests:
-                </h3>
-                {isLiveEditMode && (
-                  <button
-                    onClick={() => {
-                      const newTag = window.prompt('Enter new interest/focus tag:');
-                      if (newTag) addInterest(newTag);
-                    }}
-                    className="text-[11px] font-mono text-stone-600 hover:text-stone-900 flex items-center gap-1 font-semibold"
-                  >
-                    <Plus className="w-3 h-3 text-amber-500" />
-                    <span>Add Tag</span>
-                  </button>
-                )}
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {profileData.about.interests.map((item, idx) => (
-                  <RemovableWrapper
-                    key={idx}
-                    label={`tag "${item}"`}
-                    onRemove={() => removeInterest(idx)}
-                  >
-                    <span className="px-3 py-1.5 rounded-lg bg-stone-50 border border-stone-200 text-xs text-stone-800 font-semibold inline-flex items-center gap-1.5">
-                      <span>{item}</span>
-                      {isLiveEditMode && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            removeInterest(idx);
-                          }}
-                          className="text-stone-400 hover:text-rose-500 p-0.5 rounded transition-colors"
-                          title={`Remove ${item}`}
-                          aria-label={`Remove ${item}`}
-                        >
-                          <Trash2 className="w-2.5 h-2.5" />
-                        </button>
-                      )}
-                    </span>
-                  </RemovableWrapper>
-                ))}
-                {isLiveEditMode && (
-                  <button
-                    onClick={() => openEditorTab('profile')}
-                    className="px-2.5 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 border border-dashed border-stone-300 text-xs text-stone-600 font-mono flex items-center gap-1"
-                  >
-                    <Edit3 className="w-3 h-3" />
-                    <span>Bulk edit tags</span>
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     );
 
@@ -364,6 +246,95 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     );
   };
 
+  const renderAboutSection = () => (
+    <div className="relative overflow-hidden rounded-[2rem] bg-stone-950 p-6 text-white sm:p-8 lg:p-10">
+      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full border border-white/10" />
+      <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full border border-white/10" />
+      <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-4">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.25em]" style={{ color: '#fbbf24' }}>
+            How I Think
+          </p>
+          <h2 className="mt-3 font-syne text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: '#ffffff' }}>
+            Curiosity with an execution bias.
+          </h2>
+          <p className="mt-5 text-sm leading-relaxed" style={{ color: '#d6d3d1' }}>
+            I move between customer context, business constraints and technology to find solutions that work in the real world.
+          </p>
+          {isLiveEditMode && (
+            <button
+              onClick={() => openEditorTab('profile')}
+              className="mt-5 inline-flex items-center gap-1 rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 font-mono text-xs text-white"
+            >
+              <Edit3 className="h-3 w-3" /> Edit section
+            </button>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:col-span-8">
+          <div className="rounded-2xl border border-white/15 bg-white/[0.07] p-5 backdrop-blur-sm">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: '#fbbf24' }}>
+              01 · Problems I enjoy
+            </p>
+            <EditableText
+              as="p"
+              value={profileData.about.problemsEnjoyed}
+              onSave={(val) => updateAbout({ problemsEnjoyed: val })}
+              multiline={true}
+              className="mt-3 block text-sm leading-relaxed"
+              style={{ color: '#f5f5f4' }}
+              labelHint="Problems Enjoyed"
+            />
+          </div>
+          <div className="rounded-2xl border border-white/15 bg-white/[0.07] p-5 backdrop-blur-sm">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: '#fbbf24' }}>
+              02 · Where I am headed
+            </p>
+            <EditableText
+              as="p"
+              value={profileData.about.aspiration}
+              onSave={(val) => updateAbout({ aspiration: val })}
+              multiline={true}
+              className="mt-3 block text-sm leading-relaxed"
+              style={{ color: '#f5f5f4' }}
+              labelHint="Career Aspiration"
+            />
+          </div>
+          <div className="rounded-2xl border border-white/15 bg-white/[0.05] p-5 md:col-span-2">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: '#a8a29e' }}>
+                Areas of focus
+              </p>
+              {isLiveEditMode && (
+                <button
+                  onClick={() => {
+                    const newTag = window.prompt('Enter new interest/focus tag:');
+                    if (newTag) addInterest(newTag);
+                  }}
+                  className="font-mono text-[10px] font-bold uppercase tracking-wider text-white"
+                >
+                  + Add focus
+                </button>
+              )}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {profileData.about.interests.map((item, idx) => (
+                <span key={`${item}-${idx}`} className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs" style={{ color: '#f5f5f4' }}>
+                  {item}
+                  {isLiveEditMode && (
+                    <button onClick={() => removeInterest(idx)} aria-label={`Remove ${item}`} className="text-stone-400 hover:text-white">
+                      <Trash2 className="h-3 w-3" />
+                    </button>
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   // Helper for Education Section
   const renderEducationSection = () => {
     const config = blockLayouts['education'];
@@ -441,7 +412,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             )}
           </div>
         ) : (
-          <div className={gridClass}>
+          <div className="relative">
+            <div className="absolute bottom-3 left-4 top-2 w-2 rounded-full bg-stone-300 md:bottom-auto md:left-[12%] md:right-[12%] md:top-5 md:h-2 md:w-auto">
+              <div className="absolute inset-[2px] rounded-full border border-dashed border-white/90" />
+            </div>
+            <div className={gridClass}>
             {educationData.map((item, index) => (
               <RemovableWrapper
                 key={item.id}
@@ -449,8 +424,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 onRemove={() => removeEducation(item.id)}
                 confirmPrompt="Are you sure you want to remove this education card?"
               >
-                <div className="relative group">
-                  <EducationCard item={item} onRemove={() => removeEducation(item.id)} />
+                <div className="relative group/milestone pl-10 pt-4 md:pl-0 md:pt-10">
+                  <div className="absolute left-4 top-4 z-20 flex -translate-x-1/2 items-center gap-2 md:left-1/2 md:top-0">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border-4 border-white font-mono text-xs font-black text-white shadow-lg transition-transform duration-300 group-hover/milestone:scale-125" style={{ backgroundColor: 'var(--accent-main)' }}>
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="hidden rounded-full bg-stone-900 px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-wider text-white opacity-0 shadow-md transition-opacity group-hover/milestone:opacity-100 lg:block">Milestone</span>
+                  </div>
+                  <div className="transition-all duration-300 group-hover/milestone:-translate-y-2 group-hover/milestone:scale-[1.025] group-hover/milestone:drop-shadow-xl">
+                    <EducationCard item={item} onRemove={() => removeEducation(item.id)} />
+                  </div>
                   
                   {/* Inline Card Reorder Controls in Live Edit Mode */}
                   {isLiveEditMode && (
@@ -476,6 +459,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 </div>
               </RemovableWrapper>
             ))}
+            </div>
           </div>
         )}
       </div>
@@ -561,7 +545,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             )}
           </div>
         ) : (
-          <div className={gridClass}>
+          <div className="relative">
+            <div className="absolute bottom-3 left-4 top-2 w-2 rounded-full bg-stone-800 md:bottom-auto md:left-[12%] md:right-[12%] md:top-5 md:h-2 md:w-auto">
+              <div className="absolute inset-[2px] rounded-full border border-dashed border-white/80" />
+            </div>
+            <div className={gridClass}>
             {experienceData.map((item, index) => (
               <RemovableWrapper
                 key={item.id}
@@ -569,8 +557,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 onRemove={() => removeExperience(item.id)}
                 confirmPrompt="Are you sure you want to remove this work experience role?"
               >
-                <div className="relative group">
-                  <ExperienceCard item={item} onRemove={() => removeExperience(item.id)} />
+                <div className="relative group/milestone pl-10 pt-4 md:pl-0 md:pt-10">
+                  <div className="absolute left-4 top-4 z-20 flex -translate-x-1/2 items-center gap-2 md:left-1/2 md:top-0">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-stone-950 font-mono text-xs font-black text-white shadow-lg transition-transform duration-300 group-hover/milestone:scale-125">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="hidden rounded-full px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-wider text-white opacity-0 shadow-md transition-opacity group-hover/milestone:opacity-100 lg:block" style={{ backgroundColor: 'var(--accent-main)' }}>Milestone</span>
+                  </div>
+                  <div className="transition-all duration-300 group-hover/milestone:-translate-y-2 group-hover/milestone:scale-[1.025] group-hover/milestone:drop-shadow-xl">
+                    <ExperienceCard item={item} onRemove={() => removeExperience(item.id)} />
+                  </div>
                   
                   {/* Inline Card Reorder Controls in Live Edit Mode */}
                   {isLiveEditMode && (
@@ -596,8 +592,114 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 </div>
               </RemovableWrapper>
             ))}
+            </div>
           </div>
         )}
+      </div>
+    );
+  };
+
+  const renderJourneySection = () => {
+    const startYear = (period: string) => Number(period.match(/\d{4}/)?.[0] || 9999);
+    const journeyItems = [
+      ...educationData.map((item) => ({
+        id: item.id,
+        type: 'Education' as const,
+        title: item.collegeName,
+        subtitle: item.qualification,
+        period: item.period,
+        location: item.location,
+        logo: item.logo,
+        logoAlt: item.logoAlt,
+        context: item.institutionDescription,
+        detail: item.description,
+      })),
+      ...experienceData.map((item) => ({
+        id: item.id,
+        type: 'Experience' as const,
+        title: item.companyName,
+        subtitle: item.role,
+        period: item.period,
+        location: item.location,
+        logo: item.logo,
+        logoAlt: item.logoAlt,
+        context: item.companyDescription,
+        detail: item.description,
+        bullets: item.bullets,
+      })),
+    ].sort((a, b) => startYear(a.period) - startYear(b.period));
+
+    const timelineColors = ['#f97316', '#ef4444', '#2563eb', '#22c55e'];
+
+    return (
+      <div className="space-y-7">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.24em]" style={{ color: 'var(--accent-main)' }}>
+            The road so far
+          </span>
+          <h2 className="mt-2 font-heading text-3xl text-stone-900 sm:text-5xl">Education & Career Journey</h2>
+          <p className="mt-3 text-sm text-stone-600">A chronological view of the experiences that shaped how I solve, build and lead.</p>
+        </div>
+
+        <div className="relative mx-auto max-w-5xl py-4">
+          <div className="absolute bottom-8 left-5 top-8 w-3 rounded-full bg-stone-900 shadow-[6px_0_0_#d6d3d1] md:hidden">
+            <div className="absolute inset-x-[4px] inset-y-2 border-l border-dashed border-white/70" />
+          </div>
+
+          <svg className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" viewBox="0 0 100 800" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="#d6d3d1" strokeWidth="13" strokeLinecap="round" />
+            <path d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="#172554" strokeWidth="10" strokeLinecap="round" />
+            <path d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="rgba(255,255,255,.72)" strokeWidth="0.55" strokeDasharray="3 4" />
+          </svg>
+
+          <div className="relative space-y-5 md:space-y-0">
+            {journeyItems.map((item, index) => {
+              const color = timelineColors[index % timelineColors.length];
+              const isLeft = index % 2 === 0;
+              return (
+                <div key={`${item.type}-${item.id}`} className={`group/timeline relative flex min-h-[185px] items-center ${isLeft ? 'md:justify-start' : 'md:justify-end'}`}>
+                  <div className="absolute left-5 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 md:left-1/2">
+                    <div className="relative flex h-12 w-12 items-center justify-center rounded-full border-[6px] border-white text-xs font-mono font-black text-white shadow-xl transition-all duration-300 group-hover/timeline:scale-125" style={{ backgroundColor: color }}>
+                      {String(index + 1).padStart(2, '0')}
+                      <span className="absolute -bottom-3 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45" style={{ backgroundColor: color }} />
+                    </div>
+                  </div>
+
+                  <article className="ml-12 w-[calc(100%-3rem)] overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-md transition-all duration-500 group-hover/timeline:-translate-y-2 group-hover/timeline:shadow-2xl md:ml-0 md:w-[43%]">
+                    <div className="h-1.5" style={{ backgroundColor: color }} />
+                    <div className="p-5">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex h-14 w-20 shrink-0 items-center justify-center rounded-xl border border-stone-200 bg-white p-2 shadow-sm">
+                          {item.logo ? <img src={item.logo} alt={item.logoAlt} className="max-h-full max-w-full object-contain" /> : item.type === 'Education' ? <GraduationCap className="h-6 w-6" /> : <Briefcase className="h-6 w-6" />}
+                        </div>
+                        <div className="text-right">
+                          <p className="font-mono text-[10px] font-black uppercase tracking-[0.18em]" style={{ color }}>{item.type}</p>
+                          <p className="mt-1 font-mono text-xs font-bold text-stone-700">{item.period}</p>
+                          {item.location && <p className="mt-1 text-[10px] text-stone-400">{item.location}</p>}
+                        </div>
+                      </div>
+                      <h3 className="mt-4 font-syne text-xl font-bold text-stone-950">{item.title}</h3>
+                      <p className="mt-1 text-xs font-bold uppercase tracking-wide" style={{ color }}>{item.subtitle}</p>
+
+                      <div className="grid max-h-0 grid-rows-[0fr] opacity-0 transition-all duration-500 group-hover/timeline:mt-4 group-hover/timeline:max-h-72 group-hover/timeline:grid-rows-[1fr] group-hover/timeline:opacity-100">
+                        <div className="overflow-hidden border-t border-stone-200 pt-3 text-xs leading-relaxed text-stone-600">
+                          {item.context && <p>{item.context}</p>}
+                          {item.detail && <p className="mt-2 font-medium text-stone-700">{item.detail}</p>}
+                          {item.bullets && item.bullets.length > 0 && (
+                            <ul className="mt-2 space-y-1">
+                              {item.bullets.map((bullet, bulletIndex) => <li key={bulletIndex} className="flex gap-2"><span style={{ color }}>•</span><span>{bullet}</span></li>)}
+                            </ul>
+                          )}
+                        </div>
+                      </div>
+                      <p className="mt-3 font-mono text-[9px] font-bold uppercase tracking-wider text-stone-400 group-hover/timeline:hidden">Hover to explore milestone</p>
+                    </div>
+                  </article>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   };
@@ -862,10 +964,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   // Map of section renderers
   const sectionRenderers: Record<SectionId, () => React.ReactNode> = {
     hero: renderHeroSection,
-    education: renderEducationSection,
-    experience: renderExperienceSection,
+    journey: renderJourneySection,
     principles: renderPrinciplesSection,
     featured: renderFeaturedSection,
+    about: renderAboutSection,
   };
 
   return (
@@ -879,7 +981,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           <BlockContainer
             key={secId}
             id={secId}
-            allowColumnChange={secId === 'principles' || secId === 'education' || secId === 'experience' || secId === 'featured'}
+            allowColumnChange={secId === 'principles' || secId === 'featured'}
             columnOptions={secId === 'principles' ? [1, 2, 3, 4] : [1, 2]}
             variantOptions={
               secId === 'hero'
@@ -893,9 +995,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             editTabTarget={
               secId === 'hero'
                 ? 'profile'
-                : secId === 'education'
-                ? 'education'
-                : secId === 'experience'
+                : secId === 'journey'
                 ? 'experience'
                 : secId === 'principles'
                 ? 'principles'
