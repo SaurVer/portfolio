@@ -254,7 +254,22 @@ button, a, input, select, textarea, div {
 }
 
 .journey-road-flow {
-  animation: journey-road-flow 3.2s linear infinite;
+  animation: journey-road-flow 2.4s linear infinite;
+}
+
+.journey-road-traveller {
+  filter: drop-shadow(0 0 3px rgba(249, 115, 22, 0.9));
+}
+
+@keyframes journey-mobile-flow {
+  from { background-position-y: 0; }
+  to { background-position-y: 24px; }
+}
+
+.journey-mobile-flow {
+  background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,.82) 0 7px, transparent 7px 14px);
+  background-size: 1px 14px;
+  animation: journey-mobile-flow 1.1s linear infinite;
 }
 
 @supports (animation-timeline: view()) {
@@ -293,10 +308,16 @@ button, a, input, select, textarea, div {
 @media (prefers-reduced-motion: reduce) {
   .journey-road-draw,
   .journey-road-flow,
+  .journey-road-traveller,
+  .journey-mobile-flow,
   .journey-milestone,
   .journey-pin,
   .journey-mobile-road {
     animation: none !important;
     stroke-dashoffset: 0 !important;
+  }
+
+  .journey-road-traveller {
+    display: none;
   }
 }
