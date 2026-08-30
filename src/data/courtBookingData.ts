@@ -138,7 +138,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
     screenshots: [
       {
         id: 'screen-1',
-        imageUrl: '',
+        imageUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095205/find_slot_xjzi3i.png',
         screenTitle: 'Real-Time Availability Grid',
         shortDescription: 'Visual multi-court schedule grid showing live occupancy at a glance.',
         productDecision: 'Grouped courts horizontally by sport with clear green (available), yellow (held), and grey (booked) states to eliminate cognitive load.',
@@ -148,7 +148,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
       },
       {
         id: 'screen-2',
-        imageUrl: '',
+        imageUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095202/booking_confirmed_lmqgub.png',
         screenTitle: 'Streamlined Slot Reservation Modal',
         shortDescription: 'Two-step bottom sheet optimized for rapid mobile input.',
         productDecision: 'Pre-filled user identity from active session and reduced required fields to just partner name.',
@@ -158,7 +158,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
       },
       {
         id: 'screen-3',
-        imageUrl: '',
+        imageUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095200/abandon_play_pi62gr.png',
         screenTitle: 'My Bookings & Quick Cancellation',
         shortDescription: 'Personal dashboard displaying active passes with one-tap cancellation.',
         productDecision: 'Prominently surfaced a "Release Slot" button with positive reinforcement messaging to encourage freeing up courts.',
@@ -168,7 +168,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
       },
       {
         id: 'screen-4',
-        imageUrl: '',
+        imageUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095203/see_who_is_playing_duiugh.png',
         screenTitle: 'Administrative Utilization Heatmap',
         shortDescription: 'Back-office dashboard tracking peak usage hours and no-show rates.',
         productDecision: 'Provided facility managers with hourly utilization metrics rather than raw raw tabular exports.',
