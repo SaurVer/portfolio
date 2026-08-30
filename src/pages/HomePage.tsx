@@ -667,7 +667,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           <svg className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" viewBox="0 0 100 800" preserveAspectRatio="none" aria-hidden="true">
             <path d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="#d6d3d1" strokeWidth="13" strokeLinecap="round" />
             <path className="journey-road-draw" pathLength="1" d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="#172554" strokeWidth="10" strokeLinecap="round" />
-            <path d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="rgba(255,255,255,.72)" strokeWidth="0.55" strokeDasharray="3 4" />
+            <path className="journey-road-flow" d="M50 0 C92 90 90 155 52 205 C12 258 9 337 49 397 C91 459 91 535 51 592 C13 648 12 722 50 800" fill="none" stroke="rgba(255,255,255,.78)" strokeWidth="0.7" strokeDasharray="3 4" />
           </svg>
 
           <div className="relative space-y-5 md:space-y-0">

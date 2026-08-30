@@ -248,6 +248,15 @@ button, a, input, select, textarea, div {
   to { scale: 1 1; }
 }
 
+@keyframes journey-road-flow {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -28; }
+}
+
+.journey-road-flow {
+  animation: journey-road-flow 3.2s linear infinite;
+}
+
 @supports (animation-timeline: view()) {
   .journey-road-draw {
     stroke-dasharray: 1;
@@ -283,6 +292,7 @@ button, a, input, select, textarea, div {
 
 @media (prefers-reduced-motion: reduce) {
   .journey-road-draw,
+  .journey-road-flow,
   .journey-milestone,
   .journey-pin,
   .journey-mobile-road {
