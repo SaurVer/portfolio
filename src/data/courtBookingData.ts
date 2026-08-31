@@ -138,7 +138,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
     screenshots: [
       {
         id: 'screen-1',
-        imageUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095205/find_slot_xjzi3i.png',
+        imageUrl: '/projects/courtbooking-find-slot.png',
         screenTitle: 'Real-Time Availability Grid',
         shortDescription: 'Visual multi-court schedule grid showing live occupancy at a glance.',
         productDecision: 'Grouped courts horizontally by sport with clear green (available), yellow (held), and grey (booked) states to eliminate cognitive load.',
@@ -148,7 +148,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
       },
       {
         id: 'screen-2',
-        imageUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095202/booking_confirmed_lmqgub.png',
+        imageUrl: '/projects/courtbooking-confirmed.png',
         screenTitle: 'Streamlined Slot Reservation Modal',
         shortDescription: 'Two-step bottom sheet optimized for rapid mobile input.',
         productDecision: 'Pre-filled user identity from active session and reduced required fields to just partner name.',
@@ -158,7 +158,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
       },
       {
         id: 'screen-3',
-        imageUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095200/abandon_play_pi62gr.png',
+        imageUrl: '/projects/courtbooking-abandon.png',
         screenTitle: 'My Bookings & Quick Cancellation',
         shortDescription: 'Personal dashboard displaying active passes with one-tap cancellation.',
         productDecision: 'Prominently surfaced a "Release Slot" button with positive reinforcement messaging to encourage freeing up courts.',
@@ -168,7 +168,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
       },
       {
         id: 'screen-4',
-        imageUrl: 'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095203/see_who_is_playing_duiugh.png',
+        imageUrl: '/projects/courtbooking-playing.png',
         screenTitle: 'Administrative Utilization Heatmap',
         shortDescription: 'Back-office dashboard tracking peak usage hours and no-show rates.',
         productDecision: 'Provided facility managers with hourly utilization metrics rather than raw raw tabular exports.',
@@ -196,8 +196,8 @@ export const courtBookingData: CourtBookingCaseStudy = {
         summary: 'Helping a student move from intent to a confirmed court in a few clear steps.',
         iconName: 'CalendarCheck',
         screenshotUrls: [
-          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095205/find_slot_xjzi3i.png',
-          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095202/booking_confirmed_lmqgub.png'
+          '/projects/courtbooking-find-slot.png',
+          '/projects/courtbooking-confirmed.png'
         ],
         why: 'Students need a fast way to see availability and reserve the right court without coordinating through messages or physical registers.',
         challenge: 'Present multiple sports, courts, dates, and time slots without overwhelming the user or allowing two people to claim the same slot.',
@@ -208,7 +208,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
         title: 'Cancellation & Modification Flow',
         summary: 'Making changed plans easy to manage while returning unused capacity to the cohort.',
         iconName: 'RefreshCw',
-        screenshotUrls: ['https://res.cloudinary.com/dxhksw41y/image/upload/v1788095200/abandon_play_pi62gr.png'],
+        screenshotUrls: ['/projects/courtbooking-abandon.png'],
         why: 'Academic schedules change frequently. A difficult cancellation process creates ghost bookings and leaves courts unused.',
         challenge: 'Let users change plans without creating accidental duplicate bookings, stale reservations, or unclear court availability.',
         solution: 'Place booking controls in one self-service view, make the consequence of each action explicit, and reopen released slots immediately.'
@@ -248,7 +248,7 @@ export const courtBookingData: CourtBookingCaseStudy = {
         title: 'Booking Heatmap & Transparency',
         summary: 'Turning booking activity into a shared view of demand and facility usage.',
         iconName: 'ChartNoAxesColumnIncreasing',
-        screenshotUrls: ['https://res.cloudinary.com/dxhksw41y/image/upload/v1788095203/see_who_is_playing_duiugh.png'],
+        screenshotUrls: ['/projects/courtbooking-playing.png'],
         why: 'Students and administrators benefit from knowing when courts are busy, how capacity is used, and where availability is likely to exist.',
         challenge: 'Transform booking records into an understandable view without exposing unnecessary personal information or adding visual clutter.',
         solution: 'Aggregate usage by court and time band, use a simple visual intensity scale, and reveal only the information needed for planning and transparency.'

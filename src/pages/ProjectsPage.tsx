@@ -55,10 +55,10 @@ const projects: ProjectOverview[] = [
     appUrl: 'https://courtbook-frontend-three.vercel.app/',
     imageStyle: 'object-contain',
     gallery: [
-      'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095205/find_slot_xjzi3i.png',
-      'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095202/booking_confirmed_lmqgub.png',
-      'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095200/abandon_play_pi62gr.png',
-      'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095203/see_who_is_playing_duiugh.png',
+      '/projects/courtbooking-find-slot.png',
+      '/projects/courtbooking-confirmed.png',
+      '/projects/courtbooking-abandon.png',
+      '/projects/courtbooking-playing.png',
     ],
     why: 'Over 400 PGP students struggled with limited visibility into court availability—whether a court was free or how long it would remain occupied. Walking all the way from the Quad with this uncertainty was a recurring pain point that needed to be solved.',
     how: `Created the initial PRD outlining the core app functionality

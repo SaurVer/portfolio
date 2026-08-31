@@ -37,6 +37,15 @@ const EDIT_MODE_KEY = 'portfolio_live_edit_mode_v2';
 const LAYOUT_KEY = 'portfolio_block_layouts_v3';
 const HIDDEN_ELEMENTS_KEY = 'portfolio_hidden_elements_v2';
 
+const localizeCourtBookingImage = (url: string) => {
+  if (!url.includes('res.cloudinary.com/dxhksw41y')) return url;
+  if (url.includes('find_slot_')) return '/projects/courtbooking-find-slot.png';
+  if (url.includes('booking_confirmed_')) return '/projects/courtbooking-confirmed.png';
+  if (url.includes('abandon_play_')) return '/projects/courtbooking-abandon.png';
+  if (url.includes('see_who_is_playing_')) return '/projects/courtbooking-playing.png';
+  return url;
+};
+
 export const defaultBlockConfigs: Record<SectionId, BlockLayoutConfig> = {
   hero: {
     id: 'hero',
@@ -280,15 +289,22 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
         ...screen,
         // Older browser-saved content predates the published screenshot URLs.
         // Keep user edits, but fall back to the source image when that saved URL is blank.
-        imageUrl: screen.imageUrl || initialCourtBookingData.narrative.screenshots[index]?.imageUrl || '',
+        imageUrl: localizeCourtBookingImage(screen.imageUrl || initialCourtBookingData.narrative.screenshots[index]?.imageUrl || ''),
       }));
+
+      const flowDeepDives = (parsed.narrative.flowDeepDives || initialCourtBookingData.narrative.flowDeepDives)
+        .filter((flow) => flow.id !== 'authentication')
+        .map((flow) => ({
+          ...flow,
+          screenshotUrls: flow.screenshotUrls.map(localizeCourtBookingImage),
+        }));
 
       return {
         ...parsed,
         narrative: {
           ...parsed.narrative,
           screenshots,
-          flowDeepDives: (parsed.narrative.flowDeepDives || initialCourtBookingData.narrative.flowDeepDives).filter((flow) => flow.id !== 'authentication'),
+          flowDeepDives,
         },
       };
     } catch {

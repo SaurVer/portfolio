@@ -186,15 +186,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 </p>
               </div>
               <div className="flex flex-wrap gap-2 sm:max-w-xs sm:justify-end">
-                {['Product', 'Data', 'AI'].map((label) => (
-                  <span
-                    key={label}
-                    className="rounded-full border border-white/30 bg-white/[0.1] px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm"
-                    style={{ color: '#f5f5f4' }}
-                  >
-                    {label}
-                  </span>
-                ))}
+                <span
+                  className="rounded-full border border-white/30 bg-white/[0.1] px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.18em] backdrop-blur-sm"
+                  style={{ color: '#f5f5f4' }}
+                >
+                  Product AI
+                </span>
               </div>
             </div>
           </div>
