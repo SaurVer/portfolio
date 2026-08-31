@@ -191,8 +191,8 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
 
             <div className="relative mt-4 transition-all duration-500 md:absolute md:inset-0 md:mt-0">
 
-            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:absolute md:left-[78%] md:top-1/2 md:mb-0 md:min-h-[680px] md:max-w-[450px] md:-translate-x-1/2 md:-translate-y-1/2">
-              <div className="relative w-full rounded-[42px] border-[4px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl sm:w-[400px] sm:rounded-[48px] sm:border-[5px] md:w-[440px]">
+            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:absolute md:left-auto md:right-[214px] md:top-1/2 md:mb-0 md:min-h-[680px] md:max-w-[400px] md:translate-x-0 md:-translate-y-1/2">
+              <div className="relative w-full rounded-[42px] border-[4px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl sm:w-[400px] sm:rounded-[48px] sm:border-[5px] md:w-[400px]">
                 <span className="absolute left-1/2 top-2 z-20 h-2 w-16 -translate-x-1/2 rounded-full bg-slate-950/90 shadow-sm" />
                 {activeScreens.length ? (
                   <div className="relative h-[470px] overflow-hidden rounded-[35px] bg-white sm:h-[548px] sm:rounded-[41px] md:h-[620px]">
@@ -223,7 +223,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-4 py-1.5 text-[8px] font-mono font-bold uppercase tracking-widest !text-white shadow-lg">{flowShortLabels[activeFlow.id]}</span>
             </div>
 
-            <nav aria-label="CourtBooking desktop flow topics" className="absolute left-[425px] top-1/2 z-20 hidden w-[195px] -translate-y-1/2 flex-col gap-1.5 border-l border-white/15 pl-4 md:flex">
+            <nav aria-label="CourtBooking desktop flow topics" className="absolute right-3 top-1/2 z-20 hidden w-[195px] -translate-y-1/2 flex-col gap-1.5 border-l border-white/15 pl-4 md:flex">
               <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-[0.2em] !text-cyan-200/70">Explore the flows</p>
               {flows.map((flow) => {
                 const FlowIcon = flowIcons[flow.iconName] || CalendarCheck;
