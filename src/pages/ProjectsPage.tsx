@@ -142,8 +142,8 @@ const StoryEditor: React.FC<{
   value: string;
   onSave: (value: string) => void;
 }> = ({ label, value, onSave }) => (
-  <div className="rounded-2xl border border-dashed border-stone-200 bg-stone-50/70 p-3.5">
-    <p className="font-mono text-[10px] font-black uppercase tracking-[0.18em] text-stone-500">{label}</p>
+  <div className="rounded-2xl border border-dashed border-stone-200 bg-stone-50/70 p-4 sm:p-5">
+    <p className="font-mono text-xs font-black uppercase tracking-[0.18em] text-stone-600 sm:text-sm">{label}</p>
     <EditableText
       as="p"
       value={value}
@@ -152,7 +152,7 @@ const StoryEditor: React.FC<{
       bulletList
       placeholder={`Add ${label.toLowerCase()} details`}
       labelHint={`${label} section`}
-      className="mt-2 block text-[11px] leading-relaxed text-stone-500"
+      className="mt-3 block text-sm leading-6 text-stone-600 sm:text-[15px] sm:leading-7"
     />
   </div>
 );
@@ -252,8 +252,8 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
                     <Icon className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate font-syne text-base font-bold text-stone-950 sm:text-lg">{project.title}</p>
-                    <p className="mt-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-stone-400">
+                    <p className="truncate font-syne text-lg font-bold text-stone-950 sm:text-xl">{project.title}</p>
+                    <p className="mt-1 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-stone-500 sm:text-xs">
                       {project.type}
                     </p>
                   </div>
@@ -298,7 +298,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
 
               <div className="space-y-4 p-5">
                 <div className="flex items-center justify-between gap-4">
-                  <p className="text-xs text-stone-500">Open the working experience</p>
+                  <p className="text-sm text-stone-600 sm:text-base">Open the working experience</p>
                   {project.appUrl ? (
                     <a
                       href={project.appUrl}
@@ -325,7 +325,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
                       onNavigate('courtbooking');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-2.5 text-xs font-bold text-stone-700 transition-colors hover:border-stone-300 hover:bg-stone-100"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm font-bold text-stone-700 transition-colors hover:border-stone-300 hover:bg-stone-100 sm:text-base"
                   >
                     <Workflow className="h-4 w-4" style={{ color: 'var(--accent-main)' }} />
                     See how it was built
