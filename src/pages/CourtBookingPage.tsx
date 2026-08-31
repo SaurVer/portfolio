@@ -64,6 +64,9 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
   const [isDetailOpen, setIsDetailOpen] = useState(true);
   const activeIndex = activeFlowId ? flows.findIndex((flow) => flow.id === activeFlowId) : -1;
   const activeFlow = activeIndex >= 0 ? flows[activeIndex] : null;
+  const activeScreens = activeFlow?.screenshotUrls
+    .map((url) => url.trim())
+    .filter(Boolean) || [];
 
   const updateFlow = (id: string, updates: Partial<ProductFlowDeepDive>) => {
     updateCourtBooking({
@@ -88,7 +91,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
     .map((point) => point.trim())
     .filter(Boolean);
 
-  useEffect(() => setActiveScreenshotIndex(0), [activeFlowId]);
+  useEffect(() => setActiveScreenshotIndex(0), [activeFlowId, activeScreens.length]);
 
   return (
     <div className="relative isolate mx-auto min-h-screen max-w-6xl overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pt-32 lg:px-8">
@@ -214,14 +217,20 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
             <div className="relative mx-auto mb-5 flex min-h-[590px] max-w-[430px] items-center justify-center md:absolute md:left-1/2 md:top-1/2 md:mb-0 md:-translate-x-1/2 md:-translate-y-1/2">
               <div className="relative w-[400px] rounded-[48px] border-[5px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl">
                 <span className="absolute left-1/2 top-2 z-20 h-2 w-16 -translate-x-1/2 rounded-full bg-slate-950/90 shadow-sm" />
-                {activeFlow.screenshotUrls.length ? (
+                {activeScreens.length ? (
                   <div className="relative h-[548px] overflow-hidden rounded-[41px] bg-white">
-                    <img src={activeFlow.screenshotUrls[activeScreenshotIndex] || activeFlow.screenshotUrls[0]} alt={`${activeFlow.title} interface ${activeScreenshotIndex + 1}`} className="h-full w-full object-contain" />
-                    {activeFlow.screenshotUrls.length > 1 && (
+                    <img
+                      key={`${activeFlow.id}-${activeScreenshotIndex}-${activeScreens[activeScreenshotIndex]}`}
+                      src={activeScreens[activeScreenshotIndex] || activeScreens[0]}
+                      alt={`${activeFlow.title} interface ${activeScreenshotIndex + 1}`}
+                      referrerPolicy="no-referrer"
+                      className="h-full w-full object-contain"
+                    />
+                    {activeScreens.length > 1 && (
                       <>
-                        <button type="button" aria-label="Previous interface image" onClick={() => setActiveScreenshotIndex((current) => (current - 1 + activeFlow.screenshotUrls.length) % activeFlow.screenshotUrls.length)} className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg backdrop-blur"><ArrowLeft className="h-4 w-4" /></button>
-                        <button type="button" aria-label="Next interface image" onClick={() => setActiveScreenshotIndex((current) => (current + 1) % activeFlow.screenshotUrls.length)} className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg backdrop-blur"><ArrowRight className="h-4 w-4" /></button>
-                        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-slate-950/75 px-2.5 py-1 text-[8px] font-mono text-white">{activeScreenshotIndex + 1} / {activeFlow.screenshotUrls.length}</span>
+                        <button type="button" aria-label="Previous interface image" onClick={() => setActiveScreenshotIndex((current) => (current - 1 + activeScreens.length) % activeScreens.length)} className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg backdrop-blur"><ArrowLeft className="h-4 w-4" /></button>
+                        <button type="button" aria-label="Next interface image" onClick={() => setActiveScreenshotIndex((current) => (current + 1) % activeScreens.length)} className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg backdrop-blur"><ArrowRight className="h-4 w-4" /></button>
+                        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-slate-950/75 px-2.5 py-1 text-[8px] font-mono text-white">{activeScreenshotIndex + 1} / {activeScreens.length}</span>
                       </>
                     )}
                   </div>
