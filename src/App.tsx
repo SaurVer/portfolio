@@ -5,7 +5,6 @@ import { HomePage } from './pages/HomePage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { CourtBookingPage } from './pages/CourtBookingPage';
 import { SmallerProjectPage } from './pages/SmallerProjectPage';
-import { BTCJourneyPage } from './pages/BTCJourneyPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { smallerProjectsData } from './data/smallerProjectsData';
 import { ThemeProvider } from './context/ThemeContext';
@@ -84,9 +83,6 @@ function MainAppContent() {
             nextProjectTitle="CourtBooking Case Study"
           />
         );
-      case 'btc-journey':
-      case 'journey':
-        return <BTCJourneyPage onNavigate={navigateTo} />;
       default:
         return <NotFoundPage onNavigate={navigateTo} />;
     }

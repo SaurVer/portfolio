@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Briefcase, Award, Home, Compass, Sliders, Edit3, Layers } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Briefcase, Home, Compass, Sliders, Edit3, Layers } from 'lucide-react';
 import { useContent } from '../context/ContentContext';
 import { useTheme } from '../context/ThemeContext';
 
@@ -32,7 +32,6 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
   const navItems = [
     { label: 'Home', route: 'home', icon: Home },
     { label: 'My Projects', route: 'projects', icon: Briefcase },
-    { label: 'My Journey as President of the BTC', route: 'btc-journey', icon: Award },
   ];
 
   const handleLinkClick = (route: string) => {

@@ -31,14 +31,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   <span>CourtBooking App</span>
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => { onNavigate('btc-journey'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className="hover:text-indigo-600 transition-colors flex items-center gap-1.5 text-slate-700"
-                >
-                  <span>ISB BTC President Journey</span>
-                </button>
-              </li>
             </ul>
           </div>
 

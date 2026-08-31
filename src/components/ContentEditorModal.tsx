@@ -9,7 +9,6 @@ import {
   Compass, 
   Sparkles, 
   Layers, 
-  Award, 
   Download, 
   Copy, 
   Plus, 
@@ -44,8 +43,6 @@ export const ContentEditorModal: React.FC = () => {
     updateCourtBooking,
     smallerProjectsData,
     updateSmallerProject,
-    btcJourneyData,
-    updateBtcJourney,
     resetToDefaults,
     exportJSON,
     importJSON
@@ -64,7 +61,6 @@ export const ContentEditorModal: React.FC = () => {
     { id: 'principles', label: 'Product Principles', icon: Compass },
     { id: 'courtbooking', label: 'CourtBooking App', icon: Sparkles },
     { id: 'smaller-projects', label: 'Smaller Builds', icon: Layers },
-    { id: 'btc-journey', label: 'BTC Journey', icon: Award },
     { id: 'export-import', label: 'Export & Backup', icon: Download },
   ];
 
@@ -800,42 +796,7 @@ export const ContentEditorModal: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 7: BTC JOURNEY */}
-          {activeEditorTab === 'btc-journey' && (
-            <div className="space-y-5 max-w-3xl">
-              <div className="space-y-1">
-                <label className="text-[11px] font-mono font-bold text-stone-700">Leadership Overview</label>
-                <textarea
-                  value={btcJourneyData.leadershipOverview}
-                  onChange={(e) => updateBtcJourney({ leadershipOverview: e.target.value })}
-                  rows={3}
-                  className="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-300 text-xs text-stone-900 leading-relaxed"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[11px] font-mono font-bold text-stone-700">Starting Context</label>
-                <textarea
-                  value={btcJourneyData.startingContext}
-                  onChange={(e) => updateBtcJourney({ startingContext: e.target.value })}
-                  rows={3}
-                  className="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-300 text-xs text-stone-900 leading-relaxed"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[11px] font-mono font-bold text-stone-700">Key Leadership Lessons (One per line)</label>
-                <textarea
-                  value={btcJourneyData.leadershipLessons.join('\n')}
-                  onChange={(e) => updateBtcJourney({ leadershipLessons: e.target.value.split('\n').filter(Boolean) })}
-                  rows={4}
-                  className="w-full p-2.5 rounded-xl bg-stone-50 border border-stone-300 text-xs text-stone-900 leading-relaxed font-mono"
-                />
-              </div>
-            </div>
-          )}
-
-          {/* TAB 8: EXPORT & IMPORT BACKUP */}
+          {/* EXPORT & IMPORT BACKUP */}
           {activeEditorTab === 'export-import' && (
             <div className="space-y-6 max-w-2xl">
               <div className="p-5 rounded-2xl bg-stone-50 border border-stone-200 space-y-3">

@@ -58,6 +58,7 @@ const blueprintPositions = [
 
 export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }) => {
   const { courtBookingData, updateCourtBooking, isLiveEditMode } = useContent();
+  const isDevelopment = import.meta.env.DEV;
   const flows = courtBookingData.narrative.flowDeepDives;
   const [activeFlowId, setActiveFlowId] = useState<string>(flows[0]?.id || 'login-signup');
   const [activeScreenshotIndex, setActiveScreenshotIndex] = useState(0);
@@ -94,7 +95,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
   useEffect(() => setActiveScreenshotIndex(0), [activeFlowId, activeScreens.length]);
 
   return (
-    <div className="relative isolate mx-auto min-h-screen max-w-6xl overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+    <div className="relative isolate mx-auto min-h-screen max-w-6xl overflow-hidden px-4 pb-28 pt-28 sm:px-6 sm:pt-32 md:pb-12 lg:px-8">
       <div className="pointer-events-none absolute -left-32 top-40 -z-10 h-80 w-80 rounded-full bg-blue-100/40 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 top-96 -z-10 h-80 w-80 rounded-full bg-emerald-100/40 blur-3xl" />
 
@@ -153,7 +154,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
           <div className="relative overflow-visible rounded-[30px] border border-white/15 bg-white/[.055] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl sm:p-4 md:min-h-[900px] md:overflow-hidden">
             <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
             <aside className={`relative z-40 w-full rounded-[24px] border border-white/55 bg-white/[.9] p-4 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 sm:p-5 md:absolute md:bottom-4 md:left-4 md:top-4 md:w-[calc(100%-2rem)] md:max-w-[350px] md:rounded-[28px] ${isDetailOpen ? 'block translate-x-0 opacity-100' : 'hidden -translate-x-[115%] opacity-0 pointer-events-none md:block'}`} aria-hidden={!isDetailOpen}>
-              <button type="button" aria-label="Close topic details" onClick={() => setIsDetailOpen(false)} className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:rotate-90 hover:text-slate-950"><X className="h-4 w-4" /></button>
+              <button type="button" aria-label="Close topic details" onClick={() => setIsDetailOpen(false)} className="absolute right-4 top-4 hidden h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:rotate-90 hover:text-slate-950 md:flex"><X className="h-4 w-4" /></button>
               <div className="flex h-full flex-col">
                 <div className="border-b border-slate-200 pb-4 pr-9">
                   <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-violet-500 text-white shadow-lg"><ActiveIcon className="h-5 w-5" /></span>
@@ -191,7 +192,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
                     </div>
                   ))}
                 </div>
-                <div className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3">
+                <div className="mt-4 hidden items-center justify-between border-t border-slate-200 pt-3 md:flex">
                   <button type="button" onClick={() => selectRelativeFlow(-1)} className="inline-flex items-center gap-1 text-[9px] font-mono font-bold text-slate-500 hover:text-slate-900"><ArrowLeft className="h-3.5 w-3.5" /> Previous</button>
                   <button type="button" onClick={() => selectRelativeFlow(1)} className="inline-flex items-center gap-1 text-[9px] font-mono font-bold text-slate-500 hover:text-slate-900">Next <ArrowRight className="h-3.5 w-3.5" /></button>
                 </div>
@@ -246,7 +247,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-4 py-1.5 text-[8px] font-mono font-bold uppercase tracking-widest !text-white shadow-lg">{flowShortLabels[activeFlow.id]}</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 md:block">
+            <div className="hidden md:block">
               {flows.map((flow, index) => {
                 const FlowIcon = flowIcons[flow.iconName] || CalendarCheck;
                 const isActive = flow.id === activeFlowId;
@@ -272,6 +273,36 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
           </div>
           </div>
         </section>
+      )}
+
+      {activeFlow && (
+        <nav
+          aria-label="CourtBooking flow topics"
+          className={`fixed left-3 right-3 z-40 flex gap-1.5 overflow-x-auto rounded-2xl border border-white/50 bg-slate-950/90 p-2 shadow-[0_18px_55px_-18px_rgba(2,8,23,.9)] backdrop-blur-xl md:hidden ${isDevelopment ? 'bottom-20' : 'bottom-3'}`}
+        >
+          {flows.map((flow) => {
+            const FlowIcon = flowIcons[flow.iconName] || CalendarCheck;
+            const isActive = flow.id === activeFlowId;
+            return (
+              <button
+                key={flow.id}
+                type="button"
+                title={flowShortLabels[flow.id] || flow.title}
+                aria-label={flowShortLabels[flow.id] || flow.title}
+                aria-pressed={isActive}
+                onClick={() => {
+                  setActiveFlowId(flow.id);
+                  setIsDetailOpen(true);
+                }}
+                className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition ${isActive ? 'border-white/80 bg-gradient-to-br from-cyan-400 to-violet-500 text-white shadow-lg' : 'border-white/10 bg-white/10 text-slate-300 hover:bg-white/15'}`}
+              >
+                <FlowIcon className="h-[18px] w-[18px]" />
+                <span className="sr-only">{flowShortLabels[flow.id] || flow.title}</span>
+                {isActive && <span className="absolute -bottom-0.5 left-1/2 h-1 w-3 -translate-x-1/2 rounded-full bg-white" />}
+              </button>
+            );
+          })}
+        </nav>
       )}
     </div>
   );
