@@ -95,7 +95,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
   useEffect(() => setActiveScreenshotIndex(0), [activeFlowId, activeScreens.length]);
 
   return (
-    <div className="relative isolate mx-auto min-h-screen max-w-6xl overflow-hidden px-4 pb-28 pt-28 sm:px-6 sm:pt-32 md:pb-12 lg:px-8">
+    <div className="relative isolate mx-auto min-h-screen max-w-6xl overflow-hidden px-4 pb-28 pt-28 sm:px-6 sm:pt-32 md:pb-12 lg:max-w-[1600px] lg:px-8 lg:pt-24">
       <div className="pointer-events-none absolute -left-32 top-40 -z-10 h-80 w-80 rounded-full bg-blue-100/40 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 top-96 -z-10 h-80 w-80 rounded-full bg-emerald-100/40 blur-3xl" />
 

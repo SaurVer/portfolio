@@ -42,7 +42,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 pb-2 transition-all duration-300 pointer-events-none md:border-b md:border-stone-200/80 md:bg-white/90 md:py-3 md:backdrop-blur-xl">
-      <div className="max-w-6xl mx-auto flex items-center justify-between md:min-h-11">
+      <div className="max-w-6xl lg:max-w-[1600px] mx-auto flex items-center justify-between md:min-h-11">
         
         {/* Floating Brand Badge */}
         <div className="pointer-events-auto flex items-center gap-2">

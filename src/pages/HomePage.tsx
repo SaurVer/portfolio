@@ -151,7 +151,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     );
 
     const heroShell = (content: React.ReactNode) => (
-      <div className="pt-16 sm:pt-20 lg:pt-24">
+      <div className="pt-16 sm:pt-20 lg:pt-10">
         <div className="relative overflow-hidden rounded-[2rem] border border-stone-300 bg-stone-50 p-3 shadow-[0_35px_90px_-40px_rgba(28,25,23,0.65)] sm:p-4 lg:overflow-visible lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#d6d3d1_1px,transparent_1px),linear-gradient(to_bottom,#d6d3d1_1px,transparent_1px)] bg-[size:32px_32px] opacity-[0.18]" />
           <div className="absolute inset-y-0 left-0 w-[38%] bg-gradient-to-br from-stone-200/80 via-stone-100/50 to-transparent lg:hidden" />

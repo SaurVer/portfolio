@@ -27,16 +27,16 @@ interface BlockContainerProps {
 }
 
 const WIDTH_CLASSES: Record<SectionWidth, string> = {
-  narrow: 'max-w-4xl',
-  standard: 'max-w-6xl',
-  wide: 'max-w-7xl',
+  narrow: 'max-w-4xl lg:max-w-6xl',
+  standard: 'max-w-6xl lg:max-w-[1600px]',
+  wide: 'max-w-7xl lg:max-w-[1760px]',
   full: 'max-w-full px-4 sm:px-8 lg:px-12',
 };
 
 const PADDING_CLASSES: Record<SectionPadding, string> = {
   compact: 'py-4 sm:py-6',
-  standard: 'py-8 sm:py-10',
-  spacious: 'py-14 sm:py-16',
+  standard: 'py-8 sm:py-10 lg:py-6',
+  spacious: 'py-14 sm:py-16 lg:py-12',
 };
 
 export const BlockContainer: React.FC<BlockContainerProps> = ({

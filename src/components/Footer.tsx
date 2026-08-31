@@ -13,7 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       {/* Background Subtle Grid Texture */}
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <div className="relative max-w-6xl lg:max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         
         {/* Top Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">

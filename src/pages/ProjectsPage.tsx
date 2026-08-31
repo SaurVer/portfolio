@@ -219,7 +219,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+    <main className="mx-auto max-w-6xl px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:max-w-[1600px] lg:px-8 lg:pt-24">
       <header className="mx-auto max-w-3xl text-center">
         <div
           className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] shadow-sm"
