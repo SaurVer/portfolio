@@ -46,16 +46,6 @@ const flowShortLabels: Record<string, string> = {
   heatmap: 'Finding current bookings',
 };
 
-const blueprintPositions = [
-  'md:left-[12%] md:top-[10%]',
-  'md:left-[40%] md:top-[3%]',
-  'md:right-[12%] md:top-[13%]',
-  'md:right-[8%] md:top-[46%]',
-  'md:right-[19%] md:bottom-[7%]',
-  'md:left-[25%] md:bottom-[6%]',
-  'md:left-[8%] md:top-[46%]',
-];
-
 export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }) => {
   const { courtBookingData, updateCourtBooking, isLiveEditMode } = useContent();
   const isDevelopment = import.meta.env.DEV;
@@ -148,7 +138,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               <p className="text-[9px] font-mono font-bold uppercase tracking-[0.24em] !text-cyan-200/85">CourtBooking product blueprint</p>
               <h2 className="mt-2 font-syne text-2xl font-bold tracking-tight !text-white sm:text-3xl">Seven topics around one experience.</h2>
             </div>
-            <p className="max-w-md text-xs leading-5 !text-slate-200/75 sm:text-right">Select any station to see its interface and product reasoning at the centre of the system.</p>
+            <p className="max-w-md text-xs leading-5 !text-slate-200/75 sm:text-right">Choose a flow from the vertical index to update the interface preview and product reasoning.</p>
           </div>
 
           <div className="relative overflow-visible rounded-[30px] border border-white/15 bg-white/[.055] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl sm:p-4 md:min-h-[900px] md:overflow-hidden md:rounded-none md:border-x-0 md:bg-transparent md:px-0">
@@ -199,27 +189,13 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               </div>
             </aside>
 
-            <div className={`relative mt-4 transition-all duration-500 md:absolute md:inset-0 md:mt-0 ${isDetailOpen ? 'md:origin-right md:translate-x-[8%] md:scale-[.84] md:opacity-95' : 'scale-100 opacity-100'}`}>
-            <svg aria-hidden="true" className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" viewBox="0 0 900 900" preserveAspectRatio="none">
-              {[[190,150],[450,95],[710,165],[745,450],[650,755],[270,755],[155,450]].map(([x,y], index) => (
-                <g key={index}>
-                  <line x1="450" y1="450" x2={x} y2={y} stroke="#9bd9e5" strokeOpacity=".7" strokeWidth="2.5" strokeDasharray="7 9" />
-                  <circle cx={x} cy={y} r="8" fill="#b9e8f0" />
-                </g>
-              ))}
-              <circle cx="450" cy="450" r="170" fill="none" stroke="#b9e8f0" strokeOpacity=".62" strokeWidth="2.5" />
-              {[0,51.43,102.86,154.29,205.71,257.14,308.57].map((angle) => {
-                const x = 450 + Math.cos((angle * Math.PI) / 180) * 170;
-                const y = 450 + Math.sin((angle * Math.PI) / 180) * 170;
-                return <circle key={angle} cx={x} cy={y} r="7" fill="#d7f3f7" />;
-              })}
-            </svg>
+            <div className="relative mt-4 transition-all duration-500 md:absolute md:inset-0 md:mt-0">
 
-            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:absolute md:left-1/2 md:top-1/2 md:mb-0 md:min-h-[700px] md:max-w-[480px] md:-translate-x-1/2 md:-translate-y-1/2">
-              <div className="relative w-full rounded-[42px] border-[4px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl sm:w-[400px] sm:rounded-[48px] sm:border-[5px] md:w-[470px]">
+            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:absolute md:left-[78%] md:top-1/2 md:mb-0 md:min-h-[680px] md:max-w-[450px] md:-translate-x-1/2 md:-translate-y-1/2">
+              <div className="relative w-full rounded-[42px] border-[4px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl sm:w-[400px] sm:rounded-[48px] sm:border-[5px] md:w-[440px]">
                 <span className="absolute left-1/2 top-2 z-20 h-2 w-16 -translate-x-1/2 rounded-full bg-slate-950/90 shadow-sm" />
                 {activeScreens.length ? (
-                  <div className="relative h-[470px] overflow-hidden rounded-[35px] bg-white sm:h-[548px] sm:rounded-[41px] md:h-[650px]">
+                  <div className="relative h-[470px] overflow-hidden rounded-[35px] bg-white sm:h-[548px] sm:rounded-[41px] md:h-[620px]">
                     <img
                       key={`${activeFlow.id}-${activeScreenshotIndex}-${activeScreens[activeScreenshotIndex]}`}
                       src={activeScreens[activeScreenshotIndex] || activeScreens[0]}
@@ -236,7 +212,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
                     )}
                   </div>
                 ) : (
-                  <div className="flex h-[470px] w-full flex-col items-center justify-center rounded-[35px] bg-gradient-to-b from-[#163846] to-[#081b24] sm:h-[548px] sm:rounded-[41px] md:h-[650px]">
+                  <div className="flex h-[470px] w-full flex-col items-center justify-center rounded-[35px] bg-gradient-to-b from-[#163846] to-[#081b24] sm:h-[548px] sm:rounded-[41px] md:h-[620px]">
                     <ActiveIcon className="h-10 w-10 !text-[#bd7359]" />
                     <span className="mt-3 px-4 text-center font-syne text-sm font-bold !text-white">{activeFlow.title}</span>
                     <span className="mt-1 text-[8px] font-mono !text-[#b4ccc5]">Interface coming soon</span>
@@ -247,28 +223,28 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-4 py-1.5 text-[8px] font-mono font-bold uppercase tracking-widest !text-white shadow-lg">{flowShortLabels[activeFlow.id]}</span>
             </div>
 
-            <div className="hidden md:block">
-              {flows.map((flow, index) => {
+            <nav aria-label="CourtBooking desktop flow topics" className="absolute left-[425px] top-1/2 z-20 hidden w-[195px] -translate-y-1/2 flex-col gap-1.5 border-l border-white/15 pl-4 md:flex">
+              <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-[0.2em] !text-cyan-200/70">Explore the flows</p>
+              {flows.map((flow) => {
                 const FlowIcon = flowIcons[flow.iconName] || CalendarCheck;
                 const isActive = flow.id === activeFlowId;
                 return (
                   <button
                     key={flow.id}
                     type="button"
-                    aria-label={`${String(index + 1).padStart(2, '0')} ${flow.title}`}
+                    aria-label={flowShortLabels[flow.id] || flow.title}
                     aria-pressed={isActive}
                     onClick={() => { setActiveFlowId(flow.id); setIsDetailOpen(true); }}
-                    className={`group relative flex min-h-[128px] flex-col items-center justify-center text-center transition duration-300 md:absolute md:h-[116px] md:w-[170px] ${blueprintPositions[index]} ${isActive ? 'z-10 scale-110' : 'hover:scale-105'}`}
+                    className={`group flex w-full items-center gap-3 border-l-2 px-2 py-2 text-left transition duration-300 ${isActive ? 'border-cyan-300 bg-white/[.07]' : 'border-transparent bg-transparent hover:border-white/25 hover:bg-white/[.035]'}`}
                   >
-                    <span className={`relative flex h-[72px] w-[92px] items-center justify-center rounded-[45%] border shadow-[0_20px_40px_-20px_rgba(2,8,23,.95),inset_0_1px_0_rgba(255,255,255,.25)] backdrop-blur-xl transition ${isActive ? 'border-white/80 bg-gradient-to-br from-cyan-400/90 to-violet-500/90' : 'border-white/30 bg-white/[.10] group-hover:border-white/50 group-hover:bg-white/[.16]'}`}>
-                      <FlowIcon className="h-8 w-8 !text-white" />
-                      {flow.screenshotUrls[0] && <span className="absolute -right-5 bottom-0 h-14 w-10 rotate-6 overflow-hidden rounded-md border-2 border-white bg-white"><img src={flow.screenshotUrls[0]} alt="" className="h-full w-full object-cover" /></span>}
+                    <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition ${isActive ? 'border-white/70 bg-gradient-to-br from-cyan-400 to-violet-500 shadow-lg' : 'border-white/20 bg-white/[.08] group-hover:bg-white/[.14]'}`}>
+                      <FlowIcon className="h-5 w-5 !text-white" />
                     </span>
-                    <span className="mt-2 flex min-h-[28px] w-full max-w-[170px] items-start justify-center text-center font-syne text-[10px] font-bold uppercase leading-[1.25] tracking-[0.08em] !text-slate-100">{flowShortLabels[flow.id] || flow.title}</span>
+                    <span className="font-syne text-[11px] font-bold uppercase leading-[1.3] tracking-[0.06em] !text-slate-100">{flowShortLabels[flow.id] || flow.title}</span>
                   </button>
                 );
               })}
-            </div>
+            </nav>
 
           </div>
           </div>
