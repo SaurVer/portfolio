@@ -116,6 +116,32 @@
     --badge-text: #111113;
   }
 
+  /* Keep utility-coloured content readable when the dark gallery palette is active. */
+  [data-theme="tokyo-night"] .bg-white,
+  [data-theme="tokyo-night"] .bg-stone-50,
+  [data-theme="tokyo-night"] .bg-stone-100 {
+    background-color: var(--bg-card) !important;
+  }
+
+  [data-theme="tokyo-night"] .text-stone-950,
+  [data-theme="tokyo-night"] .text-stone-900,
+  [data-theme="tokyo-night"] .text-stone-800,
+  [data-theme="tokyo-night"] .text-stone-700 {
+    color: var(--text-primary) !important;
+  }
+
+  [data-theme="tokyo-night"] .text-stone-600,
+  [data-theme="tokyo-night"] .text-stone-500,
+  [data-theme="tokyo-night"] .text-stone-400 {
+    color: var(--text-secondary) !important;
+  }
+
+  [data-theme="tokyo-night"] .border-stone-100,
+  [data-theme="tokyo-night"] .border-stone-200,
+  [data-theme="tokyo-night"] .border-stone-300 {
+    border-color: var(--border-card) !important;
+  }
+
   /* Typography Pairing Rules */
   :root, [data-font="syne-modern"] {
     --font-heading: 'Syne', sans-serif;

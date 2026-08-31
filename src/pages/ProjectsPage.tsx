@@ -5,7 +5,11 @@ import {
   BookOpenCheck,
   CalendarDays,
   ClipboardList,
+  ChevronLeft,
+  ChevronRight,
   LucideIcon,
+  Workflow,
+  X,
 } from 'lucide-react';
 import { EditableText } from '../components/EditableText';
 
@@ -28,9 +32,17 @@ interface ProjectOverview {
   impact: string;
 }
 
+interface ImageViewerState {
+  images: string[];
+  index: number;
+  altPrefix: string;
+}
+
 type StoryField = 'why' | 'how' | 'impact';
 
 const PROJECT_STORIES_STORAGE_KEY = 'portfolio_project_stories_v2';
+
+const fixKnownSpellingErrors = (value: string) => value.replace(/\bcerated\b/gi, 'created');
 
 const projects: ProjectOverview[] = [
   {
@@ -74,7 +86,7 @@ Presented the app to the Operations head and further negotiations going on to ad
     imageAlt: 'Product Management learning workflow page',
     appUrl: 'https://full-product-roadmap-saurabh-isb.netlify.app/',
     imageStyle: 'object-cover object-top',
-    why: 'Many students showed interest in knowing more about Product Management and wanted a one stop resource for that. As an active member in the Product Management community, I identified a gap and cerated an extensive resource to help the cohort',
+    why: 'Many students showed interest in knowing more about Product Management and wanted a one stop resource for that. As an active member in the Product Management community, I identified a gap and created an extensive resource to help the cohort',
     how: `Drew upon my existing Product Management knowledge and experience to define the core content and curriculum.
 Conducted additional research and curated relevant videos and articles for each topic to deepen understanding.
 Structured the learning journey into L1, L2 and L3 levels through a clear workflow.
@@ -145,17 +157,26 @@ const StoryEditor: React.FC<{
   </div>
 );
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = () => {
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
   const [projectCards, setProjectCards] = useState<ProjectOverview[]>(() => {
     try {
       const saved = localStorage.getItem(PROJECT_STORIES_STORAGE_KEY);
       if (!saved) return projects;
       const savedStories = JSON.parse(saved) as Record<string, Partial<Record<StoryField, string>>>;
-      return projects.map((project) => ({ ...project, ...savedStories[project.id] }));
+      return projects.map((project) => {
+        const merged = { ...project, ...savedStories[project.id] };
+        return {
+          ...merged,
+          why: fixKnownSpellingErrors(merged.why),
+          how: fixKnownSpellingErrors(merged.how),
+          impact: fixKnownSpellingErrors(merged.impact),
+        };
+      });
     } catch {
       return projects;
     }
   });
+  const [selectedImage, setSelectedImage] = useState<ImageViewerState | null>(null);
 
   useEffect(() => {
     const storyData = Object.fromEntries(
@@ -163,6 +184,33 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = () => {
     );
     localStorage.setItem(PROJECT_STORIES_STORAGE_KEY, JSON.stringify(storyData));
   }, [projectCards]);
+
+  useEffect(() => {
+    if (!selectedImage) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleViewerKeys = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedImage(null);
+      if (event.key === 'ArrowLeft') {
+        setSelectedImage((current) => current && ({ ...current, index: (current.index - 1 + current.images.length) % current.images.length }));
+      }
+      if (event.key === 'ArrowRight') {
+        setSelectedImage((current) => current && ({ ...current, index: (current.index + 1) % current.images.length }));
+      }
+    };
+    window.addEventListener('keydown', handleViewerKeys);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleViewerKeys);
+    };
+  }, [selectedImage]);
+
+  const moveSelectedImage = (direction: -1 | 1) => {
+    setSelectedImage((current) => current && ({
+      ...current,
+      index: (current.index + direction + current.images.length) % current.images.length,
+    }));
+  };
 
   const updateStory = (projectId: string, field: StoryField, value: string) => {
     setProjectCards((current) =>
@@ -217,21 +265,34 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = () => {
                 {project.gallery ? (
                   <div className="grid h-full grid-cols-4 gap-1 bg-stone-200 p-1">
                     {project.gallery.map((image, imageIndex) => (
-                      <div key={image} className="overflow-hidden bg-white">
+                      <button
+                        key={image}
+                        type="button"
+                        onClick={() => setSelectedImage({ images: project.gallery || [image], index: imageIndex, altPrefix: project.title })}
+                        className="cursor-zoom-in overflow-hidden bg-white"
+                        aria-label={`Open ${project.title} screen ${imageIndex + 1}`}
+                      >
                         <img
                           src={image}
                           alt={`${project.title} screen ${imageIndex + 1}`}
                           className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]"
                         />
-                      </div>
+                      </button>
                     ))}
                   </div>
                 ) : (
-                  <img
-                    src={project.image}
-                    alt={project.imageAlt}
-                    className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.02] ${project.imageStyle || 'object-cover'}`}
-                  />
+                  <button
+                    type="button"
+                    onClick={() => setSelectedImage({ images: [project.image], index: 0, altPrefix: project.imageAlt })}
+                    className="h-full w-full cursor-zoom-in"
+                    aria-label={`Open ${project.title} screenshot`}
+                  >
+                    <img
+                      src={project.image}
+                      alt={project.imageAlt}
+                      className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.02] ${project.imageStyle || 'object-cover'}`}
+                    />
+                  </button>
                 )}
               </div>
 
@@ -243,11 +304,11 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = () => {
                       href={project.appUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex shrink-0 items-center gap-1.5 text-xs font-bold hover:underline"
-                      style={{ color: 'var(--accent-main)' }}
+                      className="inline-flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
+                      style={{ backgroundColor: 'var(--accent-main)' }}
                     >
                       Visit app
-                      <ArrowUpRight className="h-3.5 w-3.5" />
+                      <ArrowUpRight className="h-5 w-5" />
                     </a>
                   ) : (
                     <span className="inline-flex shrink-0 items-center gap-1.5 text-xs font-semibold text-stone-400">
@@ -256,6 +317,21 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = () => {
                     </span>
                   )}
                 </div>
+
+                {project.id === 'courtbooking' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onNavigate('courtbooking');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-stone-200 bg-stone-50 px-4 py-2.5 text-xs font-bold text-stone-700 transition-colors hover:border-stone-300 hover:bg-stone-100"
+                  >
+                    <Workflow className="h-4 w-4" style={{ color: 'var(--accent-main)' }} />
+                    See how it was built
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </button>
+                )}
 
                 <div className="flex flex-col gap-2.5 border-t border-stone-100 pt-4">
                   <StoryEditor label="Why" value={project.why} onSave={(value) => updateStory(project.id, 'why', value)} />
@@ -267,6 +343,60 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = () => {
           );
         })}
       </section>
+
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-stone-950/90 p-4 backdrop-blur-sm sm:p-8"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Project screenshot viewer"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setSelectedImage(null)}
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 sm:right-7 sm:top-7"
+            aria-label="Close image viewer"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <img
+            src={selectedImage.images[selectedImage.index]}
+            alt={`${selectedImage.altPrefix}${selectedImage.images.length > 1 ? ` screen ${selectedImage.index + 1}` : ''}`}
+            onClick={(event) => event.stopPropagation()}
+            className="max-h-[90vh] max-w-[94vw] rounded-2xl bg-white object-contain shadow-2xl"
+          />
+          {selectedImage.images.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  moveSelectedImage(-1);
+                }}
+                className="absolute left-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-stone-950/55 text-white backdrop-blur transition-all hover:scale-105 hover:bg-stone-950/80 sm:left-7 sm:h-14 sm:w-14"
+                aria-label="Previous CourtBooking image"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  moveSelectedImage(1);
+                }}
+                className="absolute right-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-stone-950/55 text-white backdrop-blur transition-all hover:scale-105 hover:bg-stone-950/80 sm:right-7 sm:h-14 sm:w-14"
+                aria-label="Next CourtBooking image"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/20 bg-stone-950/65 px-3 py-1.5 font-mono text-[11px] font-bold text-white backdrop-blur sm:bottom-7">
+                {selectedImage.index + 1} of {selectedImage.images.length}
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </main>
   );
 };

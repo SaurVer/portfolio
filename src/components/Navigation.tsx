@@ -19,6 +19,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
     setIsLayoutManagerOpen 
   } = useContent();
   const { setIsCustomizerOpen } = useTheme();
+  const isDevelopment = import.meta.env.DEV;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,18 +46,28 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         
         {/* Floating Brand Badge */}
-        <button
-          onClick={() => handleLinkClick('home')}
-          className="pointer-events-auto flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200 text-stone-900 hover:border-stone-400 transition-all group shadow-sm"
-          aria-label="Go to Homepage"
-        >
-          <span className="font-bold tracking-tight text-xs sm:text-sm text-stone-900 group-hover:text-stone-700 transition-colors">
-            Welcome to my Portfolio
-          </span>
-          <span className="text-[11px] font-mono text-stone-500 border-l border-stone-200 pl-2 hidden sm:inline">
-            {profileData.name || 'Saurabh Verma'}
-          </span>
-        </button>
+        <div className="pointer-events-auto flex items-center gap-2">
+          <button
+            onClick={() => handleLinkClick('home')}
+            className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200 text-stone-900 hover:border-stone-400 transition-all group shadow-sm"
+            aria-label="Go to Homepage"
+          >
+            <span className="font-bold tracking-tight text-xs sm:text-sm text-stone-900 group-hover:text-stone-700 transition-colors">
+              Welcome to my Portfolio
+            </span>
+            <span className="text-[11px] font-mono text-stone-500 border-l border-stone-200 pl-2 hidden sm:inline">
+              {profileData.name || 'Saurabh Verma'}
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleLinkClick('courtbooking')}
+            className="inline-flex items-center gap-1.5 rounded-full border border-cyan-300 bg-cyan-100 px-2.5 py-1.5 text-[10px] font-bold text-cyan-950 shadow-md transition hover:-translate-y-0.5 hover:border-cyan-400 hover:bg-cyan-200 sm:px-3 sm:text-[11px]"
+          >
+            <span>Access My Flagship Project</span>
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
 
         {/* Floating Desktop Menu Bar */}
         <nav className="pointer-events-auto hidden md:flex items-center gap-1.5 p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200 shadow-md shadow-stone-200/40">
@@ -105,6 +116,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
 
         {/* Right CTA Button & Theme Switcher */}
         <div className="pointer-events-auto flex items-center gap-2">
+          {isDevelopment && <>
           {/* Edit Mode Toggle */}
           <button
             onClick={toggleLiveEditMode}
@@ -138,6 +150,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
             <Sliders className="w-3.5 h-3.5" style={{ color: 'var(--accent-main)' }} />
             <span className="hidden lg:inline text-[11px] font-semibold">Theme</span>
           </button>
+          </>}
 
           {/* Mobile Menu Hamburger */}
           <button
@@ -185,6 +198,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
           })}
 
           <div className="pt-2 border-t border-stone-100 flex flex-col gap-2">
+            {isDevelopment && <>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -225,6 +239,16 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
                 <span>Customize Theme & Font</span>
               </div>
               <span className="text-xs font-bold" style={{ color: 'var(--accent-main)' }}>Studio</span>
+            </button>
+            </>}
+
+            <button
+              type="button"
+              onClick={() => handleLinkClick('courtbooking')}
+              className="w-full flex items-center justify-between p-3 rounded-xl text-sm font-bold text-cyan-900 bg-cyan-50 hover:bg-cyan-100"
+            >
+              <span>Access My Flagship Project</span>
+              <ArrowUpRight className="w-4 h-4" />
             </button>
 
             {profileData.linkedInUrl && (

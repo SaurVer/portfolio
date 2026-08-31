@@ -276,7 +276,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
       if (!saved) return initialCourtBookingData;
 
       const parsed = JSON.parse(saved) as CourtBookingCaseStudy;
-      const screenshots = parsed.narrative.screenshots.map((screen, index) => ({
+      const screenshots = (parsed.narrative.screenshots || initialCourtBookingData.narrative.screenshots).map((screen, index) => ({
         ...screen,
         // Older browser-saved content predates the published screenshot URLs.
         // Keep user edits, but fall back to the source image when that saved URL is blank.
@@ -288,6 +288,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
         narrative: {
           ...parsed.narrative,
           screenshots,
+          flowDeepDives: (parsed.narrative.flowDeepDives || initialCourtBookingData.narrative.flowDeepDives).filter((flow) => flow.id !== 'authentication'),
         },
       };
     } catch {
@@ -339,6 +340,7 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // Edit Mode state
   const [isLiveEditMode, setIsLiveEditModeState] = useState<boolean>(() => {
+    if (!import.meta.env.DEV) return false;
     const saved = localStorage.getItem(EDIT_MODE_KEY);
     return saved !== null ? saved === 'true' : true;
   });
@@ -413,11 +415,13 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   }, [blockLayouts]);
 
   const setIsLiveEditMode = (val: boolean) => {
+    if (!import.meta.env.DEV) return;
     setIsLiveEditModeState(val);
     localStorage.setItem(EDIT_MODE_KEY, String(val));
   };
 
   const toggleLiveEditMode = () => {
+    if (!import.meta.env.DEV) return;
     setIsLiveEditModeState((prev) => {
       const next = !prev;
       localStorage.setItem(EDIT_MODE_KEY, String(next));

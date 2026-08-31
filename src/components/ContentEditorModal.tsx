@@ -675,6 +675,73 @@ export const ContentEditorModal: React.FC = () => {
                   ))}
                 </div>
               </div>
+
+              <div className="space-y-3 pt-4 border-t border-stone-200">
+                <div>
+                  <p className="text-xs font-mono font-bold text-stone-800">Flow Screen Galleries</p>
+                  <p className="text-[11px] text-stone-500">Manage the phone screenshots shown for each of the eight CourtBooking flows.</p>
+                </div>
+                <div className="space-y-3">
+                  {courtBookingData.narrative.flowDeepDives.map((flow, flowIndex) => (
+                    <div key={flow.id} className="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <p className="text-xs font-bold text-stone-900">{flow.title}</p>
+                          <p className="mt-0.5 text-[10px] text-stone-500">{flow.screenshotUrls.length} screen{flow.screenshotUrls.length === 1 ? '' : 's'}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const flowDeepDives = courtBookingData.narrative.flowDeepDives.map((item, index) => index === flowIndex ? { ...item, screenshotUrls: [...item.screenshotUrls, ''] } : item);
+                            updateCourtBooking({ narrative: { ...courtBookingData.narrative, flowDeepDives } });
+                          }}
+                          className="inline-flex items-center gap-1.5 rounded-full bg-stone-900 px-3 py-1.5 text-[10px] font-bold text-white transition hover:bg-stone-700"
+                        >
+                          <Plus className="h-3 w-3" /> Add image link
+                        </button>
+                      </div>
+
+                      {flow.screenshotUrls.length > 0 ? (
+                        <div className="mt-3 space-y-2">
+                          {flow.screenshotUrls.map((url, urlIndex) => (
+                            <div key={`${flow.id}-${urlIndex}`} className="flex items-center gap-2">
+                              <input
+                                type="url"
+                                value={url}
+                                placeholder="https://.../screen.png"
+                                aria-label={`${flow.title} screen ${urlIndex + 1} image URL`}
+                                onChange={(event) => {
+                                  const flowDeepDives = courtBookingData.narrative.flowDeepDives.map((item, index) => {
+                                    if (index !== flowIndex) return item;
+                                    const screenshotUrls = [...item.screenshotUrls];
+                                    screenshotUrls[urlIndex] = event.target.value;
+                                    return { ...item, screenshotUrls };
+                                  });
+                                  updateCourtBooking({ narrative: { ...courtBookingData.narrative, flowDeepDives } });
+                                }}
+                                className="min-w-0 flex-1 rounded-lg border border-stone-300 bg-white p-2 text-xs text-stone-900"
+                              />
+                              <button
+                                type="button"
+                                aria-label={`Remove ${flow.title} screen ${urlIndex + 1}`}
+                                onClick={() => {
+                                  const flowDeepDives = courtBookingData.narrative.flowDeepDives.map((item, index) => index === flowIndex ? { ...item, screenshotUrls: item.screenshotUrls.filter((_, imageIndex) => imageIndex !== urlIndex) } : item);
+                                  updateCourtBooking({ narrative: { ...courtBookingData.narrative, flowDeepDives } });
+                                }}
+                                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-rose-200 bg-white text-rose-600 transition hover:bg-rose-50"
+                              >
+                                <Trash2 className="h-3.5 w-3.5" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="mt-3 rounded-xl border border-dashed border-stone-300 bg-white px-3 py-3 text-center text-[10px] text-stone-500">No flow screenshots added yet.</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 

@@ -1,588 +1,269 @@
-import React, { useState } from 'react';
-import { 
-  ArrowLeft, ArrowRight, ExternalLink, Calendar, Building, User, Wrench, 
-  CheckCircle2, AlertCircle, Sparkles, Layers, ZoomIn 
+import React, { useEffect, useState } from 'react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  ExternalLink,
+  LogIn,
+  CalendarCheck,
+  RefreshCw,
+  MapPinCheck,
+  ShieldCheck,
+  MessageSquareWarning,
+  ChartNoAxesColumnIncreasing,
+  UserCheck,
+  CalendarX,
+  CircleCheckBig,
+  Target,
+  AlertCircle,
+  Lightbulb,
+  X,
 } from 'lucide-react';
-import { courtBookingData } from '../data/courtBookingData';
-import { UserJourneyFlow } from '../components/UserJourneyFlow';
-import { ArchitectureDiagram } from '../components/ArchitectureDiagram';
-import { LightboxModal } from '../components/LightboxModal';
-import { PlaceholderTag } from '../components/PlaceholderTag';
+import { EditableText } from '../components/EditableText';
+import { useContent } from '../context/ContentContext';
+import { ProductFlowDeepDive } from '../types';
 
 interface CourtBookingPageProps {
   onNavigate: (route: string) => void;
 }
 
+const flowIcons: Record<string, React.ElementType> = {
+  LogIn: UserCheck,
+  CalendarCheck,
+  RefreshCw: CalendarX,
+  MapPinCheck: CircleCheckBig,
+  ShieldCheck,
+  MessageSquareWarning,
+  ChartNoAxesColumnIncreasing,
+};
+
+const flowShortLabels: Record<string, string> = {
+  'login-signup': 'User sign in / sign up',
+  'normal-booking': 'Court bookings',
+  'cancellation-modification': 'Booking modification',
+  attendance: 'Mark attendance',
+  'conflict-prevention': 'Avoid booking conflicts',
+  complaints: 'Raising complaints',
+  heatmap: 'Finding current bookings',
+};
+
+const blueprintPositions = [
+  'md:left-[12%] md:top-[10%]',
+  'md:left-[40%] md:top-[3%]',
+  'md:right-[12%] md:top-[13%]',
+  'md:right-[8%] md:top-[46%]',
+  'md:right-[19%] md:bottom-[7%]',
+  'md:left-[25%] md:bottom-[6%]',
+  'md:left-[8%] md:top-[46%]',
+];
+
 export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }) => {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [activeScreenIndex, setActiveScreenIndex] = useState(0);
+  const { courtBookingData, updateCourtBooking, isLiveEditMode } = useContent();
+  const flows = courtBookingData.narrative.flowDeepDives;
+  const [activeFlowId, setActiveFlowId] = useState<string>(flows[0]?.id || 'login-signup');
+  const [activeScreenshotIndex, setActiveScreenshotIndex] = useState(0);
+  const [isDetailOpen, setIsDetailOpen] = useState(true);
+  const activeIndex = activeFlowId ? flows.findIndex((flow) => flow.id === activeFlowId) : -1;
+  const activeFlow = activeIndex >= 0 ? flows[activeIndex] : null;
 
-  const n = courtBookingData.narrative;
-
-  const openLightbox = (index: number) => {
-    setActiveScreenIndex(index);
-    setLightboxOpen(true);
+  const updateFlow = (id: string, updates: Partial<ProductFlowDeepDive>) => {
+    updateCourtBooking({
+      narrative: {
+        ...courtBookingData.narrative,
+        flowDeepDives: flows.map((flow) => (flow.id === id ? { ...flow, ...updates } : flow)),
+      },
+    });
   };
 
+  const selectRelativeFlow = (direction: -1 | 1) => {
+    if (!activeFlow) return;
+    const nextIndex = (activeIndex + direction + flows.length) % flows.length;
+    setActiveFlowId(flows[nextIndex].id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const ActiveIcon = activeFlow ? (flowIcons[activeFlow.iconName] || CalendarCheck) : CalendarCheck;
+
+  const toBulletPoints = (value: string) => value
+    .split(/\n+|(?<=[.!?])\s+(?=[A-Z])/)
+    .map((point) => point.trim())
+    .filter(Boolean);
+
+  useEffect(() => setActiveScreenshotIndex(0), [activeFlowId]);
+
   return (
-    <div className="pt-28 sm:pt-36 pb-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-      
-      {/* Back Button */}
-      <button
-        onClick={() => onNavigate('projects')}
-        className="inline-flex items-center gap-2 text-xs font-mono text-stone-600 hover:text-stone-900 transition-colors font-semibold"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        <span>Back to Projects</span>
-      </button>
+    <div className="relative isolate mx-auto min-h-screen max-w-6xl overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+      <div className="pointer-events-none absolute -left-32 top-40 -z-10 h-80 w-80 rounded-full bg-blue-100/40 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 top-96 -z-10 h-80 w-80 rounded-full bg-emerald-100/40 blur-3xl" />
 
-      {/* 1. OPENING HERO & METADATA SECTION */}
-      <section className="space-y-8">
+      <header className="relative mb-8 overflow-hidden rounded-[32px] bg-slate-950 p-6 text-white shadow-[0_24px_70px_-35px_rgba(15,23,42,0.85)] sm:p-8">
+        <div className="pointer-events-none absolute -right-14 -top-24 h-64 w-64 rounded-full border-[38px] border-blue-400/10" />
+        <div className="pointer-events-none absolute -bottom-24 right-36 h-48 w-48 rounded-full border-[28px] border-emerald-300/10" />
+        <div className="pointer-events-none absolute inset-y-0 right-[28%] hidden w-px bg-gradient-to-b from-transparent via-white/10 to-transparent sm:block" />
+
+        <div className="relative flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <span 
-              className="px-3.5 py-1 rounded-full text-xs font-mono font-bold"
-              style={{ 
-                backgroundColor: 'var(--accent-soft)', 
-                color: 'var(--accent-soft-text)', 
-                border: '1px solid var(--accent-soft-border)' 
-              }}
-            >
-              Flagship Product Case Study
-            </span>
-            <span className="px-3.5 py-1 rounded-full bg-white border border-stone-200 text-xs font-mono text-stone-600">
-              {courtBookingData.status}
-            </span>
+          <button
+            type="button"
+            onClick={() => onNavigate('projects')}
+            className="inline-flex items-center gap-2 text-[11px] font-mono font-bold text-white/55 transition hover:text-white"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to projects
+          </button>
+          <div>
+            <p className="mb-2 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-blue-200">
+              Product flow walkthrough
+            </p>
+            <h1 className="font-syne text-3xl font-bold tracking-tight text-white sm:text-5xl">
+              CourtBooking App
+            </h1>
           </div>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-syne text-stone-900 tracking-tight leading-tight">
-            {courtBookingData.title}
-          </h1>
-
-          <p className="text-base sm:text-lg lg:text-xl text-stone-700 font-normal leading-relaxed">
-            {courtBookingData.oneLiner}
+          <p className="max-w-2xl text-sm leading-relaxed text-slate-300">
+            Seven product decisions that make campus court booking simple, fair and transparent.
           </p>
         </div>
-
-        {/* Metadata Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 sm:p-7 rounded-2xl bg-white border border-stone-200 shadow-sm text-xs">
-          <div className="space-y-1.5">
-            <span className="text-stone-400 font-mono flex items-center gap-1.5 font-semibold">
-              <User className="w-3.5 h-3.5" style={{ color: 'var(--accent-main)' }} /> My Role
-            </span>
-            <p className="font-bold text-stone-900 text-sm">
-              <PlaceholderTag text={courtBookingData.myRole} />
-            </p>
-          </div>
-
-          <div className="space-y-1.5">
-            <span className="text-stone-400 font-mono flex items-center gap-1.5 font-semibold">
-              <Building className="w-3.5 h-3.5" style={{ color: 'var(--accent-main)' }} /> Institution
-            </span>
-            <p className="font-bold text-stone-900 text-sm">
-              {courtBookingData.institution}
-            </p>
-          </div>
-
-          <div className="space-y-1.5">
-            <span className="text-stone-400 font-mono flex items-center gap-1.5 font-semibold">
-              <Calendar className="w-3.5 h-3.5" style={{ color: 'var(--accent-main)' }} /> Timeline
-            </span>
-            <p className="font-bold text-stone-900 text-sm">
-              <PlaceholderTag text={courtBookingData.projectPeriod} />
-            </p>
-          </div>
-
-          <div className="space-y-1.5">
-            <span className="text-stone-400 font-mono flex items-center gap-1.5 font-semibold">
-              <Wrench className="w-3.5 h-3.5" style={{ color: 'var(--accent-main)' }} /> Technologies
-            </span>
-            <p className="font-bold text-stone-900 text-sm truncate">
-              {courtBookingData.toolsUsed.join(', ')}
-            </p>
-          </div>
-        </div>
-
-        {/* Action Button & Hero Screenshot Frame */}
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-center gap-4">
-            <a
-              href={courtBookingData.appUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-xs font-bold transition-all shadow-md hover:opacity-90 group"
-              style={{ backgroundColor: 'var(--accent-main)' }}
-            >
-              <span>Try the App</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {/* Hero Mockup Frame */}
-          <div className="min-h-[260px] sm:min-h-[320px] w-full rounded-3xl bg-stone-100/90 border border-stone-200 p-8 sm:p-12 flex flex-col items-center justify-center text-center space-y-3.5 relative overflow-hidden shadow-inner">
-            <div 
-              className="w-16 h-16 rounded-2xl bg-white border border-stone-200 flex items-center justify-center shadow-xs"
-              style={{ color: 'var(--accent-main)' }}
-            >
-              <Sparkles className="w-8 h-8" />
-            </div>
-            <div className="space-y-1">
-              <p className="text-lg font-bold font-syne text-stone-900">
-                CourtBooking Application Interface
-              </p>
-              <p className="text-xs text-stone-500 font-mono font-medium">
-                {courtBookingData.heroScreenshot}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. THE PROBLEM */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            01. Background & Discovery
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            The Problem
-          </h2>
-        </div>
-
-        <p className="text-sm sm:text-base text-stone-700 leading-relaxed">
-          {n.theProblem.overview}
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          {n.theProblem.painPoints.map((pain, idx) => (
-            <div key={idx} className="p-4 rounded-xl bg-white border border-stone-200 shadow-xs flex items-start gap-3">
-              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-              <p className="text-xs text-stone-700 leading-relaxed font-medium">{pain}</p>
-            </div>
-          ))}
-        </div>
-
-        <div 
-          className="p-5 rounded-xl border space-y-1"
-          style={{ 
-            backgroundColor: 'var(--accent-soft)', 
-            borderColor: 'var(--accent-soft-border)' 
-          }}
-        >
-          <p className="text-xs font-mono uppercase font-bold" style={{ color: 'var(--accent-soft-text)' }}>
-            Why This Was Worth Solving:
-          </p>
-          <p className="text-xs text-stone-800 leading-relaxed font-medium">
-            {n.theProblem.whyWorthSolving}
-          </p>
-        </div>
-      </section>
-
-      {/* 3. USERS AND CONTEXT */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            02. User Persona & Constraints
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            Users & Context
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
-            <h4 className="text-base font-bold text-stone-900 font-syne">
-              Target Audience
-            </h4>
-            <p className="text-xs text-stone-700 leading-relaxed">
-              {n.usersAndContext.targetAudience}
-            </p>
-            <div className="pt-2 border-t border-stone-100">
-              <h5 className="text-[11px] font-mono text-stone-500 uppercase font-semibold">Context of Use:</h5>
-              <p className="text-xs text-stone-700 mt-1 font-medium">{n.usersAndContext.contextOfUse}</p>
-            </div>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
-            <h4 className="text-base font-bold text-stone-900 font-syne">
-              Key Needs & Constraints
-            </h4>
-            <ul className="space-y-2.5">
-              {n.usersAndContext.keyNeedsAndConstraints.map((item, idx) => (
-                <li key={idx} className="text-xs text-stone-700 flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: 'var(--accent-main)' }} />
-                  <span className="font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. PRODUCT JOURNEY */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            03. Evolution
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            Product Journey
-          </h2>
-        </div>
-
-        <div className="space-y-4">
-          {n.productJourney.milestones.map((ms, idx) => (
-            <div key={idx} className="p-5 rounded-xl bg-white border border-stone-200 shadow-sm flex flex-col sm:flex-row sm:items-start gap-4">
-              <span 
-                className="px-2.5 py-1 rounded font-mono text-xs font-bold shrink-0 border"
-                style={{ 
-                  backgroundColor: 'var(--accent-soft)', 
-                  borderColor: 'var(--accent-soft-border)',
-                  color: 'var(--accent-soft-text)'
-                }}
-              >
-                Phase {idx + 1}
-              </span>
-              <div className="space-y-1">
-                <h4 className="text-sm font-bold text-stone-900 font-syne">{ms.title}</h4>
-                <p className="text-xs text-stone-600 leading-relaxed font-normal">{ms.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. USER JOURNEY FLOW */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            04. User Flow
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            End-to-End User Experience
-          </h2>
-          <p className="text-xs text-stone-600">
-            Interactive representation of how a student books a court in under 25 seconds.
-          </p>
-        </div>
-
-        <UserJourneyFlow steps={n.userJourney} />
-      </section>
-
-      {/* 6. APP SCREENS & ANNOTATIONS */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-              05. Screen Teardown
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-              App Screens & Annotations
-            </h2>
-          </div>
-          <span className="text-xs font-mono text-stone-500">
-            Click any card to zoom
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {n.screenshots.map((screen, idx) => (
-            <div
-              key={screen.id}
-              onClick={() => openLightbox(idx)}
-              className="p-6 rounded-2xl bg-white border border-stone-200 hover:border-stone-400 shadow-sm hover:shadow-lg transition-all cursor-pointer space-y-4 group"
-            >
-              <div className="min-h-[160px] sm:min-h-[180px] w-full rounded-xl bg-stone-100 border border-stone-200 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden group-hover:border-stone-400 transition-colors">
-                <span className="text-xs font-mono text-stone-600 group-hover:text-stone-900 transition-colors font-semibold">
-                  [SCREENSHOT: {screen.screenTitle}]
-                </span>
-                <div className="absolute inset-0 bg-stone-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
-                  <span 
-                    className="px-4 py-2 rounded-full text-white text-xs font-bold flex items-center gap-1.5 shadow-md"
-                    style={{ backgroundColor: 'var(--accent-main)' }}
-                  >
-                    <ZoomIn className="w-3.5 h-3.5" /> Lightbox View
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <h4 className="text-lg font-bold font-syne text-stone-900 transition-colors">
-                  {screen.screenTitle}
-                </h4>
-                <p className="text-xs sm:text-sm text-stone-600 line-clamp-2 leading-relaxed">
-                  {screen.shortDescription}
-                </p>
-                <div 
-                  className="pt-2 text-[11px] font-mono font-semibold border-t border-stone-100"
-                  style={{ color: 'var(--accent-main)' }}
-                >
-                  Problem Solved: {screen.userProblemSolved}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 7. KEY FEATURES AND PROBLEMS SOLVED */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            06. Feature Matrix
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            Key Features & Problems Solved
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {n.keyFeatures.map((feat, idx) => (
-            <div key={idx} className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
-              <h4 className="text-base font-bold text-stone-900 font-syne flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--accent-main)' }} />
-                {feat.feature}
-              </h4>
-              <div className="space-y-2 text-xs">
-                <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-700">
-                  <span className="font-mono font-bold" style={{ color: 'var(--accent-main)' }}>User Need:</span> {feat.userProblem}
-                </div>
-                <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-700">
-                  <span className="text-emerald-700 font-mono font-bold">Design Decision:</span> {feat.designDecision}
-                </div>
-                <p className="text-[11px] text-stone-500 font-mono pt-1">
-                  Expected Benefit: {feat.expectedBenefit}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 8. IMPORTANT DESIGN DECISIONS */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            07. Product Rationale
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            Important Design Decisions
-          </h2>
-        </div>
-
-        <div className="space-y-4">
-          {n.designDecisions.map((decision, idx) => (
-            <div key={idx} className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
-              <h4 className="text-base font-bold text-stone-900 font-syne">
-                {decision.decision}
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200">
-                  <span className="text-amber-900 font-mono font-bold block mb-1">Trade-off Considered:</span>
-                  <p className="text-amber-950 leading-relaxed font-medium">{decision.tradeOffConsidered}</p>
-                </div>
-                <div className="p-3.5 rounded-xl bg-emerald-50/80 border border-emerald-200">
-                  <span className="text-emerald-900 font-mono font-bold block mb-1">Chosen Solution & Why:</span>
-                  <p className="text-emerald-950 leading-relaxed font-medium">{decision.rationale}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 9. ITERATIONS */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            08. Continuous Improvement
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            Iterations
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {n.iterations.map((iter, idx) => (
-            <div key={idx} className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-4">
-              <div className="flex items-center justify-between">
-                <span 
-                  className="text-xs font-mono uppercase tracking-wider font-bold px-2.5 py-0.5 rounded border"
-                  style={{ 
-                    backgroundColor: 'var(--accent-soft)', 
-                    borderColor: 'var(--accent-soft-border)',
-                    color: 'var(--accent-soft-text)'
-                  }}
-                >
-                  {iter.phase}
-                </span>
-                <span className="text-[11px] font-mono text-stone-500">{iter.visualNote}</span>
-              </div>
-              <h4 className="text-lg font-bold text-stone-900 font-syne">{iter.versionTitle}</h4>
-              <ul className="space-y-2 text-xs text-stone-700">
-                {iter.keyChanges.map((change, cIdx) => (
-                  <li key={cIdx} className="flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: 'var(--accent-main)' }} />
-                    <span className="font-medium">{change}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-700">
-                <span className="font-mono font-bold" style={{ color: 'var(--accent-main)' }}>Key Learning:</span> {iter.learningsTriggered}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 10. PRODUCT AND TECHNICAL ARCHITECTURE */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            09. System Blueprint
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            Product & Technical Architecture
-          </h2>
-          <p className="text-xs text-stone-600">
-            Engineered for high concurrency, zero data corruption, and sub-100ms response times.
-          </p>
-        </div>
-
-        <ArchitectureDiagram nodes={n.architecture} />
-      </section>
-
-      {/* 11. ADOPTION AND IMPACT */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            10. Results & Feedback
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            Adoption & Impact
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {n.adoptionAndImpact.metrics.map((metric, idx) => (
-            <div key={idx} className="p-5 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-2">
-              <span className="text-2xl sm:text-3xl font-heading text-stone-900">
-                <PlaceholderTag text={metric.value} />
-              </span>
-              <p className="text-xs font-bold font-syne" style={{ color: 'var(--accent-main)' }}>{metric.label}</p>
-              <p className="text-[11px] text-stone-500 leading-tight">{metric.context}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-          <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
-            <h4 className="text-sm font-bold font-syne uppercase tracking-wider text-stone-900">
-              Qualitative Impact
-            </h4>
-            <ul className="space-y-2 text-xs text-stone-700">
-              {n.adoptionAndImpact.qualitativeImpact.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span className="font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
-            <h4 className="text-sm font-bold font-syne uppercase tracking-wider text-stone-900">
-              User & Stakeholder Feedback
-            </h4>
-            <div className="space-y-3 text-xs text-stone-700 italic">
-              {n.adoptionAndImpact.feedbackReceived.map((fb, idx) => (
-                <p key={idx} className="p-3.5 rounded-xl bg-stone-50 border border-stone-200">
-                  {fb}
-                </p>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 12. LEARNINGS AND NEXT STEPS */}
-      <section className="space-y-6 pt-6 border-t border-stone-200">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest font-bold" style={{ color: 'var(--accent-main)' }}>
-            11. Retrospective & Roadmap
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading text-stone-900">
-            Learnings & Next Steps
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
-            <h4 className="text-base font-bold font-syne" style={{ color: 'var(--accent-main)' }}>
-              Key Learnings
-            </h4>
-            <ul className="space-y-2.5 text-xs text-stone-700">
-              {n.learningsAndNextSteps.keyLearnings.map((learning, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: 'var(--accent-main)' }} />
-                  <span className="font-medium">{learning}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3">
-            <h4 className="text-base font-bold text-emerald-800 font-syne">
-              Next Steps & Product Roadmap
-            </h4>
-            <ul className="space-y-2.5 text-xs text-stone-700">
-              {n.learningsAndNextSteps.nextSteps.map((step, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-1.5 shrink-0" />
-                  <span className="font-medium">{step}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA & Project Navigation */}
-      <div className="pt-8 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <button
-          onClick={() => onNavigate('projects')}
-          className="inline-flex items-center gap-2 text-xs font-mono text-stone-600 hover:text-stone-900 font-semibold"
-        >
-          <ArrowLeft className="w-4 h-4" /> All Projects
-        </button>
 
         <a
           href={courtBookingData.appUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-6 py-2.5 rounded-full text-white font-bold text-xs shadow-md hover:opacity-90"
-          style={{ backgroundColor: 'var(--accent-main)' }}
+          className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-slate-950 shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-50"
         >
-          Try the Live App →
+          Explore app <ExternalLink className="h-3.5 w-3.5" />
         </a>
+        </div>
+      </header>
 
-        <button
-          onClick={() => onNavigate('cohort-learning')}
-          className="inline-flex items-center gap-2 text-xs font-mono text-stone-600 hover:text-stone-900 font-semibold"
-        >
-          Next: Cohort Learning Website <ArrowRight className="w-4 h-4" />
-        </button>
-      </div>
+      {activeFlow && (
+        <section className="relative overflow-hidden rounded-[38px] bg-gradient-to-br from-[#07111f] via-[#0b2035] to-[#15172b] p-4 text-white shadow-[0_34px_100px_-42px_rgba(2,8,23,.98)] sm:p-6">
+          <div className="pointer-events-none absolute -left-28 top-20 h-96 w-96 rounded-full bg-cyan-300/15 blur-3xl" />
+          <div className="pointer-events-none absolute -right-20 -top-24 h-96 w-96 rounded-full bg-violet-400/15 blur-3xl" />
+          <div className="pointer-events-none absolute right-16 top-12 h-64 w-64 rounded-full border border-white/15" />
 
-      {/* Lightbox Modal */}
-      <LightboxModal
-        isOpen={lightboxOpen}
-        onClose={() => setLightboxOpen(false)}
-        screens={n.screenshots}
-        currentIndex={activeScreenIndex}
-        onSelectIndex={setActiveScreenIndex}
-      />
+          <div className="relative mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[9px] font-mono font-bold uppercase tracking-[0.24em] !text-cyan-200/85">CourtBooking product blueprint</p>
+              <h2 className="mt-2 font-syne text-2xl font-bold tracking-tight !text-white sm:text-3xl">Seven topics around one experience.</h2>
+            </div>
+            <p className="max-w-md text-xs leading-5 !text-slate-200/75 sm:text-right">Select any station to see its interface and product reasoning at the centre of the system.</p>
+          </div>
 
+          <div className="relative min-h-[900px] overflow-hidden rounded-[30px] border border-white/15 bg-white/[.055] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl">
+            <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
+            <aside className={`absolute bottom-4 left-4 top-4 z-40 w-[calc(100%-2rem)] max-w-[350px] rounded-[28px] border border-white/55 bg-white/[.82] p-5 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 ${isDetailOpen ? 'translate-x-0 opacity-100' : '-translate-x-[115%] opacity-0 pointer-events-none'}`} aria-hidden={!isDetailOpen}>
+              <button type="button" aria-label="Close topic details" onClick={() => setIsDetailOpen(false)} className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:rotate-90 hover:text-slate-950"><X className="h-4 w-4" /></button>
+              <div className="flex h-full flex-col">
+                <div className="border-b border-slate-200 pb-4 pr-9">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-violet-500 text-white shadow-lg"><ActiveIcon className="h-5 w-5" /></span>
+                  <p className="mt-4 text-[8px] font-mono font-bold uppercase tracking-[0.18em] text-[#617f78]">Selected journey</p>
+                  <EditableText value={activeFlow.title} onSave={(value) => updateFlow(activeFlow.id, { title: value })} as="h2" className="mt-1 font-syne text-xl font-bold leading-tight text-slate-950" labelHint="Flow title" />
+                  <EditableText value={activeFlow.summary} onSave={(value) => updateFlow(activeFlow.id, { summary: value })} as="p" multiline className="mt-2 text-xs leading-5 text-slate-500" labelHint="Flow summary" />
+                </div>
+                <div className="mt-4 flex-1 space-y-3 overflow-y-auto pr-1">
+                  {[
+                    { key: 'why' as const, label: 'Why', Icon: Target, color: 'bg-amber-50 text-amber-700' },
+                    { key: 'challenge' as const, label: 'Design challenge', Icon: AlertCircle, color: 'bg-rose-50 text-rose-700' },
+                    { key: 'solution' as const, label: 'Product design', Icon: Lightbulb, color: 'bg-emerald-50 text-emerald-700' },
+                  ].map(({ key, label, Icon, color }) => (
+                    <div key={key} className="rounded-2xl border border-slate-200 bg-white p-3.5">
+                      <div className="mb-2 flex items-center gap-2"><span className={`flex h-7 w-7 items-center justify-center rounded-lg ${color}`}><Icon className="h-3.5 w-3.5" /></span><h3 className="font-syne text-xs font-bold text-slate-900">{label}</h3></div>
+                      {isLiveEditMode ? (
+                        <EditableText
+                          value={toBulletPoints(activeFlow[key]).map((point) => `• ${point.replace(/^[-•]\s*/, '')}`).join('\n')}
+                          onSave={(value) => updateFlow(activeFlow.id, { [key]: value.split('\n').map((point) => point.replace(/^[-•]\s*/, '').trim()).filter(Boolean).join('\n') })}
+                          as="p"
+                          multiline
+                          className="whitespace-pre-line text-xs leading-5 text-slate-600"
+                          labelHint={`${activeFlow.title}: ${label}`}
+                        />
+                      ) : (
+                        <ul className="space-y-1.5 text-xs leading-5 text-slate-600">
+                          {toBulletPoints(activeFlow[key]).map((point, pointIndex) => (
+                            <li key={pointIndex} className="flex items-start gap-2">
+                              <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500" />
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 flex items-center justify-between border-t border-slate-200 pt-3">
+                  <button type="button" onClick={() => selectRelativeFlow(-1)} className="inline-flex items-center gap-1 text-[9px] font-mono font-bold text-slate-500 hover:text-slate-900"><ArrowLeft className="h-3.5 w-3.5" /> Previous</button>
+                  <button type="button" onClick={() => selectRelativeFlow(1)} className="inline-flex items-center gap-1 text-[9px] font-mono font-bold text-slate-500 hover:text-slate-900">Next <ArrowRight className="h-3.5 w-3.5" /></button>
+                </div>
+              </div>
+            </aside>
+
+            <div className={`absolute inset-0 transition-all duration-500 ${isDetailOpen ? 'md:origin-right md:translate-x-[7%] md:scale-[.78] md:opacity-90' : 'scale-100 opacity-100'}`}>
+            <svg aria-hidden="true" className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" viewBox="0 0 900 900" preserveAspectRatio="none">
+              {[[190,150],[450,95],[710,165],[745,450],[650,755],[270,755],[155,450]].map(([x,y], index) => (
+                <g key={index}>
+                  <line x1="450" y1="450" x2={x} y2={y} stroke="#9bd9e5" strokeOpacity=".7" strokeWidth="2.5" strokeDasharray="7 9" />
+                  <circle cx={x} cy={y} r="8" fill="#b9e8f0" />
+                </g>
+              ))}
+              <circle cx="450" cy="450" r="170" fill="none" stroke="#b9e8f0" strokeOpacity=".62" strokeWidth="2.5" />
+              {[0,51.43,102.86,154.29,205.71,257.14,308.57].map((angle) => {
+                const x = 450 + Math.cos((angle * Math.PI) / 180) * 170;
+                const y = 450 + Math.sin((angle * Math.PI) / 180) * 170;
+                return <circle key={angle} cx={x} cy={y} r="7" fill="#d7f3f7" />;
+              })}
+            </svg>
+
+            <div className="relative mx-auto mb-5 flex min-h-[590px] max-w-[430px] items-center justify-center md:absolute md:left-1/2 md:top-1/2 md:mb-0 md:-translate-x-1/2 md:-translate-y-1/2">
+              <div className="relative w-[400px] rounded-[48px] border-[5px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl">
+                <span className="absolute left-1/2 top-2 z-20 h-2 w-16 -translate-x-1/2 rounded-full bg-slate-950/90 shadow-sm" />
+                {activeFlow.screenshotUrls.length ? (
+                  <div className="relative h-[548px] overflow-hidden rounded-[41px] bg-white">
+                    <img src={activeFlow.screenshotUrls[activeScreenshotIndex] || activeFlow.screenshotUrls[0]} alt={`${activeFlow.title} interface ${activeScreenshotIndex + 1}`} className="h-full w-full object-contain" />
+                    {activeFlow.screenshotUrls.length > 1 && (
+                      <>
+                        <button type="button" aria-label="Previous interface image" onClick={() => setActiveScreenshotIndex((current) => (current - 1 + activeFlow.screenshotUrls.length) % activeFlow.screenshotUrls.length)} className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg backdrop-blur"><ArrowLeft className="h-4 w-4" /></button>
+                        <button type="button" aria-label="Next interface image" onClick={() => setActiveScreenshotIndex((current) => (current + 1) % activeFlow.screenshotUrls.length)} className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg backdrop-blur"><ArrowRight className="h-4 w-4" /></button>
+                        <span className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-slate-950/75 px-2.5 py-1 text-[8px] font-mono text-white">{activeScreenshotIndex + 1} / {activeFlow.screenshotUrls.length}</span>
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex h-[548px] w-full flex-col items-center justify-center rounded-[41px] bg-gradient-to-b from-[#163846] to-[#081b24]">
+                    <ActiveIcon className="h-10 w-10 !text-[#bd7359]" />
+                    <span className="mt-3 px-4 text-center font-syne text-sm font-bold !text-white">{activeFlow.title}</span>
+                    <span className="mt-1 text-[8px] font-mono !text-[#b4ccc5]">Interface coming soon</span>
+                  </div>
+                )}
+                <div className="py-1.5 text-center"><span className="font-syne text-[10px] font-bold !text-slate-800">CourtBooking</span></div>
+              </div>
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-4 py-1.5 text-[8px] font-mono font-bold uppercase tracking-widest !text-white shadow-lg">{flowShortLabels[activeFlow.id]}</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 md:block">
+              {flows.map((flow, index) => {
+                const FlowIcon = flowIcons[flow.iconName] || CalendarCheck;
+                const isActive = flow.id === activeFlowId;
+                return (
+                  <button
+                    key={flow.id}
+                    type="button"
+                    aria-label={`${String(index + 1).padStart(2, '0')} ${flow.title}`}
+                    aria-pressed={isActive}
+                    onClick={() => { setActiveFlowId(flow.id); setIsDetailOpen(true); }}
+                    className={`group relative flex min-h-[128px] flex-col items-center justify-center text-center transition duration-300 md:absolute md:h-[116px] md:w-[170px] ${blueprintPositions[index]} ${isActive ? 'z-10 scale-110' : 'hover:scale-105'}`}
+                  >
+                    <span className={`relative flex h-[72px] w-[92px] items-center justify-center rounded-[45%] border shadow-[0_20px_40px_-20px_rgba(2,8,23,.95),inset_0_1px_0_rgba(255,255,255,.25)] backdrop-blur-xl transition ${isActive ? 'border-white/80 bg-gradient-to-br from-cyan-400/90 to-violet-500/90' : 'border-white/30 bg-white/[.10] group-hover:border-white/50 group-hover:bg-white/[.16]'}`}>
+                      <FlowIcon className="h-8 w-8 !text-white" />
+                      {flow.screenshotUrls[0] && <span className="absolute -right-5 bottom-0 h-14 w-10 rotate-6 overflow-hidden rounded-md border-2 border-white bg-white"><img src={flow.screenshotUrls[0]} alt="" className="h-full w-full object-cover" /></span>}
+                    </span>
+                    <span className="mt-2 flex min-h-[28px] w-full max-w-[170px] items-start justify-center text-center font-syne text-[10px] font-bold uppercase leading-[1.25] tracking-[0.08em] !text-slate-100">{flowShortLabels[flow.id] || flow.title}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+          </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };

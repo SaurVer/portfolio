@@ -121,6 +121,17 @@ export interface ImpactMetric {
   isPlaceholder?: boolean;
 }
 
+export interface ProductFlowDeepDive {
+  id: string;
+  title: string;
+  summary: string;
+  iconName: string;
+  screenshotUrls: string[];
+  why: string;
+  challenge: string;
+  solution: string;
+}
+
 export interface CourtBookingCaseStudy extends BaseProject {
   myRole: string;
   institution: string;
@@ -149,6 +160,7 @@ export interface CourtBookingCaseStudy extends BaseProject {
     };
     userJourney: UserFlowStep[];
     screenshots: ScreenshotItem[];
+    flowDeepDives: ProductFlowDeepDive[];
     keyFeatures: FeatureBreakdown[];
     designDecisions: DesignDecision[];
     iterations: IterationComparison[];

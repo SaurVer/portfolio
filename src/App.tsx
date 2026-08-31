@@ -18,6 +18,7 @@ import { LiveEditToolbar } from './components/LiveEditToolbar';
 function MainAppContent() {
   const [currentRoute, setCurrentRoute] = useState<string>('home');
   const { smallerProjectsData: liveSmallerProjects } = useContent();
+  const isDevelopment = import.meta.env.DEV;
 
   // Handle browser back/forward buttons & URL hash sync
   useEffect(() => {
@@ -102,19 +103,21 @@ function MainAppContent() {
       </main>
 
       {/* Footer */}
-      <Footer onNavigate={navigateTo} />
+      {currentRoute !== 'courtbooking' && currentRoute !== 'court-booking' && (
+        <Footer onNavigate={navigateTo} />
+      )}
 
       {/* Live Content Editor Drawer / Modal */}
-      <ContentEditorModal />
+      {isDevelopment && <ContentEditorModal />}
 
       {/* Block & Layout Manager Modal */}
-      <LayoutManagerModal />
+      {isDevelopment && <LayoutManagerModal />}
 
       {/* Floating Bottom Live Edit Toolbar */}
-      <LiveEditToolbar />
+      {isDevelopment && <LiveEditToolbar />}
 
       {/* Live Theme & Typography Studio Modal */}
-      <ThemeCustomizerModal />
+      {isDevelopment && <ThemeCustomizerModal />}
     </div>
   );
 }
@@ -128,4 +131,3 @@ export default function App() {
     </ThemeProvider>
   );
 }
-

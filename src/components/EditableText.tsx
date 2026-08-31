@@ -118,11 +118,30 @@ export const EditableText: React.FC<EditableTextProps> = ({
             className={point.level > 0 ? 'marker:text-stone-300' : ''}
             style={{ marginLeft: `${point.level * 16}px`, listStyleType: point.level > 0 ? 'circle' : 'disc' }}
           >
-            {point.text}
+            {renderHighlightedText(point.text)}
           </li>
         ))}
       </ul>
     );
+  };
+
+  const renderHighlightedText = (text: string) => {
+    const emphasisPattern = /(\*\*[^*]+\*\*|\b(?:over|more than)?\s*\d[\d+–-]*(?:\s+(?:PGP students|students|positions|councils|hours|AM|days?|classes?))?)/gi;
+    return text.split(emphasisPattern).filter(Boolean).map((part, index) => {
+      const explicitlyMarked = part.startsWith('**') && part.endsWith('**');
+      const metric = /\d/.test(part) && emphasisPattern.test(part);
+      emphasisPattern.lastIndex = 0;
+      if (!explicitlyMarked && !metric) return <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>;
+      const cleanPart = explicitlyMarked ? part.slice(2, -2) : part;
+      return (
+        <strong
+          key={`${part}-${index}`}
+          className="font-bold text-stone-900"
+        >
+          {cleanPart}
+        </strong>
+      );
+    });
   };
 
   // Deleted text stays fully removed from both the public view and live editor.

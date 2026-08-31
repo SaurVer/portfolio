@@ -178,6 +178,83 @@ export const courtBookingData: CourtBookingCaseStudy = {
       }
     ],
 
+    // FLOW-BY-FLOW PRODUCT THINKING
+    flowDeepDives: [
+      {
+        id: 'login-signup',
+        title: 'Login & Signup Flow',
+        summary: 'Creating a trustworthy entry point without making first-time access feel heavy.',
+        iconName: 'LogIn',
+        screenshotUrls: [],
+        why: 'Students need to reach the booking experience quickly, while the system still needs a reliable identity behind every reservation.',
+        challenge: 'Balance low onboarding friction with accountability, secure access, and a clear path for both new and returning users.',
+        solution: 'Keep the entry flow short, explain why identity is required, and preserve the user session so repeat visits lead directly to available courts.'
+      },
+      {
+        id: 'normal-booking',
+        title: 'Normal Booking Flow',
+        summary: 'Helping a student move from intent to a confirmed court in a few clear steps.',
+        iconName: 'CalendarCheck',
+        screenshotUrls: [
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095205/find_slot_xjzi3i.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095202/booking_confirmed_lmqgub.png'
+        ],
+        why: 'Students need a fast way to see availability and reserve the right court without coordinating through messages or physical registers.',
+        challenge: 'Present multiple sports, courts, dates, and time slots without overwhelming the user or allowing two people to claim the same slot.',
+        solution: 'Use a guided date–sport–court–slot sequence, show availability visually, validate the choice before confirmation, and provide immediate proof of booking.'
+      },
+      {
+        id: 'cancellation-modification',
+        title: 'Cancellation & Modification Flow',
+        summary: 'Making changed plans easy to manage while returning unused capacity to the cohort.',
+        iconName: 'RefreshCw',
+        screenshotUrls: ['https://res.cloudinary.com/dxhksw41y/image/upload/v1788095200/abandon_play_pi62gr.png'],
+        why: 'Academic schedules change frequently. A difficult cancellation process creates ghost bookings and leaves courts unused.',
+        challenge: 'Let users change plans without creating accidental duplicate bookings, stale reservations, or unclear court availability.',
+        solution: 'Place booking controls in one self-service view, make the consequence of each action explicit, and reopen released slots immediately.'
+      },
+      {
+        id: 'attendance',
+        title: 'Attendance Marking Flow',
+        summary: 'Connecting a reservation with actual court usage and encouraging responsible booking behaviour.',
+        iconName: 'MapPinCheck',
+        screenshotUrls: [],
+        why: 'A confirmed booking does not guarantee that the player actually arrives, making it difficult to distinguish real demand from no-shows.',
+        challenge: 'Verify attendance with minimal effort for players while avoiding a cumbersome manual check-in process for sports staff.',
+        solution: 'Introduce a simple, time-bound attendance action linked to the active booking, with clear status feedback for the student and management.'
+      },
+      {
+        id: 'conflict-prevention',
+        title: 'Avoiding Conflicts',
+        summary: 'Protecting fairness when several students try to reserve limited facilities at the same time.',
+        iconName: 'ShieldCheck',
+        screenshotUrls: [],
+        why: 'Double bookings and unclear priority create disputes, reduce trust in the process, and push students back to informal coordination.',
+        challenge: 'Handle simultaneous booking attempts, overlapping reservations, and eligibility rules without making the interface feel restrictive.',
+        solution: 'Validate availability at confirmation, lock the selected slot as one transaction, and give unsuccessful users an immediate, useful next step.'
+      },
+      {
+        id: 'complaints',
+        title: 'Raising Complaints',
+        summary: 'Giving students a structured way to surface facility and booking issues.',
+        iconName: 'MessageSquareWarning',
+        screenshotUrls: [],
+        why: 'Problems such as damaged equipment, occupied courts, or booking misuse need a visible path to the people who can resolve them.',
+        challenge: 'Collect enough context to make a complaint actionable without turning the process into a long administrative form.',
+        solution: 'Attach the relevant booking context automatically, ask for only essential issue details, and communicate that the report has been recorded.'
+      },
+      {
+        id: 'heatmap',
+        title: 'Booking Heatmap & Transparency',
+        summary: 'Turning booking activity into a shared view of demand and facility usage.',
+        iconName: 'ChartNoAxesColumnIncreasing',
+        screenshotUrls: ['https://res.cloudinary.com/dxhksw41y/image/upload/v1788095203/see_who_is_playing_duiugh.png'],
+        why: 'Students and administrators benefit from knowing when courts are busy, how capacity is used, and where availability is likely to exist.',
+        challenge: 'Transform booking records into an understandable view without exposing unnecessary personal information or adding visual clutter.',
+        solution: 'Aggregate usage by court and time band, use a simple visual intensity scale, and reveal only the information needed for planning and transparency.'
+      }
+    ],
+
     // 6. KEY FEATURES AND PROBLEMS SOLVED
     keyFeatures: [
       {
