@@ -99,7 +99,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
       <div className="pointer-events-none absolute -left-32 top-40 -z-10 h-80 w-80 rounded-full bg-blue-100/40 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 top-96 -z-10 h-80 w-80 rounded-full bg-emerald-100/40 blur-3xl" />
 
-      <header className="relative mb-8 overflow-hidden rounded-[32px] bg-slate-950 p-6 text-white shadow-[0_24px_70px_-35px_rgba(15,23,42,0.85)] sm:p-8">
+      <header className="relative mb-8 overflow-hidden rounded-[32px] bg-slate-950 p-6 text-white shadow-[0_24px_70px_-35px_rgba(15,23,42,0.85)] sm:p-8 md:rounded-none md:px-10 md:py-12 md:shadow-none">
         <div className="pointer-events-none absolute -right-14 -top-24 h-64 w-64 rounded-full border-[38px] border-blue-400/10" />
         <div className="pointer-events-none absolute -bottom-24 right-36 h-48 w-48 rounded-full border-[28px] border-emerald-300/10" />
         <div className="pointer-events-none absolute inset-y-0 right-[28%] hidden w-px bg-gradient-to-b from-transparent via-white/10 to-transparent sm:block" />
@@ -138,7 +138,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
       </header>
 
       {activeFlow && (
-        <section className="relative overflow-hidden rounded-[38px] bg-gradient-to-br from-[#07111f] via-[#0b2035] to-[#15172b] p-4 text-white shadow-[0_34px_100px_-42px_rgba(2,8,23,.98)] sm:p-6">
+        <section className="relative overflow-hidden rounded-[38px] bg-gradient-to-br from-[#07111f] via-[#0b2035] to-[#15172b] p-4 text-white shadow-[0_34px_100px_-42px_rgba(2,8,23,.98)] sm:p-6 md:rounded-none md:px-8 md:py-10 md:shadow-none">
           <div className="pointer-events-none absolute -left-28 top-20 h-96 w-96 rounded-full bg-cyan-300/15 blur-3xl" />
           <div className="pointer-events-none absolute -right-20 -top-24 h-96 w-96 rounded-full bg-violet-400/15 blur-3xl" />
           <div className="pointer-events-none absolute right-16 top-12 h-64 w-64 rounded-full border border-white/15" />
@@ -151,7 +151,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
             <p className="max-w-md text-xs leading-5 !text-slate-200/75 sm:text-right">Select any station to see its interface and product reasoning at the centre of the system.</p>
           </div>
 
-          <div className="relative overflow-visible rounded-[30px] border border-white/15 bg-white/[.055] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl sm:p-4 md:min-h-[900px] md:overflow-hidden">
+          <div className="relative overflow-visible rounded-[30px] border border-white/15 bg-white/[.055] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl sm:p-4 md:min-h-[900px] md:overflow-hidden md:rounded-none md:border-x-0 md:bg-transparent md:px-0">
             <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
             <aside className={`relative z-40 w-full rounded-[24px] border border-white/55 bg-white/[.9] p-4 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 sm:p-5 md:absolute md:bottom-4 md:left-4 md:top-4 md:w-[calc(100%-2rem)] md:max-w-[350px] md:rounded-[28px] ${isDetailOpen ? 'block translate-x-0 opacity-100' : 'hidden -translate-x-[115%] opacity-0 pointer-events-none md:block'}`} aria-hidden={!isDetailOpen}>
               <button type="button" aria-label="Close topic details" onClick={() => setIsDetailOpen(false)} className="absolute right-4 top-4 hidden h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:rotate-90 hover:text-slate-950 md:flex"><X className="h-4 w-4" /></button>

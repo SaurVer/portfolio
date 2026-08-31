@@ -41,14 +41,14 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 pb-2 transition-all duration-300 pointer-events-none">
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 pb-2 transition-all duration-300 pointer-events-none md:border-b md:border-stone-200/80 md:bg-white/90 md:py-3 md:backdrop-blur-xl">
+      <div className="max-w-6xl mx-auto flex items-center justify-between md:min-h-11">
         
         {/* Floating Brand Badge */}
         <div className="pointer-events-auto flex items-center gap-2">
           <button
             onClick={() => handleLinkClick('home')}
-            className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200 text-stone-900 hover:border-stone-400 transition-all group shadow-sm"
+            className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200 text-stone-900 hover:border-stone-400 transition-all group shadow-sm md:rounded-none md:border-0 md:bg-transparent md:px-0 md:shadow-none"
             aria-label="Go to Homepage"
           >
             <span className="font-bold tracking-tight text-xs sm:text-sm text-stone-900 group-hover:text-stone-700 transition-colors">
@@ -69,7 +69,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentRoute, onNavigate
         </div>
 
         {/* Floating Desktop Menu Bar */}
-        <nav className="pointer-events-auto hidden md:flex items-center gap-1.5 p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200 shadow-md shadow-stone-200/40">
+        <nav className="pointer-events-auto hidden md:flex items-center gap-1.5 p-0 bg-transparent">
           {navItems.map((item) => {
             const isActive = currentRoute === item.route;
             return (

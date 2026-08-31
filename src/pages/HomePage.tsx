@@ -151,10 +151,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     );
 
     const heroShell = (content: React.ReactNode) => (
-      <div className="pt-16 sm:pt-20">
-        <div className="relative overflow-hidden rounded-[2rem] border border-stone-300 bg-stone-50 p-3 shadow-[0_35px_90px_-40px_rgba(28,25,23,0.65)] sm:p-4">
+      <div className="pt-16 sm:pt-20 lg:pt-24">
+        <div className="relative overflow-hidden rounded-[2rem] border border-stone-300 bg-stone-50 p-3 shadow-[0_35px_90px_-40px_rgba(28,25,23,0.65)] sm:p-4 lg:overflow-visible lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#d6d3d1_1px,transparent_1px),linear-gradient(to_bottom,#d6d3d1_1px,transparent_1px)] bg-[size:32px_32px] opacity-[0.18]" />
-          <div className="absolute inset-y-0 left-0 w-[38%] bg-gradient-to-br from-stone-200/80 via-stone-100/50 to-transparent" />
+          <div className="absolute inset-y-0 left-0 w-[38%] bg-gradient-to-br from-stone-200/80 via-stone-100/50 to-transparent lg:hidden" />
           <div
             className="absolute -right-20 -top-24 h-64 w-64 rounded-full opacity-[0.12] blur-2xl"
             style={{ backgroundColor: 'var(--accent-main)' }}
@@ -166,7 +166,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           <div className="absolute bottom-8 right-8 hidden h-20 w-20 rounded-full border border-stone-300/70 lg:block" />
           <div className="absolute bottom-[4.45rem] right-[4.45rem] hidden h-2 w-2 rounded-full lg:block" style={{ backgroundColor: 'var(--accent-main)' }} />
           <div
-            className="relative z-10 overflow-hidden rounded-[1.45rem] bg-stone-950 px-5 py-5 sm:px-7 sm:py-6 lg:px-9"
+            className="relative z-10 overflow-hidden rounded-[1.45rem] bg-stone-950 px-5 py-5 sm:px-7 sm:py-6 lg:rounded-none lg:px-10 lg:py-9"
             style={{ color: '#ffffff' }}
           >
             <div
@@ -195,7 +195,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </div>
             </div>
           </div>
-          <div className="relative z-10 mx-2 overflow-hidden border-x border-b border-stone-300 bg-white py-2.5 sm:mx-4">
+          <div className="relative z-10 mx-2 overflow-hidden border-x border-b border-stone-300 bg-white py-2.5 sm:mx-4 lg:mx-0 lg:border-x-0 lg:border-stone-200">
             <div className="portfolio-marquee flex w-max items-center font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-700">
               {[0, 1].map((copy) => (
                 <div key={copy} className="flex shrink-0 items-center gap-5 px-3" aria-hidden={copy === 1}>
@@ -211,7 +211,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               ))}
             </div>
           </div>
-          <div className="relative z-10 p-3 sm:p-5 lg:p-7">{content}</div>
+          <div className="relative z-10 p-3 sm:p-5 lg:px-0 lg:pb-4 lg:pt-12">{content}</div>
         </div>
       </div>
     );
@@ -244,7 +244,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   };
 
   const renderAboutSection = () => (
-    <div className="relative overflow-hidden rounded-[2rem] bg-stone-950 p-6 text-white sm:p-8 lg:p-10">
+    <div className="relative overflow-hidden rounded-[2rem] bg-stone-950 p-6 text-white sm:p-8 lg:rounded-none lg:px-10 lg:py-14">
       <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full border border-white/10" />
       <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full border border-white/10" />
       <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
@@ -865,7 +865,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
 
         <div
-          className="p-5 sm:p-7 rounded-3xl bg-white border border-stone-200 hover:border-stone-300 hover:shadow-lg transition-all group space-y-6"
+          className="p-5 sm:p-7 rounded-3xl bg-white border border-stone-200 hover:border-stone-300 hover:shadow-lg transition-all group space-y-6 lg:rounded-none lg:border-x-0 lg:bg-transparent lg:px-0 lg:py-8 lg:shadow-none lg:hover:shadow-none"
         >
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
             <div className="space-y-3 max-w-3xl">

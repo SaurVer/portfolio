@@ -235,13 +235,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
         </p>
       </header>
 
-      <section className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2" aria-label="Project collection">
+      <section className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-x-10 md:gap-y-0 md:border-t md:border-stone-300" aria-label="Project collection">
         {projectCards.map((project, index) => {
           const Icon = project.icon;
           return (
             <article
               key={project.id}
-              className="group overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-stone-300 hover:shadow-xl"
+              className="group overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-stone-300 hover:shadow-xl md:rounded-none md:border-x-0 md:border-t-0 md:bg-transparent md:py-8 md:shadow-none md:hover:translate-y-0 md:hover:shadow-none"
             >
               <div className="flex items-center justify-between gap-4 border-b border-stone-100 px-5 py-4">
                 <div className="flex min-w-0 items-center gap-3">
