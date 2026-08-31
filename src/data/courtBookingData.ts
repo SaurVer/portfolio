@@ -185,7 +185,10 @@ export const courtBookingData: CourtBookingCaseStudy = {
         title: 'Login & Signup Flow',
         summary: 'Creating a trustworthy entry point without making first-time access feel heavy.',
         iconName: 'LogIn',
-        screenshotUrls: [],
+        screenshotUrls: [
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095303/signup_and_register_screen_iyhwnr.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095303/login_screen_nenwaa.png'
+        ],
         why: 'Students need to reach the booking experience quickly, while the system still needs a reliable identity behind every reservation.',
         challenge: 'Balance low onboarding friction with accountability, secure access, and a clear path for both new and returning users.',
         solution: 'Keep the entry flow short, explain why identity is required, and preserve the user session so repeat visits lead directly to available courts.'
@@ -196,7 +199,9 @@ export const courtBookingData: CourtBookingCaseStudy = {
         summary: 'Helping a student move from intent to a confirmed court in a few clear steps.',
         iconName: 'CalendarCheck',
         screenshotUrls: [
-          '/projects/courtbooking-find-slot.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095203/select_sports_zwxjs7.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095205/select_slots_ib82pn.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095205/select_slots_ib82pn.png',
           '/projects/courtbooking-confirmed.png'
         ],
         why: 'Students need a fast way to see availability and reserve the right court without coordinating through messages or physical registers.',
@@ -208,7 +213,11 @@ export const courtBookingData: CourtBookingCaseStudy = {
         title: 'Cancellation & Modification Flow',
         summary: 'Making changed plans easy to manage while returning unused capacity to the cohort.',
         iconName: 'RefreshCw',
-        screenshotUrls: ['/projects/courtbooking-abandon.png'],
+        screenshotUrls: [
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095201/see_bookings_d0pen2.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095202/modify_slot_selection_uypbgt.png',
+          '/projects/courtbooking-abandon.png'
+        ],
         why: 'Academic schedules change frequently. A difficult cancellation process creates ghost bookings and leaves courts unused.',
         challenge: 'Let users change plans without creating accidental duplicate bookings, stale reservations, or unclear court availability.',
         solution: 'Place booking controls in one self-service view, make the consequence of each action explicit, and reopen released slots immediately.'
@@ -218,7 +227,13 @@ export const courtBookingData: CourtBookingCaseStudy = {
         title: 'Attendance Marking Flow',
         summary: 'Connecting a reservation with actual court usage and encouraging responsible booking behaviour.',
         iconName: 'MapPinCheck',
-        screenshotUrls: [],
+        screenshotUrls: [
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788153102/wait_for_attendance_window_to_open_th6uzj.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788153598/attendance_window_open_tduqa2.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788153601/location_away_sxthla.png',
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788153597/attendance_marked_tyuehi.png',
+          '/projects/courtbooking-abandon.png'
+        ],
         why: 'A confirmed booking does not guarantee that the player actually arrives, making it difficult to distinguish real demand from no-shows.',
         challenge: 'Verify attendance with minimal effort for players while avoiding a cumbersome manual check-in process for sports staff.',
         solution: 'Introduce a simple, time-bound attendance action linked to the active booking, with clear status feedback for the student and management.'
@@ -228,7 +243,9 @@ export const courtBookingData: CourtBookingCaseStudy = {
         title: 'Avoiding Conflicts',
         summary: 'Protecting fairness when several students try to reserve limited facilities at the same time.',
         iconName: 'ShieldCheck',
-        screenshotUrls: [],
+        screenshotUrls: [
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095201/resolve_conflict_r007xu.png'
+        ],
         why: 'Double bookings and unclear priority create disputes, reduce trust in the process, and push students back to informal coordination.',
         challenge: 'Handle simultaneous booking attempts, overlapping reservations, and eligibility rules without making the interface feel restrictive.',
         solution: 'Validate availability at confirmation, lock the selected slot as one transaction, and give unsuccessful users an immediate, useful next step.'
@@ -238,7 +255,9 @@ export const courtBookingData: CourtBookingCaseStudy = {
         title: 'Raising Complaints',
         summary: 'Giving students a structured way to surface facility and booking issues.',
         iconName: 'MessageSquareWarning',
-        screenshotUrls: [],
+        screenshotUrls: [
+          'https://res.cloudinary.com/dxhksw41y/image/upload/v1788095202/raise_compalint_xdykuw.png'
+        ],
         why: 'Problems such as damaged equipment, occupied courts, or booking misuse need a visible path to the people who can resolve them.',
         challenge: 'Collect enough context to make a complaint actionable without turning the process into a long administrative form.',
         solution: 'Attach the relevant booking context automatically, ask for only essential issue details, and communicate that the report has been recorded.'

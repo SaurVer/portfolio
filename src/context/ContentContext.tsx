@@ -294,10 +294,19 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
       const flowDeepDives = (parsed.narrative.flowDeepDives || initialCourtBookingData.narrative.flowDeepDives)
         .filter((flow) => flow.id !== 'authentication')
-        .map((flow) => ({
-          ...flow,
-          screenshotUrls: flow.screenshotUrls.map(localizeCourtBookingImage),
-        }));
+        .map((flow) => {
+          const sourceFlow = initialCourtBookingData.narrative.flowDeepDives.find((item) => item.id === flow.id);
+          const savedScreens = (flow.screenshotUrls || []).filter((url) => url.trim());
+          const onlyLegacyLocalScreens = savedScreens.every((url) => url.startsWith('/projects/'));
+          const screenshotUrls = (!savedScreens.length || onlyLegacyLocalScreens)
+            ? (sourceFlow?.screenshotUrls || savedScreens)
+            : savedScreens;
+
+          return {
+            ...flow,
+            screenshotUrls: screenshotUrls.map(localizeCourtBookingImage),
+          };
+        });
 
       return {
         ...parsed,
