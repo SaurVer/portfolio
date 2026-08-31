@@ -141,9 +141,9 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
             <p className="max-w-md text-xs leading-5 !text-slate-200/75 sm:text-right">Choose a flow from the vertical index to update the interface preview and product reasoning.</p>
           </div>
 
-          <div className="relative overflow-visible rounded-[30px] border border-white/15 bg-white/[.055] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl sm:p-4 md:min-h-[900px] md:overflow-hidden md:rounded-none md:border-x-0 md:bg-transparent md:px-0">
+          <div className="relative overflow-visible rounded-[30px] border border-white/15 bg-white/[.055] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl sm:p-4 md:overflow-visible md:rounded-none md:border-x-0 md:bg-transparent md:px-0 md:grid md:grid-cols-[minmax(300px,410px)_minmax(0,1fr)] md:items-stretch md:gap-6">
             <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
-            <aside className={`relative z-40 w-full rounded-[24px] border border-white/55 bg-white/[.9] p-4 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 sm:p-5 md:absolute md:bottom-4 md:left-4 md:top-4 md:w-[410px] md:max-w-[calc(100%-2rem)] md:rounded-[28px] md:p-6 ${isDetailOpen ? 'block translate-x-0 opacity-100' : 'hidden -translate-x-[115%] opacity-0 pointer-events-none md:block'}`} aria-hidden={!isDetailOpen}>
+            <aside className={`relative z-40 w-full rounded-[24px] border border-white/55 bg-white/[.9] p-4 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 sm:p-5 md:static md:h-full md:w-full md:max-w-none md:rounded-[28px] md:p-6 ${isDetailOpen ? 'block translate-x-0 opacity-100' : 'hidden -translate-x-[115%] opacity-0 pointer-events-none md:block'}`} aria-hidden={!isDetailOpen}>
               <button type="button" aria-label="Close topic details" onClick={() => setIsDetailOpen(false)} className="absolute right-4 top-4 hidden h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:rotate-90 hover:text-slate-950 md:flex"><X className="h-4 w-4" /></button>
               <div className="flex h-full flex-col">
                 <div className="border-b border-slate-200 pb-4 pr-9">
@@ -189,9 +189,9 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               </div>
             </aside>
 
-            <div className="relative mt-4 transition-all duration-500 md:absolute md:inset-0 md:mt-0">
+            <div className="relative mt-4 transition-all duration-500 md:mt-0 md:flex md:h-full md:flex-wrap md:items-center md:justify-center md:gap-6">
 
-            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:absolute md:left-auto md:right-[214px] md:top-1/2 md:mb-0 md:min-h-[680px] md:max-w-[400px] md:translate-x-0 md:-translate-y-1/2">
+            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:mx-0 md:mb-0 md:min-h-[680px] md:max-w-[400px] md:w-full md:flex-1">
               <div className="relative w-full rounded-[42px] border-[4px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl sm:w-[400px] sm:rounded-[48px] sm:border-[5px] md:w-[400px]">
                 <span className="absolute left-1/2 top-2 z-20 h-2 w-16 -translate-x-1/2 rounded-full bg-slate-950/90 shadow-sm" />
                 {activeScreens.length ? (
@@ -223,7 +223,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-4 py-1.5 text-[8px] font-mono font-bold uppercase tracking-widest !text-white shadow-lg">{flowShortLabels[activeFlow.id]}</span>
             </div>
 
-            <nav aria-label="CourtBooking desktop flow topics" className="absolute right-3 top-1/2 z-20 hidden w-[195px] -translate-y-1/2 flex-col gap-1.5 border-l border-white/15 pl-4 md:flex">
+            <nav aria-label="CourtBooking desktop flow topics" className="z-20 hidden w-[195px] shrink-0 flex-col gap-1.5 border-l border-white/15 pl-4 md:flex">
               <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-[0.2em] !text-cyan-200/70">Explore the flows</p>
               {flows.map((flow) => {
                 const FlowIcon = flowIcons[flow.iconName] || CalendarCheck;
