@@ -644,7 +644,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       },
     ].sort((a, b) => startYear(a.period) - startYear(b.period));
 
-    const timelineColors = ['#f97316', '#ef4444', '#2563eb', '#22c55e', '#7c3aed'];
+    const timelineGradients = [
+      { from: '#1a2a61', to: '#1a3461', tintFrom: '#f0f2fa', tintTo: '#f0f3fa' },
+      { from: '#1a3461', to: '#1a3d61', tintFrom: '#f0f3fa', tintTo: '#f0f5fa' },
+      { from: '#1a3d61', to: '#1a4761', tintFrom: '#f0f5fa', tintTo: '#f0f6fa' },
+      { from: '#1a4761', to: '#1a5061', tintFrom: '#f0f6fa', tintTo: '#f0f7fa' },
+      { from: '#1a5061', to: '#1a5a61', tintFrom: '#f0f7fa', tintTo: '#f0f9fa' },
+    ];
 
     return (
       <div className="space-y-7">
@@ -669,32 +675,36 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
           <div className="relative space-y-5 md:space-y-0">
             {journeyItems.map((item, index) => {
-              const color = timelineColors[index % timelineColors.length];
+              const gradient = timelineGradients[index % timelineGradients.length];
+              const pinGradient = `linear-gradient(135deg, ${gradient.from}, ${gradient.to})`;
+              const barGradient = `linear-gradient(90deg, ${gradient.from}, ${gradient.to})`;
+              const cardGradient = `linear-gradient(155deg, ${gradient.tintFrom} 0%, ${gradient.tintTo} 100%)`;
+              const accentText = gradient.from;
               const isLeft = index % 2 === 0;
               return (
                 <div key={`${item.type}-${item.id}`} className={`journey-milestone group/timeline relative flex min-h-[185px] items-center ${isLeft ? 'journey-from-left md:justify-start' : 'journey-from-right md:justify-end'}`}>
                   <div className="journey-pin absolute left-5 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 md:left-1/2">
-                    <div className="relative flex h-12 w-12 items-center justify-center rounded-full border-[6px] border-white text-xs font-mono font-black text-white shadow-xl transition-all duration-300 group-hover/timeline:scale-125" style={{ backgroundColor: color }}>
+                    <div className="relative flex h-12 w-12 items-center justify-center rounded-full border-[6px] border-white text-xs font-mono font-black text-white shadow-xl transition-all duration-300 group-hover/timeline:scale-125" style={{ backgroundImage: pinGradient }}>
                       {String(index + 1).padStart(2, '0')}
-                      <span className="absolute -bottom-3 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45" style={{ backgroundColor: color }} />
+                      <span className="absolute -bottom-3 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45" style={{ backgroundImage: pinGradient }} />
                     </div>
                   </div>
 
-                  <article className="ml-12 w-[calc(100%-3rem)] overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-md transition-all duration-500 group-hover/timeline:-translate-y-2 group-hover/timeline:shadow-2xl md:ml-0 md:w-[43%]">
-                    <div className="h-1.5" style={{ backgroundColor: color }} />
+                  <article className="ml-12 w-[calc(100%-3rem)] overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-md transition-all duration-500 group-hover/timeline:-translate-y-2 group-hover/timeline:shadow-2xl md:ml-0 md:w-[43%]" style={{ backgroundImage: cardGradient }}>
+                    <div className="h-1.5" style={{ backgroundImage: barGradient }} />
                     <div className="p-5">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex h-14 w-20 shrink-0 items-center justify-center rounded-xl border border-stone-200 bg-white p-2 shadow-sm">
                           {item.logo ? <img src={item.logo} alt={item.logoAlt} className="max-h-full max-w-full object-contain" /> : item.type === 'Education' ? <GraduationCap className="h-6 w-6" /> : <Briefcase className="h-6 w-6" />}
                         </div>
                         <div className="text-right">
-                          <p className="font-mono text-[10px] font-black uppercase tracking-[0.18em]" style={{ color }}>{item.type}</p>
+                          <p className="font-mono text-[10px] font-black uppercase tracking-[0.18em]" style={{ color: accentText }}>{item.type}</p>
                           <p className="mt-1 font-mono text-xs font-bold text-stone-700">{item.period}</p>
                           {item.location && <p className="mt-1 text-[10px] text-stone-400">{item.location}</p>}
                         </div>
                       </div>
                       <h3 className="mt-4 font-syne text-xl font-bold text-stone-950">{item.title}</h3>
-                      <p className="mt-1 text-xs font-bold uppercase tracking-wide" style={{ color }}>{item.subtitle}</p>
+                      <p className="mt-1 text-xs font-bold uppercase tracking-wide" style={{ color: accentText }}>{item.subtitle}</p>
 
                       <div className="grid max-h-0 grid-rows-[0fr] opacity-0 transition-all duration-500 group-hover/timeline:mt-4 group-hover/timeline:max-h-72 group-hover/timeline:grid-rows-[1fr] group-hover/timeline:opacity-100">
                         <div className="overflow-hidden border-t border-stone-200 pt-3 text-xs leading-relaxed text-stone-600">
@@ -702,7 +712,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                           {item.detail && <p className="mt-2 font-medium text-stone-700">{item.detail}</p>}
                           {item.bullets && item.bullets.length > 0 && (
                             <ul className="mt-2 space-y-1">
-                              {item.bullets.map((bullet, bulletIndex) => <li key={bulletIndex} className="flex gap-2"><span style={{ color }}>•</span><span>{bullet}</span></li>)}
+                              {item.bullets.map((bullet, bulletIndex) => <li key={bulletIndex} className="flex gap-2"><span style={{ color: accentText }}>•</span><span>{bullet}</span></li>)}
                             </ul>
                           )}
                         </div>
