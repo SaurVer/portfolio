@@ -153,14 +153,14 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
 
           <div className="relative overflow-visible rounded-[30px] border border-white/15 bg-white/[.055] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl sm:p-4 md:min-h-[900px] md:overflow-hidden md:rounded-none md:border-x-0 md:bg-transparent md:px-0">
             <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
-            <aside className={`relative z-40 w-full rounded-[24px] border border-white/55 bg-white/[.9] p-4 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 sm:p-5 md:absolute md:bottom-4 md:left-4 md:top-4 md:w-[calc(100%-2rem)] md:max-w-[350px] md:rounded-[28px] ${isDetailOpen ? 'block translate-x-0 opacity-100' : 'hidden -translate-x-[115%] opacity-0 pointer-events-none md:block'}`} aria-hidden={!isDetailOpen}>
+            <aside className={`relative z-40 w-full rounded-[24px] border border-white/55 bg-white/[.9] p-4 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 sm:p-5 md:absolute md:bottom-4 md:left-4 md:top-4 md:w-[410px] md:max-w-[calc(100%-2rem)] md:rounded-[28px] md:p-6 ${isDetailOpen ? 'block translate-x-0 opacity-100' : 'hidden -translate-x-[115%] opacity-0 pointer-events-none md:block'}`} aria-hidden={!isDetailOpen}>
               <button type="button" aria-label="Close topic details" onClick={() => setIsDetailOpen(false)} className="absolute right-4 top-4 hidden h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:rotate-90 hover:text-slate-950 md:flex"><X className="h-4 w-4" /></button>
               <div className="flex h-full flex-col">
                 <div className="border-b border-slate-200 pb-4 pr-9">
                   <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-violet-500 text-white shadow-lg"><ActiveIcon className="h-5 w-5" /></span>
-                  <p className="mt-4 text-[8px] font-mono font-bold uppercase tracking-[0.18em] text-[#617f78]">Selected journey</p>
-                  <EditableText value={activeFlow.title} onSave={(value) => updateFlow(activeFlow.id, { title: value })} as="h2" className="mt-1 font-syne text-xl font-bold leading-tight text-slate-950" labelHint="Flow title" />
-                  <EditableText value={activeFlow.summary} onSave={(value) => updateFlow(activeFlow.id, { summary: value })} as="p" multiline className="mt-2 text-xs leading-5 text-slate-500" labelHint="Flow summary" />
+                  <p className="mt-4 text-[8px] font-mono font-bold uppercase tracking-[0.18em] text-[#617f78] md:text-[10px]">Selected journey</p>
+                  <EditableText value={activeFlow.title} onSave={(value) => updateFlow(activeFlow.id, { title: value })} as="h2" className="mt-1 font-syne text-xl font-bold leading-tight text-slate-950 md:text-2xl" labelHint="Flow title" />
+                  <EditableText value={activeFlow.summary} onSave={(value) => updateFlow(activeFlow.id, { summary: value })} as="p" multiline className="mt-2 text-xs leading-5 text-slate-500 md:text-sm md:leading-6" labelHint="Flow summary" />
                 </div>
                 <div className="mt-4 flex-1 space-y-3 pr-1 md:overflow-y-auto">
                   {[
@@ -168,19 +168,19 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
                     { key: 'challenge' as const, label: 'Design challenge', Icon: AlertCircle, color: 'bg-rose-50 text-rose-700' },
                     { key: 'solution' as const, label: 'Product design', Icon: Lightbulb, color: 'bg-emerald-50 text-emerald-700' },
                   ].map(({ key, label, Icon, color }) => (
-                    <div key={key} className="rounded-2xl border border-slate-200 bg-white p-3.5">
-                      <div className="mb-2 flex items-center gap-2"><span className={`flex h-7 w-7 items-center justify-center rounded-lg ${color}`}><Icon className="h-3.5 w-3.5" /></span><h3 className="font-syne text-xs font-bold text-slate-900">{label}</h3></div>
+                    <div key={key} className="rounded-2xl border border-slate-200 bg-white p-3.5 md:p-4">
+                      <div className="mb-2 flex items-center gap-2"><span className={`flex h-7 w-7 items-center justify-center rounded-lg md:h-8 md:w-8 ${color}`}><Icon className="h-3.5 w-3.5 md:h-4 md:w-4" /></span><h3 className="font-syne text-xs font-bold text-slate-900 md:text-sm">{label}</h3></div>
                       {isLiveEditMode ? (
                         <EditableText
                           value={toBulletPoints(activeFlow[key]).map((point) => `• ${point.replace(/^[-•]\s*/, '')}`).join('\n')}
                           onSave={(value) => updateFlow(activeFlow.id, { [key]: value.split('\n').map((point) => point.replace(/^[-•]\s*/, '').trim()).filter(Boolean).join('\n') })}
                           as="p"
                           multiline
-                          className="whitespace-pre-line text-xs leading-5 text-slate-600"
+                          className="whitespace-pre-line text-xs leading-5 text-slate-600 md:text-sm md:leading-6"
                           labelHint={`${activeFlow.title}: ${label}`}
                         />
                       ) : (
-                        <ul className="space-y-1.5 text-xs leading-5 text-slate-600">
+                        <ul className="space-y-1.5 text-xs leading-5 text-slate-600 md:text-sm md:leading-6">
                           {toBulletPoints(activeFlow[key]).map((point, pointIndex) => (
                             <li key={pointIndex} className="flex items-start gap-2">
                               <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500" />
@@ -199,7 +199,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               </div>
             </aside>
 
-            <div className={`relative mt-4 transition-all duration-500 md:absolute md:inset-0 md:mt-0 ${isDetailOpen ? 'md:origin-right md:translate-x-[7%] md:scale-[.78] md:opacity-90' : 'scale-100 opacity-100'}`}>
+            <div className={`relative mt-4 transition-all duration-500 md:absolute md:inset-0 md:mt-0 ${isDetailOpen ? 'md:origin-right md:translate-x-[8%] md:scale-[.84] md:opacity-95' : 'scale-100 opacity-100'}`}>
             <svg aria-hidden="true" className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" viewBox="0 0 900 900" preserveAspectRatio="none">
               {[[190,150],[450,95],[710,165],[745,450],[650,755],[270,755],[155,450]].map(([x,y], index) => (
                 <g key={index}>
@@ -215,11 +215,11 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               })}
             </svg>
 
-            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:absolute md:left-1/2 md:top-1/2 md:mb-0 md:-translate-x-1/2 md:-translate-y-1/2">
-              <div className="relative w-full rounded-[42px] border-[4px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl sm:w-[400px] sm:rounded-[48px] sm:border-[5px]">
+            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:absolute md:left-1/2 md:top-1/2 md:mb-0 md:min-h-[700px] md:max-w-[480px] md:-translate-x-1/2 md:-translate-y-1/2">
+              <div className="relative w-full rounded-[42px] border-[4px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl sm:w-[400px] sm:rounded-[48px] sm:border-[5px] md:w-[470px]">
                 <span className="absolute left-1/2 top-2 z-20 h-2 w-16 -translate-x-1/2 rounded-full bg-slate-950/90 shadow-sm" />
                 {activeScreens.length ? (
-                  <div className="relative h-[470px] overflow-hidden rounded-[35px] bg-white sm:h-[548px] sm:rounded-[41px]">
+                  <div className="relative h-[470px] overflow-hidden rounded-[35px] bg-white sm:h-[548px] sm:rounded-[41px] md:h-[650px]">
                     <img
                       key={`${activeFlow.id}-${activeScreenshotIndex}-${activeScreens[activeScreenshotIndex]}`}
                       src={activeScreens[activeScreenshotIndex] || activeScreens[0]}
@@ -236,7 +236,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
                     )}
                   </div>
                 ) : (
-                  <div className="flex h-[470px] w-full flex-col items-center justify-center rounded-[35px] bg-gradient-to-b from-[#163846] to-[#081b24] sm:h-[548px] sm:rounded-[41px]">
+                  <div className="flex h-[470px] w-full flex-col items-center justify-center rounded-[35px] bg-gradient-to-b from-[#163846] to-[#081b24] sm:h-[548px] sm:rounded-[41px] md:h-[650px]">
                     <ActiveIcon className="h-10 w-10 !text-[#bd7359]" />
                     <span className="mt-3 px-4 text-center font-syne text-sm font-bold !text-white">{activeFlow.title}</span>
                     <span className="mt-1 text-[8px] font-mono !text-[#b4ccc5]">Interface coming soon</span>
