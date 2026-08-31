@@ -150,9 +150,9 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
             <p className="max-w-md text-xs leading-5 !text-slate-200/75 sm:text-right">Select any station to see its interface and product reasoning at the centre of the system.</p>
           </div>
 
-          <div className="relative min-h-[900px] overflow-hidden rounded-[30px] border border-white/15 bg-white/[.055] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl">
+          <div className="relative overflow-visible rounded-[30px] border border-white/15 bg-white/[.055] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-xl sm:p-4 md:min-h-[900px] md:overflow-hidden">
             <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '36px 36px' }} />
-            <aside className={`absolute bottom-4 left-4 top-4 z-40 w-[calc(100%-2rem)] max-w-[350px] rounded-[28px] border border-white/55 bg-white/[.82] p-5 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 ${isDetailOpen ? 'translate-x-0 opacity-100' : '-translate-x-[115%] opacity-0 pointer-events-none'}`} aria-hidden={!isDetailOpen}>
+            <aside className={`relative z-40 w-full rounded-[24px] border border-white/55 bg-white/[.9] p-4 text-slate-900 shadow-[0_30px_90px_-28px_rgba(2,8,23,.9),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-2xl transition-all duration-500 sm:p-5 md:absolute md:bottom-4 md:left-4 md:top-4 md:w-[calc(100%-2rem)] md:max-w-[350px] md:rounded-[28px] ${isDetailOpen ? 'block translate-x-0 opacity-100' : 'hidden -translate-x-[115%] opacity-0 pointer-events-none md:block'}`} aria-hidden={!isDetailOpen}>
               <button type="button" aria-label="Close topic details" onClick={() => setIsDetailOpen(false)} className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:rotate-90 hover:text-slate-950"><X className="h-4 w-4" /></button>
               <div className="flex h-full flex-col">
                 <div className="border-b border-slate-200 pb-4 pr-9">
@@ -161,7 +161,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
                   <EditableText value={activeFlow.title} onSave={(value) => updateFlow(activeFlow.id, { title: value })} as="h2" className="mt-1 font-syne text-xl font-bold leading-tight text-slate-950" labelHint="Flow title" />
                   <EditableText value={activeFlow.summary} onSave={(value) => updateFlow(activeFlow.id, { summary: value })} as="p" multiline className="mt-2 text-xs leading-5 text-slate-500" labelHint="Flow summary" />
                 </div>
-                <div className="mt-4 flex-1 space-y-3 overflow-y-auto pr-1">
+                <div className="mt-4 flex-1 space-y-3 pr-1 md:overflow-y-auto">
                   {[
                     { key: 'why' as const, label: 'Why', Icon: Target, color: 'bg-amber-50 text-amber-700' },
                     { key: 'challenge' as const, label: 'Design challenge', Icon: AlertCircle, color: 'bg-rose-50 text-rose-700' },
@@ -198,7 +198,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               </div>
             </aside>
 
-            <div className={`absolute inset-0 transition-all duration-500 ${isDetailOpen ? 'md:origin-right md:translate-x-[7%] md:scale-[.78] md:opacity-90' : 'scale-100 opacity-100'}`}>
+            <div className={`relative mt-4 transition-all duration-500 md:absolute md:inset-0 md:mt-0 ${isDetailOpen ? 'md:origin-right md:translate-x-[7%] md:scale-[.78] md:opacity-90' : 'scale-100 opacity-100'}`}>
             <svg aria-hidden="true" className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" viewBox="0 0 900 900" preserveAspectRatio="none">
               {[[190,150],[450,95],[710,165],[745,450],[650,755],[270,755],[155,450]].map(([x,y], index) => (
                 <g key={index}>
@@ -214,11 +214,11 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
               })}
             </svg>
 
-            <div className="relative mx-auto mb-5 flex min-h-[590px] max-w-[430px] items-center justify-center md:absolute md:left-1/2 md:top-1/2 md:mb-0 md:-translate-x-1/2 md:-translate-y-1/2">
-              <div className="relative w-[400px] rounded-[48px] border-[5px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl">
+            <div className="relative mx-auto mb-6 flex min-h-[510px] w-full max-w-[340px] items-center justify-center sm:min-h-[590px] sm:max-w-[430px] md:absolute md:left-1/2 md:top-1/2 md:mb-0 md:-translate-x-1/2 md:-translate-y-1/2">
+              <div className="relative w-full rounded-[42px] border-[4px] border-white bg-gradient-to-br from-white via-cyan-50 to-violet-100 p-1.5 shadow-[0_0_55px_rgba(103,232,249,.30),0_42px_95px_-24px_rgba(2,8,23,.88),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl sm:w-[400px] sm:rounded-[48px] sm:border-[5px]">
                 <span className="absolute left-1/2 top-2 z-20 h-2 w-16 -translate-x-1/2 rounded-full bg-slate-950/90 shadow-sm" />
                 {activeScreens.length ? (
-                  <div className="relative h-[548px] overflow-hidden rounded-[41px] bg-white">
+                  <div className="relative h-[470px] overflow-hidden rounded-[35px] bg-white sm:h-[548px] sm:rounded-[41px]">
                     <img
                       key={`${activeFlow.id}-${activeScreenshotIndex}-${activeScreens[activeScreenshotIndex]}`}
                       src={activeScreens[activeScreenshotIndex] || activeScreens[0]}
@@ -235,7 +235,7 @@ export const CourtBookingPage: React.FC<CourtBookingPageProps> = ({ onNavigate }
                     )}
                   </div>
                 ) : (
-                  <div className="flex h-[548px] w-full flex-col items-center justify-center rounded-[41px] bg-gradient-to-b from-[#163846] to-[#081b24]">
+                  <div className="flex h-[470px] w-full flex-col items-center justify-center rounded-[35px] bg-gradient-to-b from-[#163846] to-[#081b24] sm:h-[548px] sm:rounded-[41px]">
                     <ActiveIcon className="h-10 w-10 !text-[#bd7359]" />
                     <span className="mt-3 px-4 text-center font-syne text-sm font-bold !text-white">{activeFlow.title}</span>
                     <span className="mt-1 text-[8px] font-mono !text-[#b4ccc5]">Interface coming soon</span>
